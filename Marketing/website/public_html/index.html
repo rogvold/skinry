@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Skinry</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <link rel="localization" hreflang="de" href="lang/de.json" type="application/vnd.oftn.l10n+json"/>
+        <meta name="description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи">
+        <meta name="keywords" content="Сканер кожи, проблемная кожа, средство от прыщей, прыщи, угри, лечение прыщей, сканер прыщей">
+        <meta name="author" content="Skinry group">
+        <meta name="robots" content="noimageindex">
+
+        <meta property="vk:title" content="Skinry" />
+        <meta property="vk:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
+        <meta property="vk:image" content="img/logo__mini.png" />
+        <meta property="vk:app_id" content="4214270" />
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <link rel="localization" hreflang="ru" href="lang/ru.json" type="application/vnd.oftn.l10n+json"/>
+
+        <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/parse-1.2.17.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/i18n.js"></script>
+        <script type="text/javascript" src="//vk.com/js/api/openapi.js?105"></script>
+        <script type="text/javascript">
+            VK.init({
+                apiId: 4214270,
+                onlyWidgets: true
+            });
+        </script>
+
+        <link rel="Shortcut Icon" type="image/x-icon" href="img/logo__mini.png">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/public-main.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+        <script>window["_GOOG_TRANS_EXT_VER"] = "1";</script>
+    </head>
+    <body class="page-home" onload="loaded()">
+        <div class="root">
+            <div class="page">
+                <div class="main">
+                    <div id="home-bg">
+
+                    </div>
+                    <div class="wrap">
+                        <div class="home-phones" id="iphone">
+                            <div id="iphone-overlay">
+                                <img src="img/p0.png" class="active" style="opacity: 1;">
+                                <img src="img/p1.png" style="opacity: 1;" class="">
+                                <img src="img/p2.png" style="opacity: 1;" class="">
+                            </div>
+
+                            <i class="home-phones-glare"></i>
+                        </div>
+                        <div class="content">
+                            <a href="javascript:void(0);" class="home-login"><div id="vk_like" style="display: inline-block;"></div></a>
+
+                            <script type="text/javascript">
+                                VK.Widgets.Like("vk_like", {type: "button"});
+                            </script>
+
+                            <h1 class="instagram-title needBeLocal">Skinry - look for your skin</h1>
+
+                            <div class="tab">
+                                <div class="tab-content">
+                                    <h1 class="needBeLocal" style="margin-right: 60px;" >Keep clean your skin</h1>
+
+                                    <p class="needBeLocal">
+                                        Regularly <strong>take pictures</strong> of your face
+                                    </p>
+                                    <p class="needBeLocal">
+                                        The program analyses problem areas, counts different parameters of your skin's <strong>cleanliness</strong>
+                                    </p>
+                                    <p class="needBeLocal">
+                                        Look through your skin's <strong>history</strong>, find out reasons for emergence of <strong>problems</strong>
+                                    </p>
+                                    <div id="soon" style="display: none;">
+                                        <hr/>
+                                        <h3 class="needBeLocal">
+                                            The application will soon be ready
+                                        </h3>
+                                        <p class="needBeLocal">
+                                            Leave your <b>e-mail</b> and we will inform you about the launch.
+                                        </p>
+                                        <p class="needBeLocal">
+                                            For the first <strong>500</strong> users the application will remain free forever!
+                                        </p>
+                                        <textarea id="wishes" placeholder="Ваши пожелания"></textarea>
+                                        <div class="input-group input-group">
+                                            <input type="text" id="email" placeholder="Email" class="form-control input" >
+                                            <span class="input-group-btn btn-group-custom">
+                                                <button id="submitButton" class="btn btn-primary needBeLocal">Submit</button>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div class="platform-badge-container" id="storesButtons">
+                                        <a class="platform-badge" href="javascript: appleClick()"><img src="img/badge_ios.png" alt="Available on the App Store"></a>
+                                        <a class="platform-badge" href="javascript: androidClick()"><img src="img/badge_android.png" alt="Coming soon to Android"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .main -->
+            </div> <!-- .page -->
+
+
+            <footer class="page-footer" role="contentinfo">
+                <div class="wrapper">
+                    <nav>
+                        <ul>
+                            <li><a href="http://blog.skinry.com/">Blog</a></li>
+                            <li><a href="http://facebook.com/skinry">Facebook</a></li>
+                            <li><a href="http://vk.com/skinry">Vkontakte</a></li>
+                            <li><a href="http://twitter.com/skinry_scanner">Twitter</a></li>
+                            <li><a data-toggle="modal" data-target="#aboutModal">About...</a></li>
+                        </ul>
+                    </nav>
+
+                    <!--<p class="copyright">© 2014 Instagram</p>
+                    <h4>
+                        Оставьте свой e-mail и мы сообщим Вам, 
+                        когда приложение будет готово
+                    </h4>
+                    <p>
+                        <input type="text" placeholder="Email" />
+                    </p>-->
+                </div>
+            </footer>
+
+            <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="modal-about-header" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 id="modal-about-header" class="modal-title">About...</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <p>
+                                    Skinry разрабатывает слаженная команда:
+                                </p>
+                                <p>
+                                    Александр Дородных (Core)
+                                </p>
+                                <p>
+                                    Алмаз Насибуллин (Core)
+                                </p>
+                                <p>
+                                    Акмал Артыков (Core)
+                                </p>
+                                <p>
+                                    Дарья Беляева (Design)
+                                </p>
+                                <p>
+                                    Костя Павлов (Marketing/Design)
+                                </p>
+                                <p>
+                                    Владимир Ивашкин (Marketing/Design)
+                                </p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script type="text/javascript">
+                function loaded()
+                {
+                    var lang = getParameterValue("lang");
+                    if (lang === "ru" || (lang === "" && String.locale === "ru")) {
+                        String.locale = "ru";
+
+                        $('.needBeLocal').each(function() {
+                            $(this).html(_($.trim($(this).text())));
+                        });
+                    }
+                }
+
+                var _ = function(string) {
+                    return string.toLocaleString();
+                };
+
+                function getParameterValue(parameter)
+                {
+                    parameter = parameter.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                    var regexS = "[\\?&]" + parameter + "=([^&#]*)";
+                    var regex = new RegExp(regexS);
+                    var results = regex.exec(window.location.href);
+                    if (results == null)
+                        return "";
+                    else
+                        return results[1];
+                }
+
+                function androidClick() {
+                    yaCounter24132985.reachGoal('google');
+                    $('#soon').show();
+                    $('#storesButtons').hide();
+                    $('.tab-content').css('padding-bottom', '50px');
+                    $('#wishes').focus();
+                }
+                function appleClick() {
+                    yaCounter24132985.reachGoal('apple');
+                    $('#soon').show();
+                    $('#storesButtons').hide();
+                    $('.tab-content').css('padding-bottom', '50px');
+                    $('#wishes').focus();
+                }
+
+                function init() {
+                    initSubscriptionForm();
+                }
+
+                function prepareTextAfterSubmition() {
+                    var html = '<h3 style="text-align: center;"> Спасибо за отзыв. <br/> Нам очень важно ваше мнение. <br/> Вы будете одним из первых, <br/> кто узнает о приложении.</h3>';
+                    $('#soon').html(html);
+                }
+
+                function initSubscriptionForm() {
+                    var applicationId = "BiixOUv8TBRRCc9PnScmyF2XMHRZhx2LfmvdqtvA";
+                    var javaScriptKey = "Sj5Vw02dRs3zI59caHeMQCEB9EXrNcsKPe0xkczc";
+                    Parse.initialize(applicationId, javaScriptKey);
+                    $('#submitButton').click(function() {
+                        subscribe();
+                    });
+                }
+
+                function validateEmail(email) {
+                    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return re.test(email);
+                }
+
+                function subscribe() {
+                    yaCounter24132985.reachGoal('submit');
+                    $('#submitButton').hide();
+                    var email = $('#email').val().trim();
+                    var message = $('#wishes').val().trim();
+                    if ((email == undefined || email == '') || (!validateEmail(email))) {
+                        //                alert('Email is invalid. Please try again.');
+                        alert('Неправильно введен адрес. Пожалуйста, попробуйте еще раз.');
+                        return;
+                    }
+                    var FeedbackMessage = Parse.Object.extend("FeedbackMessage");
+                    var feedback = new FeedbackMessage();
+                    feedback.set("email", email);
+                    feedback.set("wishes", message);
+                    feedback.save().then(function() {
+                        prepareTextAfterSubmition();
+                    });
+                }
+
+                $(function() {
+                    init();
+                });
+            </script>
+
+            <!-- Yandex.Metrika counter -->
+            <script type="text/javascript">
+                (function(d, w, c) {
+                    (w[c] = w[c] || []).push(function() {
+                        try {
+                            w.yaCounter24132985 = new Ya.Metrika({id: 24132985, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true});
+                        } catch (e) {
+                        }
+                    });
+                    var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function() {
+                        n.parentNode.insertBefore(s, n);
+                    };
+                    s.type = "text/javascript";
+                    s.async = true;
+                    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+                    if (w.opera == "[object Opera]") {
+                        d.addEventListener("DOMContentLoaded", f, false);
+                    } else {
+                        f();
+                    }
+                })(document, window, "yandex_metrika_callbacks");
+            </script>
+            <noscript>
+            <div>
+                <img src="//mc.yandex.ru/watch/24132985" style="position:absolute; left:-9999px;" alt="" />
+            </div>
+            </noscript>
+            <!-- /Yandex.Metrika counter -->
+        </div>
+    </body>
+</html>

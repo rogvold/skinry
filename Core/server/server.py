@@ -1,4 +1,5 @@
 import os
+import skinscan
 from flask import Flask, request, redirect, url_for, send_from_directory, render_template
 from werkzeug import secure_filename
 
@@ -20,6 +21,7 @@ def index():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            filename = skinscan.detect_deffects(filename)
             return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
     return render_template('index.html')

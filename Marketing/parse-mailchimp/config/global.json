@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Skinry": {
+            "applicationId": "BiixOUv8TBRRCc9PnScmyF2XMHRZhx2LfmvdqtvA", 
+            "masterKey": "jgnZBMcGendjeTAiFCtgNjQl1Sfj8p02vFcMytB0"
+        }, 
+        "_default": {
+            "link": "Skinry"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.17"
+    }
+}

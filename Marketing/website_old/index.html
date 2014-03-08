@@ -11,7 +11,7 @@
     <meta property="vk:title" content="Skinry" />
     <meta property="vk:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
     <meta property="vk:image" content="http://skinry.com/assets/logo__mini.png" />
-    <meta property="vk:app_id" content="4214270" />
+    <meta property="vk:app_id" content="4226137" />
     
 
     <link rel="Shortcut Icon" type="image/x-icon" href="assets/logo__mini.png">
@@ -36,7 +36,7 @@
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?105"></script>
         <script type="text/javascript">
             VK.init({
-                apiId: 4214270,
+                apiId: 4226137,
                 onlyWidgets: true
             });
         </script>
@@ -367,8 +367,11 @@
 
     
     <script>
+        var store;
+
         function androidClick(){
             yaCounter24132985.reachGoal('google');
+            store = "google";
             $('#soon').show();
             $('#storesButtons').hide();
             $('.tab-content').css('padding-bottom', '50px');
@@ -376,6 +379,7 @@
         }
         function appleClick(){
             yaCounter24132985.reachGoal('apple');
+            store = "apple";
             $('#soon').show();
             $('#storesButtons').hide();
             $('.tab-content').css('padding-bottom', '50px');
@@ -419,6 +423,7 @@
             var feedback = new FeedbackMessage();
             feedback.set("email", email);
             feedback.set("wishes", message);
+            feedback.set("store", store);
             feedback.save().then(function(){
                 prepareTextAfterSubmition();
             });

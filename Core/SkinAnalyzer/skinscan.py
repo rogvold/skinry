@@ -205,7 +205,7 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
         score += point
 
     score = int(score)
-    return key_points, score, original_image
+    return key_points, score
 
 def detect_deffects(file_name):
     new_file_name = 'uploads/' + file_name
@@ -217,7 +217,7 @@ def detect_deffects(file_name):
     roi = get_otsu(roi, 200, 255)
 
     key_points = sift(roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
-    key_points, score, image = delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, roi, image)
+    key_points, score = delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, roi, image)
     result_image = cv2.drawKeypoints(image, key_points, flags = cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
     print 'total score - ' + str(score)

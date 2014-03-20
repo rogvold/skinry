@@ -14,39 +14,15 @@ def read_image(fileName, type):
 def save_image(image, fileName):
     cv2.imwrite(fileName, image)
 
-def save_show_image(image, fileName):
-    cv2.imwrite(fileName, image)
-    cv2.imshow(fileName,image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-
 def print_time(time1):
     time2 = cv2.getTickCount()
     time = (time2 - time1)/ cv2.getTickFrequency()
-    print time
+    return time
 
-def create_BGR_hist(image):
-    color = ('B','G','R')
-    for i, col in enumerate(color):
-        histr = cv2.calcHist([image],[i], None, [256], [0,256])
-        plt.plot(histr, color = col)
-        plt.xlim([0,256])
-    plt.show()
-
-def find_circles(image, type1, type2, min, max):
-    cimg = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
-    circles = cv2.HoughCircles(image, cv2.cv.CV_HOUGH_GRADIENT ,1, 40, type1, type2, min, max)
-    circles = np.uint16(np.around(circles))
-    for i in circles[0,:]:
-        cv2.circle(cimg,(i[0],i[1]),i[2],(0,255,0),2)
-        cv2.circle(cimg,(i[0],i[1]),2,(0,0,255),3)
-    return cimg
-
-def sift(image, contrastThreshold, edgeThreshold, sigma):
-    sift = cv2.SIFT(0, 3, contrastThreshold, edgeThreshold, sigma)
+def sift(image, contrast_threshold, edge_threshold, sigma):
+    sift = cv2.SIFT(0, 3, contrast_threshold, edge_threshold, sigma)
     key_points = sift.detect(image, None)
     return key_points
-
 
 def crop_face(image, result_points):
     mask = np.zeros(image.shape, dtype=np.uint8)
@@ -98,9 +74,10 @@ def crop_limbs(masked_image, eyes_coordinates, nose_coordinates, mouth_coordinat
 
     return masked_image
 
-def get_otsu(image):
+def get_otsu(image, thresh_val, max_val):
     #image = cv2.medianBlur(image,5)
-    r, image = cv2.threshold(image, 200, 255, cv2.THRESH_TRUNC)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    r, image = cv2.threshold(image, thresh_val, max_val, cv2.THRESH_TRUNC)
     return image
 
 def check_border(x, y, result_points):
@@ -110,13 +87,7 @@ def check_border(x, y, result_points):
         y1 = result_points[i][1]
         y2 = result_points[i + 1][1]
         h = abs(((x2 - x1) * (y - y1) - (y2 - y1) * (x - x1)) / (math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))))
-        if h < 20:
-            return True
-    return False
-
-def check_border1(x, y, result_points):
-    for point in result_points:
-        if ((x - point[0]) * (x - point[0]) + (y - point[1]) * (y - point[1])) < 400:
+        if h < 25:
             return True
     return False
 
@@ -205,7 +176,7 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
         color = original_image[y][x][2] - min_red
         size = kp.size - min_size
         point = 100 + 75 * (float(color) / length_red) + 50 * (float(size) / length_size)
-        print point
+        #print point
         score += point
 
     score = int(score)
@@ -213,20 +184,20 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
 
 def detect_deffects(file_name):
     new_file_name = 'uploads/' + file_name
+    time = cv2.getTickCount()
     result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, image = fd.get_param(new_file_name)
     roi = crop_face(image, result_points)
     roi = crop_limbs(roi, eyes_coordinates, nose_coordinates, mouth_coordinates)
 
-    roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-    roi = get_otsu(roi)
+    roi = get_otsu(roi, 200, 255)
 
-    key_points = sift(roi, contrastThreshold=0.02, edgeThreshold=15, sigma=2)
+    key_points = sift(roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
     key_points, score = delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, roi, image)
     result_image = cv2.drawKeypoints(image, key_points, flags = cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
     print 'total score - ' + str(score)
+    print 'total time - ' + str(print_time(time))
 
-    new_file_name = 'uploads/' + 'face' + file_name
+    new_file_name = 'uploads/' + 'face ' + file_name
     save_image(result_image, new_file_name)
-    return 'face' + file_name
-
-#detect_deffects('1.jpg')
+    return 'face ' + file_name

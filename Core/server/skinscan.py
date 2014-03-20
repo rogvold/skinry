@@ -86,9 +86,22 @@ def check_border(x, y, result_points):
         x2 = result_points[i + 1][0]
         y1 = result_points[i][1]
         y2 = result_points[i + 1][1]
-        h = abs(((x2 - x1) * (y - y1) - (y2 - y1) * (x - x1)) / (math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))))
-        if h < 25:
+        h = abs(((x1 - x2) * (y - y1) + (y2 - y1) * (x - x1)) / (math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))))
+        if h < 15.0:
+            #print h
+            #print str(x) + ' ' + str(y)
             return True
+
+    x1 = result_points[0][0]
+    x2 = result_points[len(result_points) - 1][0]
+    y1 = result_points[0][1]
+    y2 = result_points[len(result_points) - 1][1]
+    h = abs(((x1 - x2) * (y - y1) + (y2 - y1) * (x - x1)) / (math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))))
+    if h < 15.0:
+        #print h
+        #print str(x) + ' ' + str(y)
+        return True
+
     return False
 
 def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, image, original_image):
@@ -156,7 +169,7 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
             continue
 
         size = kp.size
-        color =  original_image[y][x][2]
+        color = original_image[y][x][2]
         if color > max_red:
             max_red = color
         if color < min_red:
@@ -198,6 +211,7 @@ def detect_deffects(file_name):
     print 'total score - ' + str(score)
     print 'total time - ' + str(print_time(time))
 
-    new_file_name = 'uploads/' + 'face ' + file_name
+    return_file_name = 'proc_' + file_name
+    new_file_name = 'uploads/' + return_file_name
     save_image(result_image, new_file_name)
-    return 'face ' + file_name
+    return return_file_name, score

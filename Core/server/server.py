@@ -3,6 +3,7 @@ from flask import Flask, request, redirect, url_for, send_from_directory, render
 from werkzeug import secure_filename
 import uuid, base64
 import skinscan
+from werkzeug.contrib.fixers import ProxyFix
 
 UPLOAD_FOLDER = 'uploads/'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg']) #JPG ONLY?
@@ -81,15 +82,14 @@ def api_v1_download_proc_pic(filename):
     img_base64 = base64.b64encode(f.read())
     f.close()
     return jsonify({'img': img_base64, 'pts': img[0]['pts']})
-
       
 
 @app.route('/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+    
+app.wsgi_app = ProxyFix(app.wsgi_app)
 
 if __name__ == "__main__":
-    app.run(debug=True)
-
-    "host='0.0.0.0', port=5001,"
+    app.run(host='0.0.0.0', port=5000)

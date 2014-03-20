@@ -198,6 +198,6 @@ def detect_deffects(file_name):
     print 'total score - ' + str(score)
     print 'total time - ' + str(print_time(time))
 
-    new_file_name = 'uploads/' + 'proc' + file_name
+    new_file_name = 'uploads/' + 'proc_' + file_name
     save_image(result_image, new_file_name)
-    return 'proc' + file_name
+    return 'proc_' + file_name

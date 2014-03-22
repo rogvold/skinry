@@ -1,7 +1,6 @@
 Parse.Cloud.afterSave('FeedbackMessage', function(request) {
 	var api_key = "beef95fba78590a4994cb80e9b18c715-us3";
 
-	// use https and last verison
 	var options = {secure: true, version: "1.3"};
 
 	var module_path = "cloud/libs/mailchimp/";
@@ -15,20 +14,11 @@ Parse.Cloud.afterSave('FeedbackMessage', function(request) {
 		double_optin : false,
 		send_welcome : false
 	}, {
-		success: function(httpResponse) 
-		{
-			console.log('Pusher Success!!');
-			console.log(request.object.get("email"));
-
-
-			console.log(httpResponse.text);
+		success: function(httpResponse) {
+			console.log("success " + request.object.get("email") + " " + httpResponse.text);
 		},
-		error: function(httpResponse) 
-		{
-			console.log('Pusher Error!');
-
-			console.error('Request failed with response code ' + httpResponse.status);
-			console.log(httpResponse.text);
+		error: function(httpResponse) {
+			console.error('error ' + httpResponse.status + " " + httpResponse.text);
 		}
 	});
 });
@@ -50,7 +40,6 @@ Parse.Cloud.define("list", function(request, response) {
 Parse.Cloud.define("addItem", function(request, response) {
 	var api_key = "beef95fba78590a4994cb80e9b18c715-us3";
 
-	// use https and last verison
 	var options = {secure: true, version: "1.3"};
 
 	var module_path = "cloud/libs/mailchimp/";

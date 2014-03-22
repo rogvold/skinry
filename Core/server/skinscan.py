@@ -65,10 +65,30 @@ def crop_limbs(masked_image, eyes_coordinates, nose_coordinates, mouth_coordinat
 
     return masked_image
 
+def SaveFigureAsImage(fileName,fig=None,**kwargs):
+    fig_size = fig.get_size_inches()
+    w,h = fig_size[0], fig_size[1]
+    fig.patch.set_alpha(0)
+    if kwargs.has_key('orig_size'): # Aspect ratio scaling if required
+        w,h = kwargs['orig_size']
+        w2,h2 = fig_size[0],fig_size[1]
+        fig.set_size_inches([(w2/w)*w,(w2/w)*h])
+        fig.set_dpi((w2/w)*fig.get_dpi())
+    a=fig.gca()
+    a.set_frame_on(False)
+    a.set_xticks([]); a.set_yticks([])
+    plt.axis('off')
+    plt.xlim(0,h); plt.ylim(w,0)
+    fig.savefig(fileName, transparent=True, bbox_inches='tight', \
+                        pad_inches=0)
+
 def get_otsu(image, thresh_val, max_val):
     #image = cv2.medianBlur(image,5)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     r, image = cv2.threshold(image, thresh_val, max_val, cv2.THRESH_TRUNC)
+    #SaveFigureAsImage('foo.png', plt.gcf())
+    #plt.imshow(image,'gray')
+    #plt.savefig('foo.png')
     return image
 
 def is_close(x, y, x1, y1, x2, y2, dist):
@@ -187,11 +207,14 @@ def detect_deffects(file_name):
     roi = crop_face(image, result_points)
     roi = crop_limbs(roi, eyes_coordinates, nose_coordinates, mouth_coordinates)
 
-    roi = get_otsu(roi, 200, 255)
+    roi = get_otsu(roi, thresh_val=200, max_val=255)
 
     key_points = sift(roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
     key_points, score = delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, roi, image)
-    result_image = cv2.drawKeypoints(image, key_points, flags = cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+    result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+    #score = 0
+    #result_image = roi
 
     print 'total score - ' + str(score)
     print 'total time - ' + str(print_time(time))
@@ -199,4 +222,5 @@ def detect_deffects(file_name):
     return_file_name = 'proc_' + file_name
     new_file_name = 'uploads/' + return_file_name
     save_image(result_image, new_file_name)
+
     return return_file_name, score

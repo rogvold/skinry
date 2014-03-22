@@ -161,9 +161,6 @@ def define_contours(img):
 
     points = grahamscan(points)
 
-    for i in range(0, len(points)):
-        cv2.line(img, points[i - 1], points[i],  (0, 0, 255), 2)
-    
     return points
 
 def get_param():

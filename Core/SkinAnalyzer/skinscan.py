@@ -38,39 +38,29 @@ def crop_face(image, result_points):
     masked_image = cv2.bitwise_and(image, mask)
     return masked_image
 
+def get_coords(array, alpha, beta, width, height):
+    from_y = array[1] - beta * height
+    to_y = from_y + array[3] + 2 * beta * height
+    from_x = array[0] - alpha * width
+    to_x = from_x + array[2] + 2 * alpha * width
+    return from_x, to_x, from_y, to_y
+
 def crop_limbs(masked_image, eyes_coordinates, nose_coordinates, mouth_coordinates):
     black = (0, 0, 0)
 
-    from_y = nose_coordinates[1]
-    to_y = from_y + nose_coordinates[3]
-    from_x = nose_coordinates[0]
-    to_x = from_x + nose_coordinates[2]
+    from_x, to_x, from_y, to_y = get_coords(nose_coordinates, alpha=0, beta=0, width=0, height=0)
     masked_image[from_y:to_y, from_x:to_x] = black
 
-    width = mouth_coordinates[2]
-    alpha = 0.2
-
-    from_y = mouth_coordinates[1]
-    to_y = from_y + mouth_coordinates[3]
-    from_x = mouth_coordinates[0] - alpha * width
-    to_x = from_x + mouth_coordinates[2] + 2 * alpha * width
+    from_x, to_x, from_y, to_y = get_coords(mouth_coordinates, alpha=0.2, beta=0, width=mouth_coordinates[2], height=0)
     masked_image[from_y:to_y, from_x:to_x] = black
 
-    width = max(eyes_coordinates[0][2], eyes_coordinates[1][2])
-    height = max(eyes_coordinates[0][3], eyes_coordinates[1][3])
-    alpha = 0.1
-    beta = 0.3
+    cur_width = max(eyes_coordinates[0][2], eyes_coordinates[1][2])
+    cur_height = max(eyes_coordinates[0][3], eyes_coordinates[1][3])
 
-    from_y = eyes_coordinates[0][1] - beta * height
-    to_y = from_y + eyes_coordinates[0][3] + 2 * beta * height
-    from_x = eyes_coordinates[0][0] - alpha * width
-    to_x = from_x + eyes_coordinates[0][2] + 2 * alpha * width
+    from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[0], alpha=0.1, beta=0.3, width=cur_width, height=cur_height)
     masked_image[from_y:to_y, from_x:to_x] = black
 
-    from_y = eyes_coordinates[1][1] - beta * height
-    to_y = from_y + eyes_coordinates[1][3] + 2 * beta * height
-    from_x = eyes_coordinates[1][0] - alpha * width
-    to_x = from_x + eyes_coordinates[1][2] + 2 * alpha * width
+    from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[1], alpha=0.1, beta=0.3, width=cur_width, height=cur_height)
     masked_image[from_y:to_y, from_x:to_x] = black
 
     return masked_image
@@ -131,48 +121,31 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
            new_kp.append(kp)
            continue
 
-        width = nose_coordinates[2]
-        height = nose_coordinates[3]
-        alpha = 0.2
+        cur_width = nose_coordinates[2]
+        cur_height = nose_coordinates[3]
 
-        from_y = nose_coordinates[1] - alpha * height
-        to_y = from_y + nose_coordinates[3] + 2 * alpha * height
-        from_x = nose_coordinates[0] - alpha * width
-        to_x = from_x + nose_coordinates[2] + 2 * alpha * width
+        from_x, to_x, from_y, to_y = get_coords(nose_coordinates, alpha=0.2, beta=0.2, width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
             continue
 
-        height = mouth_coordinates[3]
-        width = mouth_coordinates[2]
-        beta = 0.2
-        alpha = 0.25
+        cur_height = mouth_coordinates[3]
+        cur_width = mouth_coordinates[2]
 
-        from_y = mouth_coordinates[1] - beta * height
-        to_y = from_y + mouth_coordinates[3] + 2 * beta * height
-        from_x = mouth_coordinates[0] - alpha * width
-        to_x = from_x + mouth_coordinates[2] + 2 * alpha * width
+        from_x, to_x, from_y, to_y = get_coords(mouth_coordinates, alpha=0.25, beta=0.2, width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
             continue
 
-        width = max(eyes_coordinates[0][2], eyes_coordinates[1][2])
-        height = max(eyes_coordinates[0][3], eyes_coordinates[1][3])
-        alpha = 0.15
-        beta = 0.35
+        cur_width = max(eyes_coordinates[0][2], eyes_coordinates[1][2])
+        cur_height = max(eyes_coordinates[0][3], eyes_coordinates[1][3])
 
-        from_y = eyes_coordinates[0][1] - beta * height
-        to_y = from_y + eyes_coordinates[0][3] + 2 * beta * height
-        from_x = eyes_coordinates[0][0] - alpha * width
-        to_x = from_x + eyes_coordinates[0][2] + 2 * alpha * width
+        from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[0], alpha=0.15, beta=0.35, width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
             continue
 
-        from_y = eyes_coordinates[1][1] - beta * height
-        to_y = from_y + eyes_coordinates[1][3] + 2 * beta * height
-        from_x = eyes_coordinates[1][0] - alpha * width
-        to_x = from_x + eyes_coordinates[1][2] + 2 * alpha * width
+        from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[1], alpha=0.15, beta=0.35, width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
             continue

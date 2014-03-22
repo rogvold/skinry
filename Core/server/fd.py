@@ -1,23 +1,53 @@
-import sys
+import numpy as np
+import pandas as pd
+from sklearn.neighbors import KNeighborsClassifier
 import cv2
 import cv2.cv as cv
-import numpy as np
-from numpy import *
+import sys
 
-def detect_face_and_organs(img, file_name):
+def rotate(A, B, C):
+    return (B[0] - A[0]) * (C[1] - B[1]) - (B[1] - A[1]) * (C[0] - B[0])
+
+def grahamscan(A):
+    n = len(A)
+    if n < 3:
+        return []
+    P = range(n)
+
+    for i in range(1,n):
+        if A[i][0] < A[0][0]:
+            P[i], P[0] = P[0], P[i]
+
+    for i in range(2,n):
+        j = i
+        while j > 1 and (rotate(A[P[0]], A[P[j - 1]], A[P[j]]) < 0): 
+            P[j], P[j-1] = P[j-1], P[j]
+            j -= 1
+      
+    S = [P[0],P[1]]
+    for i in range(2,n):
+        while rotate(A[S[-2]], A[S[-1]], A[P[i]]) < 0:
+            del S[-1]
+        S.append(P[i])
+
+    B = []
+    for s in S:
+        B.append(A[s])
+
+    return B
+
+def detect_face_and_organs(img):
     scale_factor = 1.1
-    min_neighbors = 3
-    flags = 0
-    min_size = (10, 10)
 
-    face_cascade = cv2.CascadeClassifier('cascade\haarcascade_frontalface_alt.xml')
-    eye_cascade = cv2.CascadeClassifier('cascade\haarcascade_eye_tree_eyeglasses.xml')
-    nose_cascade = cv2.CascadeClassifier('cascade\haarcascade_mcs_nose.xml')
-    mouth_cascade = cv2.CascadeClassifier('cascade\haarcascade_mcs_mouth.xml')
+    face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
+    eye_cascade = cv2.CascadeClassifier('haarcascade_eye_tree_eyeglasses.xml')
+    nose_cascade = cv2.CascadeClassifier('haarcascade_mcs_nose.xml')
+    mouth_cascade = cv2.CascadeClassifier('haarcascade_mcs_mouth.xml')
     
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     gray = cv2.equalizeHist(gray)
-    face = face_cascade.detectMultiScale(gray, scale_factor, min_neighbors, cv2.cv.CV_HAAR_SCALE_IMAGE, min_size)
+    
+    face = face_cascade.detectMultiScale(gray, scale_factor, 3, cv2.cv.CV_HAAR_SCALE_IMAGE, (30, 30))
 
     if len(face) == 0:
         raise ValueError("No face")
@@ -27,7 +57,6 @@ def detect_face_and_organs(img, file_name):
         y -= 0.1 * (y + h / 2)
         h += 0.2 * (y + h / 2)
         roi = img[y:y + h, x:x + w]
-        face_img = roi.copy()
         roi_gray = gray[y:y + h, x:x + w]
 
         eyes_coordinates = [(0, 0, 0, 0), (0, 0, 0, 0)]
@@ -35,188 +64,118 @@ def detect_face_and_organs(img, file_name):
         mouth_coordinates = (0, 0, 0, 0)
         
         #define eyes
-        eyes = eye_cascade.detectMultiScale(roi_gray, 1.05, 2, flags, min_size)
-        if len(eyes) == 0:
-            raise ValueError("No eyes")
-        for i, (ex, ey, ew, eh) in enumerate(eyes):
-            if i > 1:
+        to_do = True
+        for sf in [1.1, 1.05]:
+            if to_do == False:
                 break
-            eyes_coordinates[i] = (ex, ey, ew, eh)
-            cv2.rectangle(roi, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
+            for mn in [3, 5, 7]:
+                eyes = eye_cascade.detectMultiScale(roi_gray, sf, mn)
+                if len(eyes) == 2:
+                    to_do = False
+                    break
         
+        if len(eyes) != 2:
+            raise ValueError("No two eyes")
+
+        for i, (ex, ey, ew, eh) in enumerate(eyes):
+            eyes_coordinates[i] = (ex, ey, ew, eh)
+
+        if eyes_coordinates[0][0] > eyes_coordinates[1][0]:
+            eyes_coordinates[0], eyes_coordinates[1] = eyes_coordinates[1], eyes_coordinates[0]
+
         #define nose
-        nose = nose_cascade.detectMultiScale(roi_gray, scale_factor, 20, flags, min_size)
+        nose = nose_cascade.detectMultiScale(roi_gray, scale_factor, 5)
         if len(nose) == 0:
             raise ValueError("No nose")
         for (nx, ny, nw, nh) in nose:
-            nose_coordinates = (nx, ny, nw, nh)
-            cv2.rectangle(roi, (nx, ny),(nx + nw,ny + nh),(0, 0, 255), 2)
-            break
+            if (nx > eyes_coordinates[0][0] + int(eyes_coordinates[0][2] * 0.3) and
+                nx < eyes_coordinates[1][0] and ny > eyes_coordinates[0][1] and 
+                abs(ny - eyes_coordinates[0][1] - eyes_coordinates[0][3]) < h / 7):
+                nose_coordinates = (nx, ny, nw, nh)
+                break
         
         #define mouth
-        mouth = mouth_cascade.detectMultiScale(roi_gray, 1.25, 30, flags, (20, 20))
+        mouth = mouth_cascade.detectMultiScale(roi_gray, scale_factor, 5)
         if len(mouth) == 0:
             raise ValueError("No mouth")
         for (mx, my, mw, mh) in mouth:
-            if my > mouth_coordinates[1] and mx < nose_coordinates[0] + nose_coordinates[2]:
+            if (my > nose_coordinates[1] + int(nose_coordinates[3] * 0.7) and mx > eyes_coordinates[0][0]
+                and mx < eyes_coordinates[1][0] and mx + mw > eyes_coordinates[1][0]):
                 mouth_coordinates = (mx, my, mw, mh)
-        cv2.rectangle(roi, (mouth_coordinates[0], mouth_coordinates[1]), (mouth_coordinates[0]
-            + mouth_coordinates[2], mouth_coordinates[1] + mouth_coordinates[3]), (0, 255, 255), 2)
+                break
 
-    return roi, face_img, eyes_coordinates, nose_coordinates, mouth_coordinates
+    return roi, eyes_coordinates, nose_coordinates, mouth_coordinates
 
-def define_contours(img, roi):
-    r = 0
-    g = 0
-    b = 0
-    all = 0
+
+def define_contours(img):
+    train = pd.read_csv('train.csv')[:3000]
+    X_train =  np.asarray(train[range(0, 3)])
+    Y_train = np.asarray(train[[3]]).ravel()
+
+    estimator = KNeighborsClassifier(n_neighbors = 3, weights = 'distance')
+    estimator.fit(X_train, Y_train)
+
+    r, g, b = cv2.split(img)
+    h, w = img.shape[:2]
+    delta = h / 30
+
+    j = 1
+    points = []
+
+    for i in range(0, 30):
+        test = zip(b[j], g[j], r[j])
+        res = estimator.predict(test)
+        x1 = x2 = -1
+        
+        count = 0
+        for k in range(int(0.5 * w), w):
+            if res[k] == 1:
+                count += 1
+                if count > 40:
+                    x2 = k
+            else:
+                count = 0
+        
+        count = 0
+        for k in range(int(w / 2), -1, -1):
+            if res[k] == 1:
+                count += 1
+                if count > 40:
+                    x1 = k
+            else:
+                count = 0
+        
+
+        if x1 >= 10:
+            points.append((x1, j))
+        if x2 > -1 and x2 <= w - 9:
+            points.append((x2, j))
+        
+        if i == 28:
+            j = h - 5
+        else:
+            j += delta
+
+    points.append((int(0.4 * w), h - 1))
+    points.append((int(0.6 * w), h - 1))
+
+    points = grahamscan(points)
+
+    for i in range(0, len(points)):
+        cv2.line(img, points[i - 1], points[i],  (0, 0, 255), 2)
     
-    height, width = img.shape[:2]
-
-    for i in range(3 * height / 8, 5 * height / 8 + 1):
-        for j in range(3 * width / 8, 5 * width / 8 + 1):
-            x, y, z = img[i, j]
-            r += x
-            g += y
-            b += z
-            all += 1
-
-    face_color = cv.CV_RGB(r / all, g / all, b / all)
-
-    contour_points = 60
-    face_color_delta = 0.6
-
-    points = arange(4 * contour_points).reshape(2 * contour_points, 2)
-
-    for i in range (0, contour_points):
-        cur_height = int((float(height) / contour_points) * (float(i) + 0.5))
-        points[i] = (3 * width / 8, cur_height)
-
-        if i > 0 and i + 1 < contour_points:
-            for j in range(3 * width / 8, -1, -1):
-                x, y, z = img[cur_height, j]
-                color = cv.CV_RGB(x, y, z)
-
-                k1 = color[0] / face_color[0]
-                k2 = color[1] / face_color[1]
-                k3 = color[2] / face_color[2]
-            
-                if ((1 - k1) * (1 - k1) + (1 - k2) * (1 - k2) + (1 - k3) * (1 - k3) < face_color_delta):
-                    points[i] = (j, cur_height)
-                else:
-                    break
-
-    for i in range (contour_points, 2 * contour_points):
-        cur_height = int((float(height) / contour_points) * (float(2 * contour_points - 1 - i) + 0.5))
-        points[i] = (5 * width / 8, cur_height)
-
-        if i > contour_points and i + 1 < 2 * contour_points:
-            for j in range(5 * width / 8, width):
-                x, y, z = img[cur_height, j]
-                color = cv.CV_RGB(x, y, z)
-                
-                k1 = color[0] / face_color[0]
-                k2 = color[1] / face_color[1]
-                k3 = color[2] / face_color[2]
-                
-                if ((1 - k1) * (1 - k1) + (1 - k2) * (1 - k2) + (1 - k3) * (1 - k3) < face_color_delta):
-                    points[i] = (j, cur_height)
-                else:
-                    break
-
-    good_points = []
-    delta_weight = 30
-    beg = 0
-    end = 0
-    seq = False
-
-    for i in range (2, contour_points):
-        if (abs(points[i][0] - points[i - 1][0]) < delta_weight and abs(points[i - 1][0] - points[i - 2][0]) < delta_weight):
-            if (seq == False):
-                beg = i
-                seq = True
-        else:
-            end = i - 1
-            if (seq == True):
-                if (end - beg > 5):
-                    good_points.append((beg, end))
-                seq = False
-
-        if i + 1 == contour_points and seq == True:
-            end = contour_points -1
-            if (end - beg > 5):
-                good_points.append((beg, end))
-
-    result_points = []
-    result_points.append(points[0])
-    to_add = True
-
-    for gp in good_points:
-        start = gp[0]
-        end = gp[1]
-        if end == contour_points - 1:
-            to_add = False
-        for i in range(start, end + 1):
-            result_points.append(points[i])
-
-    if to_add:
-        result_points.append(points[contour_points - 1])
-
-    beg = 0
-    end = 0
-    seq = False
-    good_points = []
-
-    for i in range (contour_points + 2, 2 * contour_points):
-        if (abs(points[i][0] - points[i - 1][0]) < delta_weight and abs(points[i - 1][0] - points[i - 2][0]) < delta_weight):
-            if (seq == False):
-                beg = i
-                seq = True
-        else:
-            end = i - 1
-            if (seq == True):
-                if (end - beg > 5):
-                    good_points.append((beg, end))
-                seq = False
-
-        if i + 1 == 2 * contour_points and seq == True:
-            end = 2 * contour_points -1
-            if (end - beg > 5):
-                good_points.append((beg, end))
-
-    result_points.append(points[contour_points])
-    to_add = True
-
-    for gp in good_points:
-        start = gp[0]
-        end = gp[1]
-        if  end == 2 * contour_points - 1:
-            to_add = False
-        for i in range(start, end + 1):
-            result_points.append(points[i])
-
-    if to_add:
-        result_points.append(points[2 * contour_points - 1])
-
-    for i in range(1, len(result_points)):
-        pt1 = (result_points[i][0], result_points[i][1])
-        pt2 = (result_points[i - 1][0], result_points[i - 1][1])
-        cv2.line(roi, pt1, pt2, cv.CV_RGB(100, 0, 100), 2)
-
-    pt1 = (result_points[0][0], result_points[0][1])
-    pt2 = (result_points[len(result_points) - 1][0], result_points[len(result_points) - 1][1])
-    cv2.line(roi, pt1, pt2, cv.CV_RGB(100, 0, 100), 2)
-
-    return result_points, roi
+    return points
 
 def get_param(file_name):
-    # while running first argument is picture_filename
     img = cv2.imread(file_name)
     if img == None:
         raise ValueError("No image" + file_name)
-
-    roi, face_image, eyes_coordinates, nose_coordinates, mouth_coordinates = detect_face_and_organs(img, file_name)
-    # 'result_points' - array of contour's points
-    result_points, roi = define_contours(face_image, roi)
     
-    return result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, roi
+    face_image, eyes_coordinates, nose_coordinates, mouth_coordinates = detect_face_and_organs(img)
+    # 'result_points' - array of contour's points
+    result_points = define_contours(face_image)
+    
+    #result_file_name = "result.jpg"
+    #cv2.imwrite(result_file_name, face_image)
+    
+    return result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, face_image

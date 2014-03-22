@@ -43,7 +43,7 @@ def get_coords(array, alpha, beta, width, height):
     to_y = from_y + array[3] + 2 * beta * height
     from_x = array[0] - alpha * width
     to_x = from_x + array[2] + 2 * alpha * width
-    return from_x, to_x, from_y, to_y
+    return int(from_x), int(to_x), int(from_y),int(to_y)
 
 def crop_limbs(masked_image, eyes_coordinates, nose_coordinates, mouth_coordinates):
     black = (0, 0, 0)
@@ -114,8 +114,8 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
             new_kp.append(kp)
             continue
 
-        x = round(kp.pt[0])
-        y = round(kp.pt[1])
+        x = int(kp.pt[0])
+        y = int(kp.pt[1])
 
         if image[y][x] == 0:
            new_kp.append(kp)
@@ -170,8 +170,8 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
     key_points = list(set(key_points) - set(new_kp))
 
     for kp in key_points:
-        x = round(kp.pt[0])
-        y = round(kp.pt[1])
+        x = int(kp.pt[0])
+        y = int(kp.pt[1])
         color = original_image[y][x][2] - min_red
         size = kp.size - min_size
         point = 100 + 75 * (float(color) / length_red) + 50 * (float(size) / length_size)

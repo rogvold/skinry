@@ -35,7 +35,7 @@ def detect_face_and_organs(img, file_name):
         mouth_coordinates = (0, 0, 0, 0)
         
         #define eyes
-        eyes = eye_cascade.detectMultiScale(roi_gray, 1.02, 1, flags, min_size)
+        eyes = eye_cascade.detectMultiScale(roi_gray, 1.05, 2, flags, min_size)
         if len(eyes) == 0:
             raise ValueError("No eyes")
         for i, (ex, ey, ew, eh) in enumerate(eyes):
@@ -211,11 +211,10 @@ def define_contours(img, roi):
 
 def get_param(file_name):
     # while running first argument is picture_filename
-    
     img = cv2.imread(file_name)
     if img == None:
         raise ValueError("No image" + file_name)
-    
+
     roi, face_image, eyes_coordinates, nose_coordinates, mouth_coordinates = detect_face_and_organs(img, file_name)
     # 'result_points' - array of contour's points
     result_points, roi = define_contours(face_image, roi)

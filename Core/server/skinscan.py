@@ -1,12 +1,7 @@
-import sys
 import cv2
-import cv2.cv
-import cv
 import numpy as np
 import math
-from matplotlib import pyplot as plt
 import fd
-JPG = '.jpg'
 
 def read_image(fileName, type):
     image = cv2.imread(fileName, type)
@@ -20,10 +15,20 @@ def print_time(time1):
     time = (time2 - time1)/ cv2.getTickFrequency()
     return time
 
+def draw_face(image, result_points):
+    for i in range(1, len(result_points)):
+        cv2.line(image, result_points[i - 1], result_points[i],  (0, 0, 255), 2)
+    return image
+
 def sift(image, contrast_threshold, edge_threshold, sigma):
     sift = cv2.SIFT(0, 3, contrast_threshold, edge_threshold, sigma)
     key_points = sift.detect(image, None)
     return key_points
+
+def get_otsu(image, thresh_val, max_val, type):
+    #image = cv2.medianBlur(image,5)
+    r, image = cv2.threshold(image, thresh_val, max_val, type)
+    return image
 
 def crop_face(image, result_points):
     mask = np.zeros(image.shape, dtype=np.uint8)
@@ -46,50 +51,29 @@ def get_coords(array, alpha, beta, width, height):
     return int(from_x), int(to_x), int(from_y),int(to_y)
 
 def crop_limbs(masked_image, eyes_coordinates, nose_coordinates, mouth_coordinates):
-    black = (0, 0, 0)
+    black = (255, 255, 255)
 
-    from_x, to_x, from_y, to_y = get_coords(nose_coordinates, alpha=0, beta=0, width=0, height=0)
+    from_x, to_x, from_y, to_y = get_coords(nose_coordinates, alpha=0.1, beta=0,
+                                            width=nose_coordinates[2], height=0)
     masked_image[from_y:to_y, from_x:to_x] = black
 
-    from_x, to_x, from_y, to_y = get_coords(mouth_coordinates, alpha=0.2, beta=0, width=mouth_coordinates[2], height=0)
+    from_x, to_x, from_y, to_y = get_coords(mouth_coordinates, alpha=0.15, beta=0,
+                                            width=mouth_coordinates[2], height=0)
     masked_image[from_y:to_y, from_x:to_x] = black
 
     cur_width = max(eyes_coordinates[0][2], eyes_coordinates[1][2])
     cur_height = max(eyes_coordinates[0][3], eyes_coordinates[1][3])
 
-    from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[0], alpha=0.1, beta=0.3, width=cur_width, height=cur_height)
+    #then it will be: aplha = 0.1, beta = 0, after Almaz eyebrown detection
+    from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[0], alpha=0.2, beta=0.2,
+                                            width=cur_width, height=cur_height)
     masked_image[from_y:to_y, from_x:to_x] = black
 
-    from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[1], alpha=0.1, beta=0.3, width=cur_width, height=cur_height)
+    from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[1], alpha=0.2, beta=0.2,
+                                            width=cur_width, height=cur_height)
     masked_image[from_y:to_y, from_x:to_x] = black
 
     return masked_image
-
-def SaveFigureAsImage(fileName,fig=None,**kwargs):
-    fig_size = fig.get_size_inches()
-    w,h = fig_size[0], fig_size[1]
-    fig.patch.set_alpha(0)
-    if kwargs.has_key('orig_size'): # Aspect ratio scaling if required
-        w,h = kwargs['orig_size']
-        w2,h2 = fig_size[0],fig_size[1]
-        fig.set_size_inches([(w2/w)*w,(w2/w)*h])
-        fig.set_dpi((w2/w)*fig.get_dpi())
-    a=fig.gca()
-    a.set_frame_on(False)
-    a.set_xticks([]); a.set_yticks([])
-    plt.axis('off')
-    plt.xlim(0,h); plt.ylim(w,0)
-    fig.savefig(fileName, transparent=True, bbox_inches='tight', \
-                        pad_inches=0)
-
-def get_otsu(image, thresh_val, max_val):
-    #image = cv2.medianBlur(image,5)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    r, image = cv2.threshold(image, thresh_val, max_val, cv2.THRESH_TRUNC)
-    #SaveFigureAsImage('foo.png', plt.gcf())
-    #plt.imshow(image,'gray')
-    #plt.savefig('foo.png')
-    return image
 
 def is_close(x, y, x1, y1, x2, y2, dist):
     h = 0
@@ -103,31 +87,27 @@ def is_close(x, y, x1, y1, x2, y2, dist):
             h = abs(((x1 - x2) * (y - y1) + (y2 - y1) * (x - x1)) / (math.sqrt((x2 - x1)**2 + (y2 - y1)**2)))
     return h < dist
 
-def check_border(x, y, result_points):
+def check_border(x, y, result_points, dist):
     for i in range(0, len(result_points) - 1):
         x1 = result_points[i][0]
         x2 = result_points[i + 1][0]
         y1 = result_points[i][1]
         y2 = result_points[i + 1][1]
-        if is_close(x, y, x1, y1, x2, y2, dist=25.0):
+        if is_close(x, y, x1, y1, x2, y2, dist):
             return True
 
     x1 = result_points[0][0]
     x2 = result_points[len(result_points) - 1][0]
     y1 = result_points[0][1]
     y2 = result_points[len(result_points) - 1][1]
-    if is_close(x, y, x1, y1, x2, y2, dist=25.0):
+    if is_close(x, y, x1, y1, x2, y2, dist):
         return True
 
     return False
 
-def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, image, original_image):
+def delete_unused_keypoints(image, key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates):
     new_kp = []
-    max_red = 0
-    min_red = 255
-    max_size = 0
-    min_size = 40
-    score = 0
+    dist = 0.03 * max(image.shape[0], image.shape[1])
 
     for kp in key_points:
         if kp.size < 5 or kp.size > 40:
@@ -144,7 +124,8 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
         cur_width = nose_coordinates[2]
         cur_height = nose_coordinates[3]
 
-        from_x, to_x, from_y, to_y = get_coords(nose_coordinates, alpha=0.2, beta=0.2, width=cur_width, height=cur_height)
+        from_x, to_x, from_y, to_y = get_coords(nose_coordinates, alpha=0.15, beta=0.05,
+                                                width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
             continue
@@ -152,7 +133,8 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
         cur_height = mouth_coordinates[3]
         cur_width = mouth_coordinates[2]
 
-        from_x, to_x, from_y, to_y = get_coords(mouth_coordinates, alpha=0.25, beta=0.2, width=cur_width, height=cur_height)
+        from_x, to_x, from_y, to_y = get_coords(mouth_coordinates, alpha=0.2, beta=0.05,
+                                                width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
             continue
@@ -160,19 +142,36 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
         cur_width = max(eyes_coordinates[0][2], eyes_coordinates[1][2])
         cur_height = max(eyes_coordinates[0][3], eyes_coordinates[1][3])
 
-        from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[0], alpha=0.15, beta=0.35, width=cur_width, height=cur_height)
+        #then it will be: aplha = 0.1, beta = 0
+        from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[0], alpha=0.25, beta=0.25,
+                                                width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
             continue
 
-        from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[1], alpha=0.15, beta=0.35, width=cur_width, height=cur_height)
+        from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[1], alpha=0.25, beta=0.25,
+                                                width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
             continue
 
-        if check_border(x, y, result_points):
+        if check_border(x, y, result_points, dist=dist):
             new_kp.append(kp)
             continue
+
+    key_points = list(set(key_points) - set(new_kp))
+    return key_points
+
+def get_score(original_image, key_points):
+    max_red = 0
+    min_red = 255
+    max_size = 0
+    min_size = 40
+    score = 0
+
+    for kp in key_points:
+        x = int(kp.pt[0])
+        y = int(kp.pt[1])
 
         size = kp.size
         color = original_image[y][x][2]
@@ -187,7 +186,6 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
 
     length_red = max_red - min_red
     length_size = max_size - min_size
-    key_points = list(set(key_points) - set(new_kp))
 
     for kp in key_points:
         x = int(kp.pt[0])
@@ -198,7 +196,61 @@ def delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_co
         score += point
 
     score = int(score)
-    return key_points, score
+    return score
+
+def grid_otsu(roi, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
+              min_thresh_val, max_thresh_val, step, delta):
+
+    roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+    thresh_val = min_thresh_val
+    points = {}
+    good_points = []
+
+    while thresh_val <= max_thresh_val:
+        new_roi = get_otsu(roi, thresh_val, max_val=255, type=cv2.THRESH_TRUNC)
+
+        key_points = sift(new_roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
+        key_points = delete_unused_keypoints(new_roi, key_points, result_points, eyes_coordinates,
+                                             nose_coordinates, mouth_coordinates)
+        for kp in key_points:
+            x = int(kp.pt[0])
+            y = int(kp.pt[1])
+            coords = (x,y)
+            if not points.has_key(coords):
+                points[coords] = [kp, 1]
+            else:
+                points[coords][1] += 1
+
+        thresh_val += step
+
+    for point in points.items():
+        if point[1][1] > delta:
+            good_points.append(point[1][0])
+
+    return good_points
+
+def mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates):
+    roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+
+    #roi = get_otsu(roi, thresh_val=135, max_val=255, type=cv2.THRESH_BINARY)
+    roi = get_otsu(roi, thresh_val=200, max_val=255, type=cv2.THRESH_TRUNC)
+
+    key_points = sift(roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
+    key_points = delete_unused_keypoints(roi, key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates)
+    score = get_score(image, key_points)
+    result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+    return result_image, score
+
+def poly_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
+              min_thresh_val, max_thresh_val, step, delta):
+
+    key_points = grid_otsu(roi, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
+              min_thresh_val, max_thresh_val, step, delta)
+    score = get_score(image, key_points)
+    result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+    return result_image, score
 
 def detect_deffects(file_name):
     new_file_name = 'uploads/' + file_name
@@ -207,14 +259,12 @@ def detect_deffects(file_name):
     roi = crop_face(image, result_points)
     roi = crop_limbs(roi, eyes_coordinates, nose_coordinates, mouth_coordinates)
 
-    roi = get_otsu(roi, thresh_val=200, max_val=255)
+    result_image, score = poly_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
+              min_thresh_val=150, max_thresh_val=220, step=5, delta=10)
 
-    key_points = sift(roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
-    key_points, score = delete_unused_keypoints(key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, roi, image)
-    result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+    #result_image, score = mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates)
 
-    #score = 0
-    #result_image = roi
+    result_image = draw_face(result_image, result_points)
 
     print 'total score - ' + str(score)
     print 'total time - ' + str(print_time(time))
@@ -224,3 +274,6 @@ def detect_deffects(file_name):
     save_image(result_image, new_file_name)
 
     return return_file_name, score
+
+#TODO check borders, find suitable grid, sift(grid, or find good params), sift priority, binary thresholding, limbs size
+

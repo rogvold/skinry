@@ -54,7 +54,7 @@ def api_v1_upload_pic():
     f = open(os.path.join(app.config['UPLOAD_FOLDER'], img_id + '.jpg'), "wb")
     f.write(base64.decodestring(img_base64))
     f.close()
-    filename, pts = skinscan.detect_deffects(filename)
+    filename, pts = skinscan.detect_deffects(img_id + '.jpg')
     image = {
         'p_name' : filename,
         's_name' : img_id,

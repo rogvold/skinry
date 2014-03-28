@@ -229,16 +229,20 @@ def grid_otsu(roi, result_points, eyes_coordinates, nose_coordinates, mouth_coor
 
     return good_points
 
-def mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates):
+def mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
+                thresh_val, type):
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
 
     #roi = get_otsu(roi, thresh_val=135, max_val=255, type=cv2.THRESH_BINARY)
-    roi = get_otsu(roi, thresh_val=200, max_val=255, type=cv2.THRESH_TRUNC)
+    roi = get_otsu(roi, thresh_val=thresh_val, max_val=255, type=type)
 
     key_points = sift(roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
     key_points = delete_unused_keypoints(roi, key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates)
     score = get_score(image, key_points)
     result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+
+    #result_image = roi
+    #score = 0
 
     return result_image, score
 
@@ -257,12 +261,13 @@ def detect_deffects(file_name):
     time = cv2.getTickCount()
     result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, image = fd.get_param(new_file_name)
     roi = crop_face(image, result_points)
-    roi = crop_limbs(roi, eyes_coordinates, nose_coordinates, mouth_coordinates)
+    #roi = crop_limbs(roi, eyes_coordinates, nose_coordinates, mouth_coordinates)
 
     result_image, score = poly_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
-              min_thresh_val=150, max_thresh_val=220, step=5, delta=10)
+              min_thresh_val=150, max_thresh_val=220, step=10, delta=3)
 
-    #result_image, score = mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates)
+    #result_image, score = mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
+    #                                  thresh_val=200, type=cv2.THRESH_TRUNC)
 
     result_image = draw_face(result_image, result_points)
 
@@ -275,5 +280,6 @@ def detect_deffects(file_name):
 
     return return_file_name, score
 
-#TODO check borders, find suitable grid, sift(grid, or find good params), sift priority, binary thresholding, limbs size
+#TODO sift(grid, or find good params), sift priority, binary thresholding, limbs size
+#TODO points between limbs (Is limbs cropping need?), points alongside contour in the case of bad face recognition
 

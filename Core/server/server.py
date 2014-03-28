@@ -57,7 +57,7 @@ def api_v1_upload_pic():
     filename, pts = skinscan.detect_deffects(img_id + '.jpg')
     image = {
         'p_name' : filename,
-        's_name' : img_id,
+        's_name' : img_id + '.jpg',
         'pts' : pts
     }
     images_db.append(image)
@@ -68,7 +68,7 @@ def api_v1_download_source_pic(filename):
     img = filter(lambda t: t['s_name'] == filename, images_db)
     if len(img) == 0:
         abort(404)
-    f = open(os.path.join(app.config['UPLOAD_FOLDER'], filename + '.jpg'), "rb") 
+    f = open(os.path.join(app.config['UPLOAD_FOLDER'], filename), "rb") 
     img_base64 = base64.b64encode(f.read())
     f.close()
     return jsonify({'img': img_base64})
@@ -78,7 +78,7 @@ def api_v1_download_proc_pic(filename):
     img = filter(lambda t: t['p_name'] == filename, images_db)
     if len(img) == 0:
         abort(404)
-    f = open(os.path.join(app.config['UPLOAD_FOLDER'], filename + '.jpg'), "rb") 
+    f = open(os.path.join(app.config['UPLOAD_FOLDER'], filename), "rb") 
     img_base64 = base64.b64encode(f.read())
     f.close()
     return jsonify({'img': img_base64, 'pts': img[0]['pts']})

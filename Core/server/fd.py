@@ -93,6 +93,9 @@ def detect_face_and_organs(img):
             raise ValueError("No two eyes")
 
         for i, (ex, ey, ew, eh) in enumerate(eyes):
+            delta = int(0.3 * eh)
+            ey = max(0, ey - delta)
+            eh += delta
             eyes_coordinates[i] = (ex, ey, ew, eh)
 
         if eyes_coordinates[0][0] > eyes_coordinates[1][0]:

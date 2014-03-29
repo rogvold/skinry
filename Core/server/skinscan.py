@@ -21,7 +21,7 @@ def draw_face(image, result_points):
     return image
 
 def sift(image, contrast_threshold, edge_threshold, sigma):
-    sift = cv2.SIFT(0, 3, contrast_threshold, edge_threshold, sigma)
+    sift = cv2.SIFT(0, 5, contrast_threshold, edge_threshold, sigma)
     key_points = sift.detect(image, None)
     return key_points
 
@@ -42,6 +42,31 @@ def crop_face(image, result_points):
     cv2.fillPoly(mask, roi_corners, white)
     masked_image = cv2.bitwise_and(image, mask)
     return masked_image
+
+def crop_limbs(masked_image, eyes_coordinates, nose_coordinates, mouth_coordinates):
+    black = (255, 255, 255)
+
+    from_x, to_x, from_y, to_y = get_coords(nose_coordinates, alpha=0, beta=0,
+                                            width=nose_coordinates[2], height=0)
+    masked_image[from_y:to_y, from_x:to_x] = black
+
+    from_x, to_x, from_y, to_y = get_coords(mouth_coordinates, alpha=0.15, beta=0,
+                                            width=mouth_coordinates[2], height=0)
+    masked_image[from_y:to_y, from_x:to_x] = black
+
+    cur_width = max(eyes_coordinates[0][2], eyes_coordinates[1][2])
+    cur_height = max(eyes_coordinates[0][3], eyes_coordinates[1][3])
+
+    from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[0], alpha=0.2, beta=0,
+                                            width=cur_width, height=cur_height)
+    masked_image[from_y:to_y, from_x:to_x] = black
+
+    from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[1], alpha=0.2, beta=0,
+                                            width=cur_width, height=cur_height)
+    masked_image[from_y:to_y, from_x:to_x] = black
+
+    return masked_image
+
 
 def get_coords(array, alpha, beta, width, height):
     from_y = array[1] - beta * height
@@ -99,7 +124,7 @@ def delete_unused_keypoints(image, key_points, result_points, eyes_coordinates, 
         cur_width = nose_coordinates[2]
         cur_height = nose_coordinates[3]
 
-        from_x, to_x, from_y, to_y = get_coords(nose_coordinates, alpha=0.15, beta=0.05,
+        from_x, to_x, from_y, to_y = get_coords(nose_coordinates, alpha=0, beta=0,
                                                 width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
@@ -108,7 +133,7 @@ def delete_unused_keypoints(image, key_points, result_points, eyes_coordinates, 
         cur_height = mouth_coordinates[3]
         cur_width = mouth_coordinates[2]
 
-        from_x, to_x, from_y, to_y = get_coords(mouth_coordinates, alpha=0.2, beta=0.05,
+        from_x, to_x, from_y, to_y = get_coords(mouth_coordinates, alpha=0.15, beta=0,
                                                 width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
@@ -117,14 +142,13 @@ def delete_unused_keypoints(image, key_points, result_points, eyes_coordinates, 
         cur_width = max(eyes_coordinates[0][2], eyes_coordinates[1][2])
         cur_height = max(eyes_coordinates[0][3], eyes_coordinates[1][3])
 
-        #then it will be: aplha = 0.1, beta = 0
-        from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[0], alpha=0.25, beta=0.25,
+        from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[0], alpha=0.2, beta=0,
                                                 width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
             continue
 
-        from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[1], alpha=0.25, beta=0.25,
+        from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[1], alpha=0.2, beta=0,
                                                 width=cur_width, height=cur_height)
         if to_x > x > from_x and to_y > y > from_y:
             new_kp.append(kp)
@@ -162,6 +186,11 @@ def get_score(original_image, key_points):
     length_red = max_red - min_red
     length_size = max_size - min_size
 
+    if length_red == 0:
+        length_red = 1
+    if length_size == 0:
+        length_size = 1
+
     for kp in key_points:
         x = int(kp.pt[0])
         y = int(kp.pt[1])
@@ -184,7 +213,7 @@ def grid_otsu(roi, result_points, eyes_coordinates, nose_coordinates, mouth_coor
     while thresh_val <= max_thresh_val:
         new_roi = get_otsu(roi, thresh_val, type=cv2.THRESH_TRUNC)
 
-        key_points = sift(new_roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
+        key_points = sift(new_roi, contrast_threshold=0.02, edge_threshold=10, sigma=1.6)
         key_points = delete_unused_keypoints(new_roi, key_points, result_points, eyes_coordinates,
                                              nose_coordinates, mouth_coordinates)
         for kp in key_points:
@@ -225,9 +254,10 @@ def mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, m
     #roi = get_otsu(roi, thresh_val=135, type=cv2.THRESH_BINARY)
     roi = get_otsu(roi, **kwargs)
 
-    key_points = sift(roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
+    key_points = sift(roi, contrast_threshold=0.02, edge_threshold=10, sigma=1.6)
     key_points = delete_unused_keypoints(roi, key_points, result_points, eyes_coordinates,
                                          nose_coordinates, mouth_coordinates)
+
     score = get_score(image, key_points)
     result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
@@ -267,7 +297,13 @@ def detect_deffects(file_name):
 
     return return_file_name, score
 
-#TODO sift(grid, or find good params), sift priority?, binary thresholding?, limbs size (after brown detection)
+#TODO sift(grid 2nd param 3-5, 3rd 0.02-0.05, 4th 8-15, 5th 1.2-2.0)
+#TODO nose increase width?
+#TODO binary thresholding?
 #TODO points alongside contour in the case of bad face recognition (clasterization?)
 #TODO real deffects near limbs? resize photo?
 #TODO cheecks, relief?
+#TODO play with contrast, brightness, blur
+#TODO genetic algorythm
+
+

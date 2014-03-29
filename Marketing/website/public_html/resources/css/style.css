@@ -1,0 +1,52 @@
+.home-phones{
+    background: url('../img/home-phones.png') 0px 80px no-repeat !important;
+}
+
+.instagram-title{
+    background: url('../img/logo_1.png') 0px 0px no-repeat !important;
+    background-size: 100% 100% !important;
+    -webkit-min-device-pixel-ratio: 2;
+}
+
+.home-login:focus, .home-login:hover, .home-login:visited, .home-login:active, .home-login{
+    padding: 0px !important;
+    background: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    width: auto !important;
+    box-shadow: none !important;
+}
+
+#at4m-mobile-container {
+    display: none !important;
+}
+
+.modal-body {
+    padding-bottom: 5px;
+}
+
+.row {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.col-lg-2 {
+    padding-top: 10px;
+    padding-left: 25px;
+    padding-right: 0;
+}
+
+.col-lg-4 {
+    padding-left: 0;
+}
+
+#tryFrame {
+    width: 100%;
+    overflow: hidden;
+    overflow-x:hidden;
+    overflow-y:hidden;
+}
+
+#tryFrame::-webkit-scrollbar { 
+    display: none; 
+}

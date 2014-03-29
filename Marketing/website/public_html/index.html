@@ -7,26 +7,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
 
-        <meta name="description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи">
+        <meta property="og:title" content="Skinry" />
+        <meta property="og:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
+        <meta property="og:url" content="skinry.com" />
+        <meta property="og:image" content="resources/img/girl-mini.jpg" />
+
+        <meta name="title" content="Skinry" />
+        <meta name="description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
+        <link rel="image_src" href="resources/img/girl-mini.jpg" />
         <meta name="keywords" content="Сканер кожи, проблемная кожа, средство от прыщей, прыщи, угри, лечение прыщей, сканер прыщей">
         <meta name="author" content="Skinry group">
         <meta name="robots" content="noimageindex">
 
         <meta property="vk:title" content="Skinry" />
         <meta property="vk:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
-        <meta property="vk:image" content="img/logo__mini.png" />
+        <meta property="vk:image" content="resources/img/girl-mini.jpg" />
         <meta property="vk:app_id" content="4226137" />
 
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-        <link rel="localization" hreflang="ru" href="lang/ru.json" type="application/vnd.oftn.l10n+json"/>
-
-        <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/parse-1.2.17.min.js"></script>
-        <script type="text/javascript" src="js/iframeheight.min.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="resources/js/jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="resources/js/parse-1.2.17.min.js"></script>
+        <script type="text/javascript" src="resources/js/iframeheight.min.js"></script>
+        <script type="text/javascript" src="resources/js/main.js"></script>
         <script type="text/javascript" src="//vk.com/js/api/openapi.js?105"></script>
         <script type="text/javascript">
             VK.init({
@@ -35,12 +40,10 @@
             });
         </script>
 
-        <link rel="Shortcut Icon" type="image/x-icon" href="img/logo__mini.png">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/public-main.css">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-
-        <script>window["_GOOG_TRANS_EXT_VER"] = "1";</script>
+        <link rel="Shortcut Icon" type="image/x-icon" href="resources/img/shortcut.png">
+        <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="resources/css/public-main.css">
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css">
     </head>
     <body class="page-home" onload="loaded()">
         <div class="root">
@@ -52,9 +55,9 @@
                     <div class="wrap">
                         <div class="home-phones" id="iphone">
                             <div id="iphone-overlay">
-                                <img src="img/p0.png" class="active" style="opacity: 1;">
-                                <img src="img/p1.png" style="opacity: 1;" class="">
-                                <img src="img/p2.png" style="opacity: 1;" class="">
+                                <img src="resources/img/p0.png" class="active" style="opacity: 1;">
+                                <img src="resources/img/p1.png" style="opacity: 1;" class="">
+                                <img src="resources/img/p2.png" style="opacity: 1;" class="">
                             </div>
 
                             <i class="home-phones-glare"></i>
@@ -75,26 +78,14 @@
                                 <div class="tab-content">
                                     <h1 style="margin-right: 60px;" >Keep clean your skin</h1>
 
-                                    <p>
-                                        Regularly <strong>take pictures</strong> of your face
-                                    </p>
-                                    <p>
-                                        The program analyses problem areas, counts different parameters of your skin's <strong>cleanliness</strong>
-                                    </p>
-                                    <p>
-                                        Look through your skin's <strong>history</strong>, find out reasons for emergence of <strong>problems</strong>
-                                    </p>
+                                    <p>Regularly <strong>take pictures</strong> of your face</p>
+                                    <p>The program analyses problem areas, counts different parameters of your skin's <strong>cleanliness</strong></p>
+                                    <p>Look through your skin's <strong>history</strong>, find out reasons for emergence of <strong>problems</strong></p>
                                     <div id="soon" style="display: none;">
                                         <hr/>
-                                        <h3>
-                                            The application will soon be ready
-                                        </h3>
-                                        <p>
-                                            Leave your <b>e-mail</b> and we will inform you about the launch.
-                                        </p>
-                                        <p>
-                                            For the first <strong>500</strong> users the application will remain free forever!
-                                        </p>
+                                        <h3>The application will soon be ready</h3>
+                                        <p>Leave your <b>e-mail</b> and we will inform you about the launch.</p>
+                                        <p>For the first <strong>500</strong> users the application will remain free forever!</p>
                                         <textarea id="wishes" placeholder="Ваши пожелания"></textarea>
                                         <div class="input-group input-group">
                                             <input type="text" id="email" placeholder="Email" class="form-control input" >
@@ -105,8 +96,8 @@
                                     </div>
 
                                     <div class="platform-badge-container" id="storesButtons">
-                                        <a class="platform-badge" href="javascript: appleClick()"><img src="img/badge_ios.png" alt="Available on the App Store"></a>
-                                        <a class="platform-badge" href="javascript: androidClick()"><img src="img/badge_android.png" alt="Coming soon to Android"></a>
+                                        <a class="platform-badge" href="javascript: appleClick()"><img src="resources/img/badge_ios.png" alt="Available on the App Store"></a>
+                                        <a class="platform-badge" href="javascript: androidClick()"><img src="resources/img/badge_android.png" alt="Coming soon to Android"></a>
                                         <br><br>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tryModal">Try it now!</button>
                                     </div>
@@ -114,9 +105,8 @@
                             </div>
                         </div>
                     </div>
-                </div> <!-- .main -->
-            </div> <!-- .page -->
-
+                </div>
+            </div>
 
             <footer class="page-footer" role="contentinfo">
                 <div class="wrapper">
@@ -129,15 +119,6 @@
                             <li><a data-toggle="modal" data-target="#aboutModal">About...</a></li>
                         </ul>
                     </nav>
-
-                    <!--<p class="copyright">© 2014 Instagram</p>
-                    <h4>
-                        Оставьте свой e-mail и мы сообщим Вам, 
-                        когда приложение будет готово
-                    </h4>
-                    <p>
-                        <input type="text" placeholder="Email" />
-                    </p>-->
                 </div>
             </footer>
 
@@ -204,14 +185,14 @@
                             </p>
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <img src="img/team/sabir.png" style="width: 100px">
+                                    <img src="resources/img/team/sabir.png" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Сабир Шайхлисламов</h3>
                                     Сабир
                                 </div> 
                                 <div class="col-lg-2">
-                                    <img src="img/team/andrey.png" style="width: 100px">
+                                    <img src="resources/img/team/andrey.png" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Андрей Кашин</h3>
@@ -219,13 +200,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <img src="img/team/ekaterina.png" style="width: 100px">
+                                    <img src="resources/img/team/ekaterina.png" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Екатерина Андреева</h3>
                                 </div> 
                                 <div class="col-lg-2">
-                                    <img src="img/team/alexander.png" style="width: 100px">
+                                    <img src="resources/img/team/alexander.png" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Александр Дородных</h3>
@@ -233,13 +214,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <img src="img/team/almaz.png" style="width: 100px">
+                                    <img src="resources/img/team/almaz.png" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Алмаз Насибуллин</h3>
                                 </div> 
                                 <div class="col-lg-2">
-                                    <img src="img/team/akmalzhonkin.png" style="width: 100px">
+                                    <img src="resources/img/team/akmalzhonkin.png" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Акмал Артыков</h3>
@@ -253,7 +234,7 @@
                                     <h3>Дарья Беляева</h3>
                                 </div> 
                                 <div class="col-lg-2">
-                                    <img src="img/team/konstantin.png" style="width: 100px">
+                                    <img src="resources/img/team/konstantin.png" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Константин Павлов</h3>
@@ -261,13 +242,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <img src="img/team/vladimir.png" style="width: 100px">
+                                    <img src="resources/img/team/vladimir.png" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Владимир Ивашкин</h3>
                                 </div> 
                                 <div class="col-lg-2">
-                                    <img src="img/team/somebody2.png" style="width: 100px">
+                                    <img src="resources/img/team/somebody2.png" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
 
@@ -309,26 +290,9 @@
             </noscript>
             <!-- /Yandex.Metrika counter -->
 
-            <!-- AddThis Smart Layers BEGIN -->
-            <!-- Go to http://www.addthis.com/get/smart-layers to customize -->
-            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5326022e6a6915dd"></script>
-            <script type="text/javascript">
-                addthis.layers({
-                    'theme': 'transparent',
-                    'share': {
-                        'position': 'right',
-                        'numPreferredServices': 5
-                    },
-                    'follow': {
-                        'services': [
-                            {'service': 'facebook', 'id': 'skinry'},
-                            {'service': 'twitter', 'id': 'skinry_scanner'},
-                            {'service': 'tumblr', 'id': 'skinry'}
-                        ]
-                    }
-                });
-            </script>
-            <!-- AddThis Smart Layers END -->
+            <!-- AddThis Pro BEGIN -->
+            <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533754205513437f"></script>
+            <!-- AddThis Pro END -->
         </div>
     </body>
 </html>

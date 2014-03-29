@@ -1,10 +1,108 @@
 <!doctype html>
-<title>Upload new File</title>
-<h1>Upload new File</h1>
-<form action="" method=post enctype=multipart/form-data>
-	<p><input type=file name=file>
-	<input type=submit value=Upload>
-</form>
-{% if filename %}
-  <h1><img src="{{filename}}"></h1>
-{% endif %}
+<html>
+<head>
+    <title>TestFrame</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+</head>
+<body style="width: 100%">
+Please take an instant shot of yourself.<br>
+
+<video id="video" style="width: 100%; height: auto; background-color: #AAA;"></video>
+<canvas id="canvas" style="display: none;"></canvas>
+<div id="shotButtons" style="text-align: center">
+    <button id="shotButton" type="button" class="btn btn-primary">Take photo</button>
+</div>
+<div id="sendButtons" style="text-align: center; display: none;">
+    <button id="saveButton" type="button" class="btn btn-primary">Save and continue</button>
+    <button id="backButton" type="button" class="btn btn-default">Delete image</button>
+</div>
+</div>
+
+<script language="JavaScript">
+    var myStream;
+    var dataURL;
+
+    $( document ).ready(function() {
+        var streaming = false,
+            video = document.querySelector('#video'),
+            canvas = document.querySelector('#canvas'),
+            shotButton = document.querySelector('#shotButton'),
+            backButton = document.querySelector('#backButton'),
+            saveButton = document.querySelector('#saveButton'),
+            width = 400,
+            height = 0;
+
+        navigator.getMedia = (navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia ||
+                navigator.msGetUserMedia);
+
+        navigator.getMedia({
+            video: true,
+            audio: false
+        },
+        function(stream) {
+            if (navigator.mozGetUserMedia) {
+                video.mozSrcObject = stream;
+            } else {
+                var vendorURL = window.URL || window.webkitURL;
+                video.src = vendorURL.createObjectURL(stream);
+            }
+            video.play();
+            myStream = stream;
+        },
+        function(err) {
+            console.log("An error occured! " + err);
+        });
+
+        video.addEventListener('canplay', function(ev) {
+            if (!streaming) {
+                height = video.videoHeight / (video.videoWidth / width);
+                video.setAttribute('width', width);
+                video.setAttribute('height', height);
+                canvas.setAttribute('width', width);
+                canvas.setAttribute('height', height);
+                streaming = true;
+                console.log(width + "x" + height);
+            }
+        }, false);
+
+        shotButton.addEventListener('click', function(ev) {
+            video.pause();
+            $("#shotButtons").hide();
+            $("#sendButtons").show();
+
+            canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+            console.log(video);
+
+            ev.preventDefault();
+        }, false);
+
+        backButton.addEventListener('click', function(ev) {
+            video.play();
+            $("#sendButtons").hide();
+            $("#shotButtons").show();
+            ev.preventDefault();
+        }, false);
+
+        saveButton.addEventListener('click', function(ev) {
+            dataURL = canvas.toDataURL("image/jpeg");
+            dataURL = dataURL.substr(23);
+            var imgData = '{"img": "\'' + dataURL + '\'"}';
+            $.ajax({
+                url: 'api/v1/',
+                dataType: 'json',
+                data: imgData,
+                contentType : 'application/json',
+                type: 'POST',
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+            ev.preventDefault();
+        });
+    });
+</script>
+</body>
+</html>

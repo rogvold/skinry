@@ -23,7 +23,6 @@
 
         <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/easyXDM.min.js"></script>
         <script type="text/javascript" src="js/parse-1.2.17.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
         <script type="text/javascript" src="//vk.com/js/api/openapi.js?105"></script>
@@ -65,40 +64,40 @@
                             </a>
 
                             <script type="text/javascript">
-                                     VK.Widgets.Like("vk_like", {type: "button"});
+                                VK.Widgets.Like("vk_like", {type: "button"});
                             </script>
 
-                            <h1 class="instagram-title needBeLocal">Skinry - look for your skin</h1>
+                            <h1 class="instagram-title">Skinry - look for your skin</h1>
 
                             <div class="tab">
                                 <div class="tab-content">
-                                    <h1 class="needBeLocal" style="margin-right: 60px;" >Keep clean your skin</h1>
+                                    <h1 style="margin-right: 60px;" >Keep clean your skin</h1>
 
-                                    <p class="needBeLocal">
+                                    <p>
                                         Regularly <strong>take pictures</strong> of your face
                                     </p>
-                                    <p class="needBeLocal">
+                                    <p>
                                         The program analyses problem areas, counts different parameters of your skin's <strong>cleanliness</strong>
                                     </p>
-                                    <p class="needBeLocal">
+                                    <p>
                                         Look through your skin's <strong>history</strong>, find out reasons for emergence of <strong>problems</strong>
                                     </p>
                                     <div id="soon" style="display: none;">
                                         <hr/>
-                                        <h3 class="needBeLocal">
+                                        <h3>
                                             The application will soon be ready
                                         </h3>
-                                        <p class="needBeLocal">
+                                        <p>
                                             Leave your <b>e-mail</b> and we will inform you about the launch.
                                         </p>
-                                        <p class="needBeLocal">
+                                        <p>
                                             For the first <strong>500</strong> users the application will remain free forever!
                                         </p>
                                         <textarea id="wishes" placeholder="Ваши пожелания"></textarea>
                                         <div class="input-group input-group">
                                             <input type="text" id="email" placeholder="Email" class="form-control input" >
                                             <span class="input-group-btn btn-group-custom">
-                                                <button id="submitButton" class="btn btn-primary needBeLocal">Submit</button>
+                                                <button id="submitButton" class="btn btn-primary">Submit</button>
                                             </span>
                                         </div>
                                     </div>
@@ -148,27 +147,9 @@
                             <h4 id="modal-try-header" class="modal-title">Try Skinry Engine...</h4>
                         </div>
                         <div id="modal-try-body" class="modal-body">
-                            Please take an instant shot of yourself.<br>
-                            <div id="video-group" class="form-group">
-                                <video id="video" style="width: 100%; background-color: #AAA"></video>
-                                <div style="text-align: center">
-                                    <button id="shotbutton" type="button" class="btn btn-primary">Take photo</button>
-                                </div>
-                            </div>
-                            <div id="canvas-group" class="form-group" style="display: none">
-                                <canvas id="canvas"></canvas>
-                                <div style="text-align: center">
-                                    <button id="savebutton" type="button" class="btn btn-primary">Save and continue</button>
-                                    <button id="retakebutton" type="button" class="btn btn-default">Delete image</button>
-                                </div>
-                            </div>
-                            <br><br>
-
-                            <div class="form-group">
-                                If you have any problems with your web-cam, upload a photo.<br>
-                                We support JPG, GIF or PNG files.<br>
-                                <input type="file" id="exampleInputFile">
-                            </div>
+                            <iframe src="//localhost:5000" frameborder="0" style="width: 100%; height: 475px; overflow: hidden">
+                                Your browser does not support the IFRAME feature.
+                            </iframe>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>

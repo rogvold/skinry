@@ -1,4 +1,5 @@
 $(function() {
+    jQuery.fn.exists = function(){return this.length>0;};
     setTimeout("next_slide()", 5000);
 });
 

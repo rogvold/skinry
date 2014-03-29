@@ -25,9 +25,9 @@ def sift(image, contrast_threshold, edge_threshold, sigma):
     key_points = sift.detect(image, None)
     return key_points
 
-def get_otsu(image, thresh_val, max_val, type):
+def get_otsu(image, thresh_val, type):
     #image = cv2.medianBlur(image,5)
-    r, image = cv2.threshold(image, thresh_val, max_val, type)
+    r, image = cv2.threshold(image, thresh_val, 255, type)
     return image
 
 def crop_face(image, result_points):
@@ -49,31 +49,6 @@ def get_coords(array, alpha, beta, width, height):
     from_x = array[0] - alpha * width
     to_x = from_x + array[2] + 2 * alpha * width
     return int(from_x), int(to_x), int(from_y),int(to_y)
-
-def crop_limbs(masked_image, eyes_coordinates, nose_coordinates, mouth_coordinates):
-    black = (255, 255, 255)
-
-    from_x, to_x, from_y, to_y = get_coords(nose_coordinates, alpha=0.1, beta=0,
-                                            width=nose_coordinates[2], height=0)
-    masked_image[from_y:to_y, from_x:to_x] = black
-
-    from_x, to_x, from_y, to_y = get_coords(mouth_coordinates, alpha=0.15, beta=0,
-                                            width=mouth_coordinates[2], height=0)
-    masked_image[from_y:to_y, from_x:to_x] = black
-
-    cur_width = max(eyes_coordinates[0][2], eyes_coordinates[1][2])
-    cur_height = max(eyes_coordinates[0][3], eyes_coordinates[1][3])
-
-    #then it will be: aplha = 0.1, beta = 0, after Almaz eyebrown detection
-    from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[0], alpha=0.2, beta=0.2,
-                                            width=cur_width, height=cur_height)
-    masked_image[from_y:to_y, from_x:to_x] = black
-
-    from_x, to_x, from_y, to_y = get_coords(eyes_coordinates[1], alpha=0.2, beta=0.2,
-                                            width=cur_width, height=cur_height)
-    masked_image[from_y:to_y, from_x:to_x] = black
-
-    return masked_image
 
 def is_close(x, y, x1, y1, x2, y2, dist):
     h = 0
@@ -207,7 +182,7 @@ def grid_otsu(roi, result_points, eyes_coordinates, nose_coordinates, mouth_coor
     good_points = []
 
     while thresh_val <= max_thresh_val:
-        new_roi = get_otsu(roi, thresh_val, max_val=255, type=cv2.THRESH_TRUNC)
+        new_roi = get_otsu(roi, thresh_val, type=cv2.THRESH_TRUNC)
 
         key_points = sift(new_roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
         key_points = delete_unused_keypoints(new_roi, key_points, result_points, eyes_coordinates,
@@ -227,17 +202,32 @@ def grid_otsu(roi, result_points, eyes_coordinates, nose_coordinates, mouth_coor
         if point[1][1] > delta:
             good_points.append(point[1][0])
 
+    repeating_points = []
+
+    for kp1 in good_points:
+        for kp2 in good_points:
+            if kp1 != kp2:
+                x1 = int(kp1.pt[0])
+                y1 = int(kp1.pt[1])
+                x2 = int(kp2.pt[0])
+                y2 = int(kp2.pt[1])
+                dist = math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
+                if dist < kp1.size and kp1.size > kp2.size:
+                    repeating_points.append(kp1)
+
+    good_points = list(set(good_points) - set(repeating_points))
+
     return good_points
 
-def mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
-                thresh_val, type):
+def mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, **kwargs):
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
 
-    #roi = get_otsu(roi, thresh_val=135, max_val=255, type=cv2.THRESH_BINARY)
-    roi = get_otsu(roi, thresh_val=thresh_val, max_val=255, type=type)
+    #roi = get_otsu(roi, thresh_val=135, type=cv2.THRESH_BINARY)
+    roi = get_otsu(roi, **kwargs)
 
     key_points = sift(roi, contrast_threshold=0.02, edge_threshold=15, sigma=2)
-    key_points = delete_unused_keypoints(roi, key_points, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates)
+    key_points = delete_unused_keypoints(roi, key_points, result_points, eyes_coordinates,
+                                         nose_coordinates, mouth_coordinates)
     score = get_score(image, key_points)
     result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
@@ -246,11 +236,9 @@ def mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, m
 
     return result_image, score
 
-def poly_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
-              min_thresh_val, max_thresh_val, step, delta):
+def poly_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, **kwargs):
 
-    key_points = grid_otsu(roi, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
-              min_thresh_val, max_thresh_val, step, delta)
+    key_points = grid_otsu(roi, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, **kwargs)
     score = get_score(image, key_points)
     result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
@@ -261,10 +249,9 @@ def detect_deffects(file_name):
     time = cv2.getTickCount()
     result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, image = fd.get_param(new_file_name)
     roi = crop_face(image, result_points)
-    #roi = crop_limbs(roi, eyes_coordinates, nose_coordinates, mouth_coordinates)
 
     result_image, score = poly_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
-              min_thresh_val=150, max_thresh_val=220, step=10, delta=3)
+              min_thresh_val=150, max_thresh_val=220, step=10, delta=2)
 
     #result_image, score = mono_search(roi, image, result_points, eyes_coordinates, nose_coordinates, mouth_coordinates,
     #                                  thresh_val=200, type=cv2.THRESH_TRUNC)
@@ -280,6 +267,7 @@ def detect_deffects(file_name):
 
     return return_file_name, score
 
-#TODO sift(grid, or find good params), sift priority, binary thresholding, limbs size
-#TODO points between limbs (Is limbs cropping need?), points alongside contour in the case of bad face recognition
-
+#TODO sift(grid, or find good params), sift priority?, binary thresholding?, limbs size (after brown detection)
+#TODO points alongside contour in the case of bad face recognition (clasterization?)
+#TODO real deffects near limbs? resize photo?
+#TODO cheecks, relief?

@@ -88,7 +88,6 @@ def detect_face_and_organs(img):
                 if len(eyes) == 2:
                     to_do = False
                     break
-        
         if len(eyes) != 2:
             raise ValueError("No two eyes")
 

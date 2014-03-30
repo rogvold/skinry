@@ -14,15 +14,16 @@
   top: 40px;
   left: 10px;
   width: 314px;
-  height: 78px;
+  height: 88px;
   background-image: url('../img/header.png');
   background-repeat: no-repeat;
   text-indent: -9999em;
+  padding-bottom: 0;
 }
 @media (-webkit-min-device-pixel-ratio: 1.5), (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (min-resolution: 1.5dppx) {
   .title {
     background-image: url("../img/header@2x.png");
-    background-size: 314px 78px;
+    background-size: 314px 88px;
   }
 }
 .home-login:focus,
@@ -42,14 +43,12 @@
   height: 65px;
   margin-bottom: 10px;
 }
-.platform-badge {
+.platform-badge,
+.page-footer li {
   cursor: pointer;
 }
 #at4m-mobile-container {
   display: none !important;
-}
-.modal-body {
-  padding-bottom: 5px;
 }
 .row {
   margin-top: 40px;

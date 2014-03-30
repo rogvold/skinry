@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TestFrame</title>
+
+    <script type=text/javascript src="{{url_for('static', filename='jquery-2.1.0.min.js')}}"></script>
+    <script type=text/javascript src="{{url_for('static', filename='iframeheight.min.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+</head>
+<body style="width: 100%">
+<div id="shotFrame">
+    <div id="shotTab">
+        Please take an instant shot of yourself.<br>
+
+        <video id="video" style="width: 100%; height: auto; background-color: #AAA;"></video>
+        <canvas id="canvas" style="display: none;"></canvas>
+        <div id="shotButtons" style="text-align: center">
+            <button id="shotButton" type="button" class="btn btn-primary">Take photo</button>
+            <button id="uploadPageButton" type="button" class="btn btn-default">Upload photo</button>
+        </div>
+        <div id="sendButtons" style="text-align: center; display: none;">
+            <button id="saveButton" type="button" class="btn btn-primary">Save and continue</button>
+            <button id="backButton" type="button" class="btn btn-default">Try again</button>
+        </div>
+    </div>
+    <div id="uploadTab" style="display: none;">
+        Please upload a real photo of yourself.<br>
+        We support only JPG files.<br>
+
+        <img id="preview" src="#" alt="Preview can't displayed" style="width: 100%; height: auto; display: none;"/>
+
+        <div class="form-group">
+            <label for="imgInput">File input</label>
+            <input type="file" accept=".jpg" id="imgInput" name="file">
+
+            <p class="help-block">If you have any problems with your upload, try using a smaller picture.</p>
+        </div>
+        <div id="uploadButtons" style="text-align: center;">
+            <button id="uploadButton" type="button" class="btn btn-primary" disabled="disabled">Upload</button>
+            <button id="back2Button" type="button" class="btn btn-default">Cancel</button>
+        </div>
+    </div>
+    <div id="resultTab" style="display: none;">
+        <img id="result" src="#" alt="Result can't displayed" style="width: 100%; height: auto;"/>
+        <p id="pts"></p>
+        <div id="resultButtons" style="text-align: center;">
+            <button id="shareButton" type="button" class="btn btn-primary" disabled="disabled">Share</button>
+            <button id="back3Button" type="button" class="btn btn-default">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script language="JavaScript">
+    var iframeExt = $.iframeHeightExternal();
+
+    $("#video").resize(function() {
+        iframeExt.update();
+    });
+
+    // TAKE PHOTO SECTION
+    //
+    $(document).ready(function() {
+        var myStream;
+        var dataURL;
+        var streaming = false,
+            video = document.querySelector('#video'),
+            canvas = document.querySelector('#canvas'),
+            shotButton = document.querySelector('#shotButton'),
+            backButton = document.querySelector('#backButton'),
+            saveButton = document.querySelector('#saveButton'),
+            width = 400,
+            height = 0;
+
+        navigator.getMedia = (navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia ||
+                navigator.msGetUserMedia);
+
+        navigator.getMedia({
+            video: true,
+            audio: false
+        },
+        function(stream) {
+            if (navigator.mozGetUserMedia) {
+                video.mozSrcObject = stream;
+            } else {
+                var vendorURL = window.URL || window.webkitURL;
+                video.src = vendorURL.createObjectURL(stream);
+            }
+            video.play();
+            myStream = stream;
+        },
+        function(err) {
+            console.log("An error occured! " + err);
+        });
+
+        video.addEventListener('canplay', function(ev) {
+            if (!streaming) {
+                height = video.videoHeight / (video.videoWidth / width);
+                video.setAttribute('width', width);
+                video.setAttribute('height', height);
+                canvas.setAttribute('width', width);
+                canvas.setAttribute('height', height);
+                streaming = true;
+                console.log(width + "x" + height);
+            }
+        }, false);
+
+        shotButton.addEventListener('click', function(ev) {
+            video.pause();
+            $("#shotButtons").hide();
+            $("#sendButtons").show();
+
+            canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+            console.log(video);
+
+            ev.preventDefault();
+        }, false);
+
+        backButton.addEventListener('click', function(ev) {
+            video.play();
+            $("#sendButtons").hide();
+            $("#shotButtons").show();
+            ev.preventDefault();
+        }, false);
+
+        saveButton.addEventListener('click', function(ev) {
+            dataURL = canvas.toDataURL("image/jpeg");
+            send(dataURL);
+            ev.preventDefault();
+        });
+    });
+
+    // UPLOAD IMAGE SECTION
+    //
+    $(document).ready(function() {
+        var uploadData;
+
+        uploadPageButton = document.querySelector("#uploadPageButton"),
+		back2Button = document.querySelector("#back2Button"),
+
+        uploadPageButton.addEventListener('click', function() {
+            $('#shotTab').hide();
+            $('#uploadTab').show();
+            iframeExt.update();
+        });
+
+        back2Button.addEventListener('click', function() {
+            $('#uploadTab').hide();
+            $('#shotTab').show();
+            iframeExt.update();
+        });
+
+        $("#imgInput").change(function(){
+            readURL(this);
+        });
+
+        uploadButton.addEventListener('click', function() {
+            send(uploadData);
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    uploadData = e.target.result;
+                    $('#preview').attr('src', uploadData);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+
+                $('#preview').show();
+                $('#uploadButton').removeAttr("disabled");
+                iframeExt.update();
+            } else {
+                $('#preview').hide();
+                iframeExt.update();
+                $('#uploadButton').attr("disabled", "disabled");
+            }
+        }
+    });
+
+    function send(imageURL) {
+        var base64img = imageURL.substr(23);
+        var imgData = '{"img": "\'' + base64img + '\'"}';
+        $.ajax({
+            url: 'api/v1/',
+            dataType: 'json',
+            data: imgData,
+            contentType : 'application/json',
+            type: 'POST',
+            success: function(data) {
+                console.log(data);
+                showResult(data.p_name);
+            }
+        });
+    }
+
+    function showResult(imgURL) {
+        $.ajax({
+            url: 'api/v1/proc/' + imgURL,
+            dataType: 'json',
+            contentType : 'application/json',
+            type: 'GET',
+            success: function(data) {
+                $("#shotTab").hide();
+                $("#uploadTab").hide();
+                $("#resultTab").show();
+                $("#result").attr('src', 'data:image/jpeg;base64,' + data.img);
+                $("#pts").text('Your score:' + data.pts);
+            }
+        });
+    }
+</script>
+</body>
+</html>

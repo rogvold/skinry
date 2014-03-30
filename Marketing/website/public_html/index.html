@@ -72,7 +72,7 @@
                                 VK.Widgets.Like("vk_like", {type: "button"});
                             </script>
 
-                            <h1 class="instagram-title">Skinry - look for your skin</h1>
+                            <h1 class="title">Skinry - look for your skin</h1>
 
                             <div class="tab">
                                 <div class="tab-content">
@@ -96,8 +96,8 @@
                                     </div>
 
                                     <div class="platform-badge-container" id="storesButtons">
-                                        <a class="platform-badge" href="javascript: appleClick()"><img src="resources/img/badge_ios.png" alt="Available on the App Store"></a>
-                                        <a class="platform-badge" href="javascript: androidClick()"><img src="resources/img/badge_android.png" alt="Coming soon to Android"></a>
+                                        <img class="platform-badge" src="resources/img/badge_appstore.png" alt="Available on the App Store" onclick="appleClick()">
+                                        <img class="platform-badge" src="resources/img/badge_googleplay.png" alt="Available on the Android" onclick="androidClick()">
                                         <br><br>
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tryModal">Try it now!</button>
                                     </div>
@@ -130,13 +130,12 @@
                             <h4 id="modal-try-header" class="modal-title">Try Skinry Engine...</h4>
                         </div>
                         <div id="modal-try-body" class="modal-body">
-
                             <script>
                                 $("#tryModal").on('shown.bs.modal', function() {
-                                    if (!$("#tryFrame").exists())
-                                        $("#modal-try-body").append('<iframe id="tryFrame" src="//localhost:5000" frameborder="0">Your browser does not support the IFRAME feature.</iframe>');
-
-                                    $('#tryFrame').iframeHeight();
+                                    if (!$("#tryFrame").exists()) {
+                                        $("#modal-try-body").append('<iframe id="tryFrame" src="//skinry.com:5000" frameborder="0">Your browser does not support the IFRAME feature.</iframe>');
+                                        $('#tryFrame').iframeHeight();
+                                    }
 
                                     var rtime;
                                     var timeout = false;
@@ -157,10 +156,6 @@
                                             $('#tryFrame').trigger("updateIframe");
                                         }
                                     }
-                                });
-
-                                $("#tryModal").on('hide.bs.modal', function() {
-
                                 });
                             </script>
                         </div>
@@ -185,14 +180,14 @@
                             </p>
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <img src="resources/img/team/sabir.png" style="width: 100px">
+                                    <img src="resources/img/team/sabir.png" alt="Сабир Шайхлисламов" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Сабир Шайхлисламов</h3>
                                     Сабир
                                 </div> 
                                 <div class="col-lg-2">
-                                    <img src="resources/img/team/andrey.png" style="width: 100px">
+                                    <img src="resources/img/team/andrey.png" alt="Андрей Кашин" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Андрей Кашин</h3>
@@ -200,13 +195,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <img src="resources/img/team/ekaterina.png" style="width: 100px">
+                                    <img src="resources/img/team/ekaterina.png" alt="Екатерина Андреева" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Екатерина Андреева</h3>
                                 </div> 
                                 <div class="col-lg-2">
-                                    <img src="resources/img/team/alexander.png" style="width: 100px">
+                                    <img src="resources/img/team/alexander.png" alt="Александр Дородных" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Александр Дородных</h3>
@@ -214,13 +209,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <img src="resources/img/team/almaz.png" style="width: 100px">
+                                    <img src="resources/img/team/almaz.png" alt="Алмаз Насибуллин" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Алмаз Насибуллин</h3>
                                 </div> 
                                 <div class="col-lg-2">
-                                    <img src="resources/img/team/akmalzhonkin.png" style="width: 100px">
+                                    <img src="resources/img/team/akmalzhonkin.png" alt="Акмал Артыков" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Акмал Артыков</h3>
@@ -228,13 +223,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-2">
-
+                                    <img src="resources/img/team/somebody.png" alt="Somebody" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Дарья Беляева</h3>
                                 </div> 
                                 <div class="col-lg-2">
-                                    <img src="resources/img/team/konstantin.png" style="width: 100px">
+                                    <img src="resources/img/team/konstantin.png" alt="Константин Павлов" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Константин Павлов</h3>
@@ -242,13 +237,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <img src="resources/img/team/vladimir.png" style="width: 100px">
+                                    <img src="resources/img/team/vladimir.png" alt="Владимир Ивашкин" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
                                     <h3>Владимир Ивашкин</h3>
                                 </div> 
                                 <div class="col-lg-2">
-                                    <img src="resources/img/team/somebody2.png" style="width: 100px">
+                                    <img src="resources/img/team/somebody.png" alt="Somebody" style="width: 100px">
                                 </div>
                                 <div class="col-lg-4">
 
@@ -294,5 +289,6 @@
             <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533754205513437f"></script>
             <!-- AddThis Pro END -->
         </div>
+        <script type="text/javascript" src="resources/js/retina-1.1.0.min.js"></script>
     </body>
 </html>

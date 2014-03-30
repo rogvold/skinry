@@ -1,5 +1,7 @@
 $(function() {
-    jQuery.fn.exists = function(){return this.length>0;};
+    jQuery.fn.exists = function() {
+        return this.length > 0;
+    };
     setTimeout("next_slide()", 5000);
 });
 
@@ -13,32 +15,6 @@ function next_slide() {
         active.removeClass('active last-active');
     });
     setTimeout("next_slide()", 5000);
-}
-
-function loaded() {
-    var lang = getParameterValue("lang");
-    if (lang === "ru" || (lang === "" && String.locale === "ru")) {
-        String.locale = "ru";
-
-        $('.needBeLocal').each(function() {
-            $(this).html(_($.trim($(this).text())));
-        });
-    }
-}
-
-var _ = function(string) {
-    return string.toLocaleString();
-};
-
-function getParameterValue(parameter) {
-    parameter = parameter.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regexS = "[\\?&]" + parameter + "=([^&#]*)";
-    var regex = new RegExp(regexS);
-    var results = regex.exec(window.location.href);
-    if (results === null)
-        return "";
-    else
-        return results[1];
 }
 
 function androidClick() {
@@ -80,8 +56,6 @@ function validateEmail(email) {
 }
 
 function subscribe() {
-    yaCounter24132985.reachGoal('submit');
-    $('#submitButton').hide();
     var email = $('#email').val().trim();
     var message = $('#wishes').val().trim();
     if ((email === undefined || email === '') || (!validateEmail(email))) {
@@ -89,6 +63,8 @@ function subscribe() {
         alert('Неправильно введен адрес. Пожалуйста, попробуйте еще раз.');
         return;
     }
+    yaCounter24132985.reachGoal('submit');
+    $('#submitButton').hide();
     var FeedbackMessage = Parse.Object.extend("FeedbackMessage");
     var feedback = new FeedbackMessage();
     feedback.set("email", email);

@@ -9,18 +9,17 @@
         <meta property="og:title" content="Skinry" />
         <meta property="og:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
         <meta property="og:url" content="skinry.com" />
-        <meta property="og:image" content="resources/img/girl-mini.jpg" />
-
-        <meta name="title" content="Skinry" />
+        <meta property="og:image" content="//skinry.com/dev/resources/img/girl-mini.png" />
+        <link rel="image_src" href="//skinry.com/dev/resources/img/girl-mini.png" />
+        
         <meta name="description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
-        <link rel="image_src" href="resources/img/girl-mini.jpg" />
         <meta name="keywords" content="Сканер кожи, проблемная кожа, средство от прыщей, прыщи, угри, лечение прыщей, сканер прыщей">
         <meta name="author" content="Skinry group">
         <meta name="robots" content="noimageindex">
 
         <meta property="vk:title" content="Skinry" />
         <meta property="vk:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
-        <meta property="vk:image" content="resources/img/girl-mini.jpg" />
+        <meta property="vk:image" content="//skinry.com/dev/resources/img/girl-mini.png" />
         <meta property="vk:app_id" content="4226137" />
 
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -123,12 +122,12 @@
                         <li><a href="http://facebook.com/skinry">Facebook</a></li>
                         <li><a href="http://vk.com/skinry">Vkontakte</a></li>
                         <li><a href="http://twitter.com/skinry_scanner">Twitter</a></li>
-                        <li><a href="article1.html">Статьи</a></li>
+                        <li><a href="articles/article1.html">Статьи</a></li>
                     </ul>
                 </nav>
-                
+
                 <p class="copyright">© 2014 Skinry</p>
-                
+
             </div>
         </footer>
 
@@ -146,7 +145,8 @@
                                     $("#modal-try-body").append('<iframe id="tryFrame" src="//localhost:5000" frameborder="0">Your browser does not support the IFRAME feature.</iframe>');
                                     $('#tryFrame').iframeHeight({
                                         minimumHeight: 100,
-                                        defaultHeight: 200
+                                        defaultHeight: 200,
+                                        heightOffset: 90
                                     });
                                 }
 

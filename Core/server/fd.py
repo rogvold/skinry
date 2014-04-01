@@ -35,7 +35,7 @@ def grahamscan(A):
         B.append(A[s])
 
     return B
-    
+
 def detect_face_and_organs(img):
     scale_factor = 1.1
     H, W = img.shape[:2]

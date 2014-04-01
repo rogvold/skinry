@@ -106,7 +106,7 @@ button,
 input,
 select,
 textarea {
-    /* font-family: sans-serif; */ }
+    font-family: sans-serif; }
 
 body {
     margin: 0; }
@@ -209,21 +209,21 @@ button,
 input,
 select,
 textarea {
-    /* font-size: 100%; */
-    /* margin: 0; */
-    /* vertical-align: baseline; */
+    font-size: 100%;
+    margin: 0;
+    vertical-align: baseline;
     *vertical-align: middle; }
 
 button,
 input {
-    /* line-height: normal; */ }
+    line-height: normal; }
 
 button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-    /* cursor: pointer; */
-    /* -webkit-appearance: button; */
+    cursor: pointer;
+    -webkit-appearance: button;
     *overflow: visible; }
 
 input[type="checkbox"],

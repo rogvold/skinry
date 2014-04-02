@@ -1,3 +1,5 @@
+var store;
+
 $(function() {
     initSubscriptionForm();
     setTimeout("next_slide()", 5000);
@@ -26,11 +28,13 @@ function next_slide() {
 
 function androidClick() {
     yaCounter24132985.reachGoal('google');
+    store = "google";
     toSubscribe();
 }
 
 function appleClick() {
     yaCounter24132985.reachGoal('apple');
+    store = "apple";
     toSubscribe();
 }
 
@@ -49,13 +53,14 @@ function subscribe() {
         return;
     }
     yaCounter24132985.reachGoal('submit');
-    $('#submitButton').hide();
+    $('#soon').hide();
     var FeedbackMessage = Parse.Object.extend("FeedbackMessage");
     var feedback = new FeedbackMessage();
     feedback.set("email", email);
     feedback.set("wishes", message);
+    feedback.set("store", store);
     feedback.save().then(function() {
-        prepareTextAfterSubmition();
+        toThankYou();
     });
 }
 

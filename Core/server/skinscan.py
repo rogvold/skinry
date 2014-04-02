@@ -112,7 +112,7 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     return result_image, score
 
 def otsu_grid_search(roi, image, result_points, limbs):
-    threshs = [160, 190, 200, 210]
+    threshs = [160, 180, 200, 220]
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
 
     key_points = grid_otsu(roi, threshs, delta=1)
@@ -194,7 +194,6 @@ def detect_deffects(file_name):
 #process_files('photo')
 
 #TODO sift grid decrease delta
-#TODO min and max size???
 #TODO classes?
 #TODO time optimization
 

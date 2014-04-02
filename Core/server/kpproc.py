@@ -70,7 +70,7 @@ def check_border(x, y, result_points, dist):
 def delete_unused_keypoints(image, key_points, result_points, limbs):
     new_kp = []
     dist = 0.03 * max(image.shape[0], image.shape[1])
-    min_size = 0.007 * max(image.shape[0], image.shape[1])
+    min_size = round(0.007 * max(image.shape[0], image.shape[1]))
     max_size = 0.055 * max(image.shape[0], image.shape[1])
     nose_coordinates = limbs[0]
     mouth_coordinates = limbs[1]
@@ -171,17 +171,25 @@ def get_score(original_image, key_points):
     length_red = max_red - min_red
     length_size = max_size - min_size
 
-    if length_red == 0:
-        length_red = 1
-    if length_size == 0:
-        length_size = 1
-
     for kp in key_points:
         x = int(kp.pt[0])
         y = int(kp.pt[1])
         color = original_image[y][x][2] - min_red
         size = kp.size - min_size
-        point = 100 + 75 * (float(color) / length_red) + 50 * (float(size) / length_size)
+        red_score = 0
+        size_score = 0.0
+
+        if length_size == 0:
+            size_score = 25.0
+        else:
+            size_score = 25 * (float(size) / length_size)
+
+        if length_red == 0:
+            red_score = 25.0
+        else:
+            red_score = 25 * (float(color) / length_red)
+
+        point = 50 + red_score + size_score
         score += point
 
     score = int(score)

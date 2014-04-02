@@ -69,7 +69,6 @@ def detect_face_and_organs(img):
         if len(face) > 0:
             is_face = True
             break
-
     if is_face == False:
         raise ValueError("Error: No face. May be your eyes are closed")
 

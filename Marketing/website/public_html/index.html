@@ -142,11 +142,11 @@
                         <script>
                             $("#tryModal").on('shown.bs.modal', function() {
                                 if (!$("#tryFrame").exists()) {
-                                    $("#modal-try-body").append('<iframe id="tryFrame" src="//localhost:5000" frameborder="0">Your browser does not support the IFRAME feature.</iframe>');
+                                    $("#modal-try-body").append('<iframe id="tryFrame" src="//skinry.com:5000" frameborder="0">Your browser does not support the IFRAME feature.</iframe>');
                                     $('#tryFrame').iframeHeight({
-                                        minimumHeight: 100,
+                                        minimumHeight: 50,
                                         defaultHeight: 200,
-                                        heightOffset: 90
+                                        heightOffset: 5
                                     });
                                 }
 

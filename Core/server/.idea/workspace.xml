@@ -26,7 +26,7 @@
       <file leaf-file-name="fd.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="179" column="28" selection-start="5264" selection-end="5264" vertical-scroll-proportion="0.0" vertical-offset="3043" max-vertical-offset="3366">
+            <state line="225" column="28" selection-start="7336" selection-end="7336" vertical-scroll-proportion="0.0" vertical-offset="3825" max-vertical-offset="4148">
               <folding />
             </state>
           </provider>
@@ -35,7 +35,7 @@
       <file leaf-file-name="skinscan.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/skinscan.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="243" column="0" selection-start="8011" selection-end="8011" vertical-scroll-proportion="0.0" vertical-offset="4131" max-vertical-offset="5304">
+            <state line="243" column="0" selection-start="8167" selection-end="8167" vertical-scroll-proportion="0.0" vertical-offset="4131" max-vertical-offset="6511">
               <folding />
             </state>
           </provider>
@@ -44,7 +44,7 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.2173913" vertical-offset="1275" max-vertical-offset="3791">
+            <state line="68" column="51" selection-start="3772" selection-end="3772" vertical-scroll-proportion="0.24377224" vertical-offset="1019" max-vertical-offset="4403">
               <folding />
             </state>
           </provider>
@@ -72,6 +72,7 @@
         <option value="$PROJECT_DIR$/fd.py" />
         <option value="C:/Python27/Lib/site-packages/scipy/special/__init__.py" />
         <option value="$PROJECT_DIR$/skinscan.py" />
+        <option value="$PROJECT_DIR$/templates/index.html" />
       </list>
     </option>
   </component>
@@ -107,7 +108,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -142,6 +142,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -342,11 +343,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -688,7 +689,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="179" column="28" selection-start="5264" selection-end="5264" vertical-scroll-proportion="0.0" vertical-offset="3043" max-vertical-offset="3366">
+        <state line="225" column="28" selection-start="7336" selection-end="7336" vertical-scroll-proportion="0.0" vertical-offset="3825" max-vertical-offset="4148">
           <folding />
         </state>
       </provider>
@@ -707,14 +708,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/skinscan.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="243" column="0" selection-start="8011" selection-end="8011" vertical-scroll-proportion="0.0" vertical-offset="4131" max-vertical-offset="5304">
+        <state line="243" column="0" selection-start="8167" selection-end="8167" vertical-scroll-proportion="0.0" vertical-offset="4131" max-vertical-offset="6511">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-2.2173913" vertical-offset="1275" max-vertical-offset="3791">
+        <state line="68" column="51" selection-start="3772" selection-end="3772" vertical-scroll-proportion="0.24377224" vertical-offset="1019" max-vertical-offset="4403">
           <folding />
         </state>
       </provider>

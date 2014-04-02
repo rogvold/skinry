@@ -67,17 +67,8 @@
 
         <script language="JavaScript">
             var iframeExt = $.iframeHeightExternal();
-            $("#video").resize(function() {
-                iframeExt.update();
-            });
 
-            if (navigator.platform === 'iPad') {
-                window.onorientationchange = function() {
-                    iframeExt.update();
-                };
-            }
-
-            var myStream, dataURL, width = 400, height = 0;
+            var myStream, dataURL, width = 1024, height = 0;
             var video = document.querySelector('#video');
             var canvas = document.querySelector('#canvas');
             var streaming = false;
@@ -88,39 +79,56 @@
                             navigator.webkitGetUserMedia ||
                             navigator.mozGetUserMedia ||
                             navigator.msGetUserMedia);
-                    navigator.getMedia({
-                        video: true,
-                        audio: false
-                    }, function(stream) {
-                        if (navigator.mozGetUserMedia) {
-                            video.mozSrcObject = stream;
-                        } else {
-                            var vendorURL = window.URL || window.webkitURL;
-                            video.src = vendorURL.createObjectURL(stream);
-                        }
-                        video.play();
-                        myStream = stream;
-                        $("#errormessage").hide();
-                        $("#video").show();
-                        $("#shotButton").show();
-                    }, function() {
+                    if (navigator.getMedia != undefined) {
+                        navigator.getMedia({
+                            video: true,
+                            audio: false
+                        }, function(stream) {
+                            if (navigator.mozGetUserMedia) {
+                                video.mozSrcObject = stream;
+                            } else {
+                                var vendorURL = window.URL || window.webkitURL;
+                                video.src = vendorURL.createObjectURL(stream);
+                            }
+                            video.play();
+                            myStream = stream;
+                            $("#errormessage").hide();
+                            $("#video").show();
+                            $("#shotButton").show();
+                        }, function() {
+                            $("#video").hide();
+                            $("#shotButton").hide();
+                            $("#errormessage").show();
+                        });
+
+                        video.addEventListener('canplay', function() {
+                            if (!streaming) {
+                                if (video.videoHeight != 0) {
+                                    height = video.videoHeight / (video.videoWidth / width);
+                                    video.setAttribute('width', width);
+                                    video.setAttribute('height', height);
+                                    canvas.setAttribute('width', width);
+                                    canvas.setAttribute('height', height);
+                                    console.log(width + "x" + height);
+                                } else {
+                                    canvas.setAttribute('width', video.getAttribute('width'));
+                                    canvas.setAttribute('height', video.getAttribute('height'));
+                                    console.log("video resolution is undefined");
+                                }
+                                streaming = true;
+                                iframeExt.update();
+                                setTimeout(function() {
+                                    iframeExt.update();
+                                }, 500);
+                            }
+                        }, false);
+                    } else {
                         $("#video").hide();
                         $("#shotButton").hide();
                         $("#errormessage").show();
-                    });
-
-                    video.addEventListener('canplay', function() {
-                        if (!streaming) {
-                            height = video.videoHeight / (video.videoWidth / width);
-                            video.setAttribute('width', width);
-                            video.setAttribute('height', height);
-                            canvas.setAttribute('width', width);
-                            canvas.setAttribute('height', height);
-                            streaming = true;
-                            console.log(width + "x" + height);
-                            iframeExt.update();
-                        }
-                    }, false);
+                    }
+                } else {
+                    video.play();
                 }
             }
 
@@ -154,21 +162,18 @@
                 $("#shotButtons").hide();
                 $("#sendButtons").show();
                 canvas.getContext('2d').drawImage(video, 0, 0, width, height);
-                ev.preventDefault();
             }
 
             function shotAgainClick() {
                 video.play();
                 $("#sendButtons").hide();
                 $("#shotButtons").show();
-                ev.preventDefault();
             }
 
             function sendClick() {
                 dataURL = canvas.toDataURL("image/jpeg");
                 send(dataURL);
                 $('#sendButton').attr("disabled", "disabled");
-                ev.preventDefault();
             }
 
             function uploadClick() {

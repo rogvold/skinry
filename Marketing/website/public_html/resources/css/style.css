@@ -71,3 +71,7 @@
 #tryFrame::-webkit-scrollbar {
   display: none;
 }
+
+.at4-thankyou {
+    display: none !important;
+}

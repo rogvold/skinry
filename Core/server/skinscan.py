@@ -35,6 +35,15 @@ def crop_face(image, result_points):
     masked_image = cv2.bitwise_and(image, mask)
     return masked_image
 
+def change_constrast(image, alpha, beta):
+    array_alpha = np.array([alpha])
+    array_beta = np.array([beta])
+
+    cv2.add(image, array_beta, image)
+    cv2.multiply(image, array_alpha, image)
+
+    return image
+
 def sift(image, contrast_threshold, edge_threshold, sigma):
     sift = cv2.SIFT(0, 5, contrast_threshold, edge_threshold, sigma)
     key_points = sift.detect(image, None)
@@ -100,9 +109,9 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     octaves = [5]
     contrast_thresholds = [0.015, 0.02, 0.025]
     edge_thresholds = [10]
-    sigmas = [1.2, 1.4, 1.6, 1.8]
+    sigmas = [1.2, 1.4, 1.6]
 
-    key_points = grid_sift(roi, octaves, contrast_thresholds, edge_thresholds, sigmas, delta=4)
+    key_points = grid_sift(roi, octaves, contrast_thresholds, edge_thresholds, sigmas, delta=2)
     key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
     key_points = kpproc.delete_repeating_points(key_points)
 
@@ -125,6 +134,8 @@ def otsu_grid_search(roi, image, result_points, limbs):
     return result_image, score
 
 def mono_search(roi, image, result_points, limbs, **kwargs):
+    roi = change_constrast(roi, alpha=2.0, beta=-60.0)
+
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
     #roi = get_otsu(roi, thresh_val=135, type=cv2.THRESH_BINARY)
     roi = get_otsu(roi, **kwargs)
@@ -144,9 +155,9 @@ def mono_search(roi, image, result_points, limbs, **kwargs):
 def process_photo(file_name):
     result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, image = fd.get_param(file_name)
     roi = crop_face(image, result_points)
-    #roi = kpproc.crop_limbs(roi, eyes_coordinates, nose_coordinates, mouth_coordinates)
-
     limbs = [nose_coordinates, mouth_coordinates, eyes_coordinates]
+
+    #roi = kpproc.crop_limbs(roi, limbs)
 
     result_image, score = otsu_grid_search(roi, image, result_points, limbs)
     #result_image, score = sift_grid_search(roi, image, result_points, limbs, thresh_val=200, type=cv2.THRESH_TRUNC)
@@ -192,11 +203,13 @@ def detect_deffects(file_name):
     return return_file_name, score
 
 #process_files('photo')
+#detect_deffects('1.jpg')
 
 #TODO sift grid decrease delta
-#TODO classes?
 #TODO time optimization
+#TODO classes?
 
+#TODO median blur
 #TODO combined grid
 #TODO binary thresholding?
 #TODO points alongside contour in the case of bad face recognition (clasterization?)

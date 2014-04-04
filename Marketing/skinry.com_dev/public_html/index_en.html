@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Skinry</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+
+        <meta property="og:title" content="Skinry" />
+        <meta property="og:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
+        <meta property="og:url" content="skinry.com" />
+        <meta property="og:image" content="//skinry.com/resources/img/girl-mini.png" />
+        <link rel="image_src" href="//skinry.com/resources/img/girl-mini.png" />
+
+        <meta name="description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
+        <meta name="keywords" content="Сканер кожи, проблемная кожа, средство от прыщей, прыщи, угри, лечение прыщей, сканер прыщей">
+        <meta name="author" content="Skinry group">
+        <meta name="robots" content="noimageindex">
+
+        <meta property="vk:title" content="Skinry" />
+        <meta property="vk:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
+        <meta property="vk:image" content="//skinry.com/resources/img/girl-mini.png" />
+        <meta property="vk:app_id" content="4226137" />
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <script type="text/javascript" src="resources/js/jquery-2.1.0.min.js"></script>
+        <script type="text/javascript" src="resources/js/xml_http_request.js"></script>
+        <script type="text/javascript" src="resources/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="resources/js/parse-1.2.17.min.js"></script>
+        <script type="text/javascript" src="resources/js/iframeheight.min.js"></script>
+        <script type="text/javascript" src="resources/js/main.js"></script>
+        <script type="text/javascript" src="//vk.com/js/api/openapi.js?105"></script>
+        <script type="text/javascript">
+            VK.init({
+                apiId: 4226137,
+                onlyWidgets: true
+            });
+        </script>
+
+        <link rel="Shortcut Icon" type="image/x-icon" href="resources/img/shortcut.png">
+        <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="resources/css/public-main.css">
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+    </head>
+    <body class="page-home">
+        <div class="page">
+            <div class="main">
+                <div id="home-bg">
+                    <div class="btn-group btn-group-justified" style='padding-top: 20px; padding-right: 20px; float:right; width: 110px;'>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="window.location = 'index.html'">ru</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="window.location = 'index_en.html'">en</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="wrap">
+                    <div class="home-phones" id="iphone">
+                        <div id="iphone-overlay">
+                            <img src="resources/img/p0.png" class="active non-retina" style="opacity: 1;">
+                            <img src="resources/img/p1.png" class="non-retina" style="opacity: 1;">
+                            <img src="resources/img/p2.png" class="non-retina" style="opacity: 1;">
+                        </div>
+
+                        <i class="home-phones-glare"></i>
+                    </div>
+                    <div class="content">
+                        <a href="javascript:void(0);" class="home-login">
+                            <div id="vk_like" style="display: inline-block;">
+                            </div>
+                        </a>
+
+                        <script type="text/javascript">
+                            VK.Widgets.Like("vk_like", {type: "button"});
+                        </script>
+
+                        <h1 class="title">Skinry - look for your skin</h1>
+
+                        <div class="tab">
+                            <div class="tab-content">
+                                <h1 style="margin-right: 60px;" >Keep clean your skin</h1>
+
+                                <p>Regularly <strong>take pictures</strong> of your face</p>
+                                <p>The program analyses problem areas, counts different parameters of your skin's <strong>cleanliness</strong></p>
+                                <p>Look through your skin's <strong>history</strong>, find out reasons for emergence of <strong>problems</strong></p>
+
+                                <div id="badges" class="platform-badge-container">
+                                    <img class="platform-badge" src="resources/img/badge_appstore.png" alt="Available on the App Store" onclick="appleClick()">
+                                    <img class="platform-badge" src="resources/img/badge_googleplay.png" alt="Available on the Android" onclick="androidClick()">
+                                </div>
+
+                                <div id="soon" style="display: none;">
+                                    <h3>The application will soon be ready</h3>
+                                    <p>Leave your <b>e-mail</b> and we will inform you about the launch.</p>
+                                    <p>For the first <strong>500</strong> users the application will remain free forever!</p>
+                                    <textarea id="wishes" placeholder="Your wishes"></textarea>
+                                    <div class="input-group input-group">
+                                        <input type="text" id="email" placeholder="Email" class="form-control input" >
+                                        <span class="input-group-btn btn-group-custom">
+                                            <button id="submitButton" class="btn btn-primary">Submit</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div id="thankyou" style="display: none;">
+                                    <h3 style="text-align: center;">
+                                        Thank you for your feedback. <br/> 
+                                        We highly appreciate your opinion. <br/> 
+                                        You will be one of the first, <br/> 
+                                        who know about the application.
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer" role="contentinfo">
+            <div class="wrapper">
+                <nav>
+                    <ul>
+                        <li><a href="http://blog.skinry.com/">Blog</a></li>
+                        <li><a href="http://facebook.com/skinry">Facebook</a></li>
+                        <li><a href="http://vk.com/skinry">Vkontakte</a></li>
+                        <li><a href="http://twitter.com/skinry_scanner">Twitter</a></li>
+                        <li><a href="articles/article1.html">Articles</a></li>
+                    </ul>
+                </nav>
+
+                <p class="copyright">© 2014 Skinry</p>
+
+            </div>
+        </footer>
+
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function(d, w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter24132985 = new Ya.Metrika({id: 24132985, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true});
+                    } catch (e) {
+                    }
+                });
+                var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function() {
+                    n.parentNode.insertBefore(s, n);
+                };
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+                if (w.opera == "[object Opera]") {
+                    d.addEventListener("DOMContentLoaded", f, false);
+                } else {
+                    f();
+                }
+            })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript>
+        <div>
+            <img src="//mc.yandex.ru/watch/24132985" style="position:absolute; left:-9999px;" alt="" />
+        </div>
+        </noscript>
+        <!-- /Yandex.Metrika counter -->
+
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533754205513437f"></script>
+        <script type="text/javascript" src="resources/js/retina-1.1.0.min.js"></script>
+
+        <script type="text/javascript">
+            function emailAlert() {
+                alert('Email is invalid. Please try again.');
+            }
+        </script> 
+    </body>
+</html>

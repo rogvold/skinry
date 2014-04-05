@@ -1,6 +1,9 @@
 var store;
 
-$(function() {
+$(function () {
+    jQuery.fn.exists = function () {
+        return this.length > 0;
+    };
     initSubscriptionForm();
     setTimeout("next_slide()", 5000);
 });
@@ -9,7 +12,7 @@ function initSubscriptionForm() {
     var applicationId = "BiixOUv8TBRRCc9PnScmyF2XMHRZhx2LfmvdqtvA";
     var javaScriptKey = "Sj5Vw02dRs3zI59caHeMQCEB9EXrNcsKPe0xkczc";
     Parse.initialize(applicationId, javaScriptKey);
-    $('#submitButton').click(function() {
+    $('#submitButton').click(function () {
         subscribe();
     });
 }
@@ -20,7 +23,7 @@ function next_slide() {
         active = $('#iphone-overlay img:last');
     var next = active.next().length ? active.next() : $('#iphone-overlay img:first');
     active.addClass('last-active');
-    next.css({opacity: 0.0}).addClass('active').animate({opacity: 1.0}, 1500, function() {
+    next.css({opacity: 0.0}).addClass('active').animate({opacity: 1.0}, 1500, function () {
         active.removeClass('active last-active');
     });
     setTimeout("next_slide()", 5000);
@@ -64,7 +67,7 @@ function subscribe() {
     feedback.set("email", email);
     feedback.set("wishes", message);
     feedback.set("store", store);
-    feedback.save().then(function() {
+    feedback.save().then(function () {
         toThankYou();
     });
 }

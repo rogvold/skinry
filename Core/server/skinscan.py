@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import os
+from matplotlib import pyplot as plt
 import fd
 import kpproc
 
@@ -49,8 +50,11 @@ def sift(image, contrast_threshold, edge_threshold, sigma):
     key_points = sift.detect(image, None)
     return key_points
 
+def get_blur(image, param=5):
+    image = cv2.medianBlur(image, param)
+    return image
+
 def get_otsu(image, thresh_val, type):
-    #image = cv2.medianBlur(image,5)
     r, image = cv2.threshold(image, thresh_val, 255, type)
     return image
 
@@ -103,7 +107,8 @@ def grid_otsu(roi,threshs, delta):
     return good_points
 
 def sift_grid_search(roi, image, result_points, limbs, **kwargs):
-    roi = change_constrast(roi, 2.0, -60.0)
+    roi = change_constrast(roi, 2.0, -70.0)
+    roi = get_blur(roi, 9)
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
     roi = get_otsu(roi, **kwargs)
 
@@ -112,7 +117,7 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     edge_thresholds = [10]
     sigmas = [1.2, 1.6]
 
-    key_points = grid_sift(roi, octaves, contrast_thresholds, edge_thresholds, sigmas, delta=1)
+    key_points = grid_sift(roi, octaves, contrast_thresholds, edge_thresholds, sigmas, delta=2)
     key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
     key_points = kpproc.delete_repeating_points(key_points)
 
@@ -122,11 +127,12 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     return result_image, score
 
 def otsu_grid_search(roi, image, result_points, limbs):
-    threshs = [160, 180, 200, 220]
-    roi = change_constrast(roi, alpha=2.0, beta=-60.0)
+    threshs = [220, 230, 240]
+    roi = change_constrast(roi, alpha=2.0, beta=-70.0)
+    roi = get_blur(roi, 9)
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
 
-    key_points = grid_otsu(roi, threshs, delta=1)
+    key_points = grid_otsu(roi, threshs, delta=2)
     key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
     key_points = kpproc.delete_repeating_points(key_points)
 
@@ -136,7 +142,8 @@ def otsu_grid_search(roi, image, result_points, limbs):
     return result_image, score
 
 def mono_search(roi, image, result_points, limbs, **kwargs):
-    roi = change_constrast(roi, alpha=2.0, beta=-60.0)
+    roi = change_constrast(roi, alpha=2.0, beta=-70.0)
+    roi = get_blur(roi, 9)
 
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
     #roi = get_otsu(roi, thresh_val=135, type=cv2.THRESH_BINARY)
@@ -161,9 +168,9 @@ def process_photo(file_name):
 
     #roi = kpproc.crop_limbs(roi, limbs)
 
-    result_image, score = otsu_grid_search(roi, image, result_points, limbs)
-    #result_image, score = sift_grid_search(roi, image, result_points, limbs, thresh_val=200, type=cv2.THRESH_TRUNC)
-    #result_image, score = mono_search(roi, image, result_points, limbs, thresh_val=200, type=cv2.THRESH_TRUNC)
+    #result_image, score = otsu_grid_search(roi, image, result_points, limbs)
+    result_image, score = sift_grid_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
+    #result_image, score = mono_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
 
     result_image = draw_face(result_image, result_points)
 
@@ -184,7 +191,7 @@ def process_files(name):
                     file_name = path + file
                     try:
                         image, score = process_photo(file_name)
-                        new_file_name = path + 'proc_' + file
+                        new_file_name = path + 'proc_otsugrid_contrast' + file
                         save_image(image, new_file_name)
                     except ValueError:
                         print file_name + '_ERROR'
@@ -212,6 +219,7 @@ def detect_deffects(file_name):
 #TODO median blur
 #TODO combined grid
 #TODO binary thresholding?
+#TODO get contrast with hist
 
 #TODO points alongside contour in the case of bad face recognition (clasterization?)
 #TODO FAST?

@@ -341,12 +341,10 @@ def change_points(img, points, border = 4):
                 count_right = 0
         else:
             val = dic.get(j)
-            if val == None:
+            if val != None:
                 if val[0] != -1:
-                    print val[0], j
                     result_points.append((val[0], j))
                 if val[1] != -1:
-                    print val[1], j
                     result_points.append((val[1], j))
 
         if i == 28:

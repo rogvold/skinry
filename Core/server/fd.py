@@ -4,6 +4,7 @@ from sklearn.neighbors import KNeighborsClassifier
 import cv2
 import cv2.cv as cv
 import sys
+from scipy import ndimage
 
 def rotate(A, B, C):
     return (B[0] - A[0]) * (C[1] - B[1]) - (B[1] - A[1]) * (C[0] - B[0])
@@ -194,40 +195,42 @@ def define_contours(img):
     h, w = img.shape[:2]
     delta = h / 30
 
-    j = 1
+    j = 1 + delta
     points = []
+    points.append((int(0.4 * w), 20))
+    points.append((int(0.6 * w), 20))
 
-    for i in range(0, 30):
+    for i in range(1, 30):
         test = zip(b[j], g[j], r[j])
         res = estimator.predict(test)
         x1 = x2 = -1
-        
+
         count = 0
         for k in range(int(0.5 * w), w):
             if res[k] == 1:
                 count += 1
-                if count > 20:
+                if count > 30:
                     x2 = k
             else:
                 count = 0
-        
+
         count = 0
         for k in range(int(w / 2), -1, -1):
             if res[k] == 1:
                 count += 1
-                if count > 20:
+                if count > 30:
                     x1 = k
             else:
                 count = 0
-        
+
 
         if x1 >= 10:
             points.append((x1, j))
         if x2 > -1 and x2 <= w - 9:
             points.append((x2, j))
-        
+
         if i == 28:
-            j = h - 5
+            j = h - 20
         else:
             j += delta
 
@@ -235,8 +238,128 @@ def define_contours(img):
     points.append((int(0.6 * w), h - 1))
 
     points = grahamscan(points)
-    
+
     return points
+
+def get_right_x(center, axes, y):
+    return int(center[0] + axes[0] * pow(1.0 - 1.0 * (center[1] -
+        y) * (center[1] - y) / (axes[1] * axes[1]), 0.5))
+
+def get_left_x(center, axes, y):
+    return int(center[0] - axes[0] * pow(1.0 - 1.0 * (center[1] -
+        y) * (center[1] - y) / (axes[1] * axes[1]), 0.5))
+
+def change_points(img, points, border = 4):
+    center = (img.shape[1] / 2, img.shape[0] / 2)
+    axes = (int(0.45 * img.shape[1]), int(0.48 * img.shape[0]))
+
+    dic = dict()
+    for p in points:
+        if dic.get(p[1]) == None:
+            dic[p[1]] = (p[0], -1)
+        else:
+            dic[p[1]] = (p[0], dic[p[1]][0])
+
+    h, w = img.shape[:2]
+    delta = h / 30
+    j = 1 + delta
+    count_left = 0
+    count_right = 0
+    result_points = []
+    result_points.append((int(0.4 * w), 1))
+    result_points.append((int(0.6 * w), 1))
+
+    for i in range(1, 30):
+        if abs(j - h / 2) < axes[1]:
+            val = dic.get(j)
+            if val == None:
+                count_left += 1
+                count_right += 1
+            else:
+                if val[0] == -1:
+                    if val[1] == -1:
+                        count_left += 1
+                        count_right += 1
+                    else:
+                        if val[1] > w / 2:
+                            count_right = 0
+                            count_left += 1
+                            x = get_right_x(center, axes, j)
+                            if abs(x - val[1]) > 1.0 * w / border:
+                                result_points.append((int(x), j))
+                            else:
+                                result_points.append((val[1], j))
+                        else:
+                            count_left = 0
+                            count_right += 1
+                            x = get_left_x(center, axes, j)
+                            if abs(x - val[1]) > 1.0 * w / border:
+                                result_points.append((int(x), j))
+                            else:
+                                result_points.append((val[1], j))
+                else:
+                    if val[1] == -1:
+                        if val[0] > w / 2:
+                            count_right = 0
+                            count_left += 1
+                            x = get_right_x(center, axes, j)
+                            if abs(x - val[0]) > 1.0 * w / border:
+                                result_points.append((int(x), j))
+                            else:
+                                result_points.append((val[0], j))
+                        else:
+                            count_left = 0
+                            count_right += 1
+                            x = get_left_x(center, axes, j)
+                            if abs(x - val[0]) > 1.0 * w / border:
+                                result_points.append((int(x), j))
+                            else:
+                                result_points.append((val[0], j))
+                    else:
+                        count_right = 0
+                        count_left = 0
+                        if val[0] > val[1]:
+                            val = (val[1], val[0])
+                        x = get_right_x(center, axes, j)
+                        if abs(x - val[1]) > 1.0 * w / border:
+                            result_points.append((int(x), j))
+                        else:
+                            result_points.append((val[1], j))
+                        x = get_left_x(center, axes, j)
+                        if abs(x - val[0]) > 1.0 * w / border:
+                            result_points.append((int(x), j))
+                        else:
+                            result_points.append((val[0], j))
+
+            if count_left > 10:
+                x = get_left_x(center, axes, j)
+                result_points.append((int(x), j))
+                count_left = 0
+            if count_right > 10:
+                x = get_right_x(center, axes, j)
+                result_points.append((int(x), j))
+                count_right = 0
+        else:
+            val = dic.get(j)
+            if val == None:
+                if val[0] != -1:
+                    print val[0], j
+                    result_points.append((val[0], j))
+                if val[1] != -1:
+                    print val[1], j
+                    result_points.append((val[1], j))
+
+        if i == 28:
+            j = h - 20
+        else:
+            j += delta
+
+    result_points.append((int(0.4 * w), h - 1))
+    result_points.append((int(0.6 * w), h - 1))
+
+    result_points = grahamscan(result_points)
+
+    return result_points
 
 def get_param(file_name):
     img = cv2.imread(file_name)
@@ -246,5 +369,6 @@ def get_param(file_name):
     face_image, eyes_coordinates, nose_coordinates, mouth_coordinates = detect_face_and_organs(img)
     # 'result_points' - array of contour's points
     result_points = define_contours(face_image)
+    result_points = change_points(face_image, result_points)
     
     return result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, face_image

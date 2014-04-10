@@ -5,7 +5,13 @@ from matplotlib import pyplot as plt
 import fd
 import kpproc
 
-def read_image(fileName, type):
+def read_image(fileName, type=cv2.IMREAD_COLOR):
+    """
+    Read the image and return Image object
+
+    Input: string fileName and the type of color
+    """
+
     image = cv2.imread(fileName, type)
     return image
 
@@ -21,6 +27,16 @@ def draw_face(image, result_points):
     for i in range(1, len(result_points)):
         cv2.line(image, result_points[i - 1], result_points[i],  (0, 0, 255), 2)
     cv2.line(image, result_points[0], result_points[len(result_points) - 1],  (0, 0, 255), 2)
+    return image
+
+def draw_circles(image, key_points):
+    for kp in key_points:
+        x = int(kp.pt[0])
+        y = int(kp.pt[1])
+        center = (x, y)
+        size = int(kp.size / 2)
+        cv2.circle(image, center, size, (255, 0, 0), 1)
+
     return image
 
 def crop_face(image, result_points):
@@ -44,6 +60,12 @@ def change_constrast(image, alpha, beta):
     cv2.multiply(image, array_alpha, image)
 
     return image
+
+def will_use_contrast(image):
+    bins = range(160, 230)
+    hist,bins = np.histogram(image.ravel(), bins,[0,256])
+    summ = hist.sum()
+    return summ < 100000
 
 def sift(image, contrast_threshold, edge_threshold, sigma):
     sift = cv2.SIFT(0, 5, contrast_threshold, edge_threshold, sigma)
@@ -107,54 +129,62 @@ def grid_otsu(roi,threshs, delta):
     return good_points
 
 def sift_grid_search(roi, image, result_points, limbs, **kwargs):
-    roi = change_constrast(roi, 2.0, -70.0)
-    roi = get_blur(roi, 9)
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+
+    if will_use_contrast(roi):
+        roi = change_constrast(roi, 1.7, -70.0)
+
+    #roi = get_blur(roi, 3)
     roi = get_otsu(roi, **kwargs)
 
     octaves = [5]
     contrast_thresholds = [0.02, 0.025]
-    edge_thresholds = [10]
-    sigmas = [1.2, 1.6]
+    edge_thresholds = [5]
+    sigmas = [1.2, 1.4]
 
     key_points = grid_sift(roi, octaves, contrast_thresholds, edge_thresholds, sigmas, delta=2)
     key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
     key_points = kpproc.delete_repeating_points(key_points)
 
     score = kpproc.get_score(image, key_points)
-    result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+    result_image = draw_circles(image, key_points)
 
     return result_image, score
 
 def otsu_grid_search(roi, image, result_points, limbs):
-    threshs = [220, 230, 240]
-    roi = change_constrast(roi, alpha=2.0, beta=-70.0)
-    roi = get_blur(roi, 9)
+    threshs = [190, 200, 210]
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+
+    if will_use_contrast(roi):
+        roi = change_constrast(roi, alpha=1.7, beta=-70.0)
+
+    #roi = get_blur(roi, 3)
 
     key_points = grid_otsu(roi, threshs, delta=2)
     key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
     key_points = kpproc.delete_repeating_points(key_points)
 
     score = kpproc.get_score(image, key_points)
-    result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+    result_image = draw_circles(image, key_points)
 
     return result_image, score
 
 def mono_search(roi, image, result_points, limbs, **kwargs):
-    roi = change_constrast(roi, alpha=2.0, beta=-70.0)
-    roi = get_blur(roi, 9)
-
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+
+    if will_use_contrast(roi):
+        roi = change_constrast(roi, alpha=1.7, beta=-70.0)
+
+    #roi = get_blur(roi, 3)
     #roi = get_otsu(roi, thresh_val=135, type=cv2.THRESH_BINARY)
     roi = get_otsu(roi, **kwargs)
 
-    key_points = sift(roi, contrast_threshold=0.02, edge_threshold=10, sigma=1.6)
+    key_points = sift(roi, contrast_threshold=0.025, edge_threshold=5, sigma=1.0)
     key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
     key_points = kpproc.delete_repeating_points(key_points)
 
     score = kpproc.get_score(image, key_points)
-    result_image = cv2.drawKeypoints(image, key_points, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+    result_image = draw_circles(image, key_points)
 
     #result_image = roi
     #score = 0
@@ -191,7 +221,8 @@ def process_files(name):
                     file_name = path + file
                     try:
                         image, score = process_photo(file_name)
-                        new_file_name = path + 'proc_otsugrid_contrast' + file
+                        new_file_name = path + 'proc_otsugrid_contrast_09_04_' + file
+                        print new_file_name
                         save_image(image, new_file_name)
                     except ValueError:
                         print file_name + '_ERROR'
@@ -212,19 +243,19 @@ def detect_deffects(file_name):
     return return_file_name, score
 
 #process_files('photo')
-#detect_deffects('1.jpg')
+#detect_deffects('2.jpg')
 
-#TODO contrast params, need grid?, new otsu and sift params
-#TODO time optimization
-#TODO median blur
-#TODO combined grid
+#TODO median blur, combined grid? increase delta? better params
 #TODO binary thresholding?
-#TODO get contrast with hist
-
-#TODO points alongside contour in the case of bad face recognition (clasterization?)
+#TODO hist param
+#TODO size/2?
+#TODO add docs
 #TODO FAST?
-#TODO real deffects near limbs? resize photo?
 #TODO cheecks, relief?
+
+#TODO time optimization
+#TODO points alongside contour in the case of bad face recognition (clasterization?)
+#TODO real deffects near limbs?
 #TODO genetic algorythm
 
 

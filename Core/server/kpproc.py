@@ -117,7 +117,6 @@ def delete_unused_keypoints(image, key_points, result_points, limbs):
 
     new_kp = []
     dist = 0.03 * max(image.shape[0], image.shape[1])
-    print round(0.007 * max(image.shape[0], image.shape[1]))
     min_size = max(3.0, round(0.007 * max(image.shape[0], image.shape[1])))
     max_size = 0.055 * max(image.shape[0], image.shape[1])
     nose_coordinates = limbs[0]
@@ -194,7 +193,7 @@ def delete_repeating_points(good_points):
                 x2 = int(kp2.pt[0])
                 y2 = int(kp2.pt[1])
                 dist = math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
-                if dist < kp1.size and kp1.size > kp2.size:
+                if dist < (kp1.size / 2) and kp1.size > kp2.size:
                     repeating_points.append(kp1)
 
     good_points = list(set(good_points) - set(repeating_points))

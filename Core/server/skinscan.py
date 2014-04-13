@@ -215,7 +215,11 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     edge_thresholds = [5]
     sigmas = [1.2, 1.4, 1.6]
 
-    key_points = grid_sift(roi, contrast_thresholds, edge_thresholds, sigmas, delta=3)
+    key_points1 = grid_sift(roi, contrast_thresholds, edge_thresholds, sigmas, delta=3)
+    key_points2 = sift(roi, contrast_threshold=0.035, edge_threshold=5, sigma=1.0)
+
+    key_points = key_points1 + key_points2
+
     key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
     key_points = kpproc.delete_repeating_points(key_points)
 
@@ -305,7 +309,7 @@ def mono_search(roi, image, result_points, limbs, **kwargs):
 
     roi = get_otsu(roi, **kwargs)
 
-    key_points = sift(roi, contrast_threshold=0.025, edge_threshold=5, sigma=1.0)
+    key_points = sift(roi, contrast_threshold=0.035, edge_threshold=5, sigma=1.0)
     key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
     key_points = kpproc.delete_repeating_points(key_points)
 
@@ -330,8 +334,8 @@ def process_photo(file_name):
 
     #result_image, score = otsu_grid_search(roi, image, result_points, limbs,
     #                                       contrast_threshold=0.02, edge_threshold=10, sigma=1.6)
-    #result_image, score = sift_grid_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
-    result_image, score = mono_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
+    result_image, score = sift_grid_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
+    #result_image, score = mono_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
 
     result_image = draw_face(result_image, result_points)
 
@@ -374,8 +378,7 @@ def detect_deffects(file_name):
 
     result_image, score = process_photo(new_file_name)
 
-    print 'total score - ' + str(score)
-    print 'total time - ' + str(print_time(time))
+    print 'total score - {0}, total time - {1}'.format(score, print_time(time))
 
     return_file_name = 'proc_' + file_name
     new_file_name = 'uploads/' + return_file_name
@@ -390,7 +393,7 @@ def detect_deffects(file_name):
 #TODO cheecks, relief?
 
 #TODO time optimization
-#TODO points alongside contour in the case of bad face recognition (clasterization?)
+#TODO points alongside contour in the case of bad face recognition (clasterization?) color detection?
 #TODO real deffects near limbs?
 #TODO genetic algorythm
 

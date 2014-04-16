@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 import sys
+from collections import Counter
 import math
 
 def crop_limbs(masked_image, limbs):
@@ -117,7 +118,7 @@ def delete_unused_keypoints(image, key_points, result_points, limbs):
 
     new_kp = []
     dist = 0.03 * max(image.shape[0], image.shape[1])
-    min_size = max(3.0, round(0.007 * max(image.shape[0], image.shape[1])))
+    min_size = max(4.0, round(0.007 * max(image.shape[0], image.shape[1])))
     max_size = 0.055 * max(image.shape[0], image.shape[1])
     nose_coordinates = limbs[0]
     mouth_coordinates = limbs[1]
@@ -256,5 +257,49 @@ def get_score(original_image, key_points):
 
     return score
 
+def combine_points(key_points1, key_points2):
+    new_points = []
+
+    for kp2 in key_points2:
+        x2 = int(kp2.pt[0])
+        y2 = int(kp2.pt[1])
+        isRepeated = False
+        for kp1 in key_points1:
+            x1 = int(kp1.pt[0])
+            y1 = int(kp1.pt[1])
+            if x1 == x2 or y1 == y2:
+                isRepeated = True
+                break
+        if not isRepeated:
+            new_points.append(kp2)
+
+    dict = {}
+    print len(new_points)
+
+    if len(key_points1) < 15:
+        return new_points
+    elif len(key_points1) < 30:
+        for kp in new_points:
+            dict[kp] = kp.response
+
+        points = sorted(dict.items(), key=lambda (k, v): v, reverse=True)
+        ind = min(int(len(key_points1) / 1.5), len(points))
+        return [point[0] for point in points[ind:]]
+    elif len(key_points1) < 50:
+        for kp in new_points:
+            dict[kp] = kp.response
+
+        points = sorted(dict.items(), key=lambda (k, v): v, reverse=True)
+        ind = min(int(len(key_points1) / 2), len(points))
+
+        return [point[0] for point in points[ind:]]
+    else:
+        for kp in new_points:
+            dict[kp] = kp.response
+
+        points = sorted(dict.items(), key=lambda (k, v): v, reverse=True)
+        ind = min(int(len(key_points1) / 3), len(points))
+
+        return [point[0] for point in points[ind:]]
 
 

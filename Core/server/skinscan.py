@@ -115,7 +115,7 @@ def contrast_val(image):
     if summ < 100000:
         return 1.7
     else:
-        return 1.6
+        return 1.3
 
 def sift(image, contrast_threshold=0.025, edge_threshold=5, sigma=1.0):
     """
@@ -213,18 +213,24 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
 
     contrast_thresholds = [0.02, 0.025]
     edge_thresholds = [5]
-    sigmas = [1.2, 1.4, 1.6]
+    sigmas = [1.2, 1.4]
 
     key_points1 = grid_sift(roi, contrast_thresholds, edge_thresholds, sigmas, delta=3)
     key_points2 = sift(roi, contrast_threshold=0.035, edge_threshold=5, sigma=1.0)
 
-    key_points = key_points1 + key_points2
+    key_points1 = kpproc.delete_unused_keypoints(roi, key_points1, result_points, limbs)
+    key_points2 = kpproc.delete_unused_keypoints(roi, key_points2, result_points, limbs)
 
-    key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
-    key_points = kpproc.delete_repeating_points(key_points)
+    key_points2 = kpproc.combine_points(key_points1, key_points2)
+    key_points1 = key_points1 + key_points2
 
-    score = kpproc.get_score(image, key_points)
-    result_image = draw_circles(image, key_points)
+    key_points1 = kpproc.delete_repeating_points(key_points1)
+
+    score = kpproc.get_score(image, key_points1)
+    result_image = draw_circles(image, key_points1)
+
+    #score = 0
+    #result_image = roi
 
     return result_image, score
 
@@ -360,7 +366,7 @@ def process_files(name):
                     file_name = path + file
                     try:
                         image, score = process_photo(file_name)
-                        new_file_name = path + 'proc_11_04_siftgrid_newcontrast_noblur_newparams_' + file
+                        new_file_name = path + 'proc_14_04_siftgrid+mono' + file
                         print new_file_name
                         save_image(image, new_file_name)
                     except ValueError:
@@ -389,6 +395,8 @@ def detect_deffects(file_name):
 #process_files('photo')
 #detect_deffects('1.jpg')
 
+#TODO contrast and sift constants
+#TODO real photo
 #TODO binary thresholding?
 #TODO cheecks, relief?
 

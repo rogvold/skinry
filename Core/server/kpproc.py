@@ -1,9 +1,16 @@
 import numpy as np
 import cv2
 import sys
+from collections import Counter
 import math
 
 def crop_limbs(masked_image, limbs):
+    """
+    Return image without face limbs
+
+    Input: image and array of coordinates of limbs
+    """
+
     black = (255, 255, 255)
     nose_coordinates = limbs[0]
     mouth_coordinates = limbs[1]
@@ -31,13 +38,34 @@ def crop_limbs(masked_image, limbs):
     return masked_image
 
 def get_coords(array, alpha, beta, width, height):
+    """
+    Return coordinates of resized limbs
+
+    Input:
+        array (limb coordinates)
+        alpha (OX resize coefficient)
+        beta (OY resize coefficient)
+        width of limb
+        height of limb
+    """
+
     from_y = array[1] - beta * height
     to_y = from_y + array[3] + 2 * beta * height
     from_x = array[0] - alpha * width
     to_x = from_x + array[2] + 2 * alpha * width
+
     return int(from_x), int(to_x), int(from_y),int(to_y)
 
 def is_close(x, y, x1, y1, x2, y2, dist):
+    """
+    Return condition of point and segment closeness
+
+    Input:
+        x, y - coordinates of first point
+        x1, y1, x2, y2 - coordinates of segment
+        dist (if distance is less than it, answer will be 'yes')
+    """
+
     h = 0
     sc = (x2 - x1) * (x - x1) + (y - y1) * (y2 - y1)
     if sc <= 0:
@@ -47,9 +75,19 @@ def is_close(x, y, x1, y1, x2, y2, dist):
             h = math.sqrt((x - x2)**2 + (y - y2)**2)
         else:
             h = abs(((x1 - x2) * (y - y1) + (y2 - y1) * (x - x1)) / (math.sqrt((x2 - x1)**2 + (y2 - y1)**2)))
+
     return h < dist
 
 def check_border(x, y, result_points, dist):
+    """
+    Return condition of point and face contour closeness
+
+    Input:
+        x, y - coordinates of point
+        result_points - array of points (contour)
+        dist (if distance is less than it, answer will be 'yes')
+    """
+
     for i in range(0, len(result_points) - 1):
         x1 = result_points[i][0]
         x2 = result_points[i + 1][0]
@@ -68,10 +106,19 @@ def check_border(x, y, result_points, dist):
     return False
 
 def delete_unused_keypoints(image, key_points, result_points, limbs):
+    """
+    Delete unnecessary keyPoints, return new array of keyPoints
+
+    Input:
+        image
+        key_points (array of keyPoints)
+        result_points - array of points (contour)
+        array of limbs
+    """
+
     new_kp = []
     dist = 0.03 * max(image.shape[0], image.shape[1])
-    print round(0.007 * max(image.shape[0], image.shape[1]))
-    min_size = max(3.0, round(0.007 * max(image.shape[0], image.shape[1])))
+    min_size = max(4.0, round(0.007 * max(image.shape[0], image.shape[1])))
     max_size = 0.055 * max(image.shape[0], image.shape[1])
     nose_coordinates = limbs[0]
     mouth_coordinates = limbs[1]
@@ -127,9 +174,16 @@ def delete_unused_keypoints(image, key_points, result_points, limbs):
             continue
 
     key_points = list(set(key_points) - set(new_kp))
+
     return key_points
 
 def delete_repeating_points(good_points):
+    """
+    Delete repeating points, return new array of points
+
+    Input: good_points (array of points)
+    """
+
     repeating_points = []
 
     for kp1 in good_points:
@@ -140,7 +194,7 @@ def delete_repeating_points(good_points):
                 x2 = int(kp2.pt[0])
                 y2 = int(kp2.pt[1])
                 dist = math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
-                if dist < kp1.size and kp1.size > kp2.size:
+                if dist < (kp1.size / 2) and kp1.size > kp2.size:
                     repeating_points.append(kp1)
 
     good_points = list(set(good_points) - set(repeating_points))
@@ -148,10 +202,16 @@ def delete_repeating_points(good_points):
     return good_points
 
 def get_score(original_image, key_points):
+    """
+    Calculate and return skin score
+
+    Input: original_image and key_points (array of keyPoints)
+    """
+
     max_red = 0
     min_red = 255
     max_size = 0
-    min_size = 255
+    min_size = 1000
     score = 0
 
     for kp in key_points:
@@ -194,7 +254,52 @@ def get_score(original_image, key_points):
         score += point
 
     score = int(score)
+
     return score
 
+def combine_points(key_points1, key_points2):
+    new_points = []
+
+    for kp2 in key_points2:
+        x2 = int(kp2.pt[0])
+        y2 = int(kp2.pt[1])
+        isRepeated = False
+        for kp1 in key_points1:
+            x1 = int(kp1.pt[0])
+            y1 = int(kp1.pt[1])
+            if x1 == x2 or y1 == y2:
+                isRepeated = True
+                break
+        if not isRepeated:
+            new_points.append(kp2)
+
+    dict = {}
+    print len(new_points)
+
+    if len(key_points1) < 15:
+        return new_points
+    elif len(key_points1) < 30:
+        for kp in new_points:
+            dict[kp] = kp.response
+
+        points = sorted(dict.items(), key=lambda (k, v): v, reverse=True)
+        ind = min(int(len(key_points1) / 1.5), len(points))
+        return [point[0] for point in points[ind:]]
+    elif len(key_points1) < 50:
+        for kp in new_points:
+            dict[kp] = kp.response
+
+        points = sorted(dict.items(), key=lambda (k, v): v, reverse=True)
+        ind = min(int(len(key_points1) / 2), len(points))
+
+        return [point[0] for point in points[ind:]]
+    else:
+        for kp in new_points:
+            dict[kp] = kp.response
+
+        points = sorted(dict.items(), key=lambda (k, v): v, reverse=True)
+        ind = min(int(len(key_points1) / 3), len(points))
+
+        return [point[0] for point in points[ind:]]
 
 

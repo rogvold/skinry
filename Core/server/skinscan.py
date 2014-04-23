@@ -367,7 +367,7 @@ def process_files(name):
                     file_name = path + file
                     try:
                         image, score = process_photo(file_name)
-                        new_file_name = path + 'proc_17_04_siftgrid+mono_combination+5times' + file
+                        new_file_name = path + 'proc_23_04_blurGreed+mono_resize_' + str(score) + '_ ' + file
                         print new_file_name
                         save_image(image, new_file_name)
                     except ValueError:
@@ -398,7 +398,6 @@ def detect_deffects(file_name):
 
 #TODO more demanding sift params? Do we need it?
 #TODO cheecks, relief? with binary thresholding?
-#TODO score function change?
 
 #TODO points alongside contour in the case of bad face recognition (clasterization?) color detection?
 #TODO real deffects near limbs?

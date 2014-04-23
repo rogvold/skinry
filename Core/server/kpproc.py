@@ -201,9 +201,14 @@ def delete_repeating_points(good_points):
     return good_points
 
 def normalize_score(score):
+    if score == 0:
+        return 100.0
+
     score = float(score) / 100.0
-    new_score = (100 / (1 + math.e**(-(1.0/15.0)*(score - 30))) - 12) * 1.13 + 0.1
+    new_score = (100 /(1 + math.e**(-(1.0 / 20.0) * (score - 30))) - 18.5) * 1.21 + 0.4
+    new_score *= 10.0
     new_score = math.floor(new_score)
+    new_score = new_score / 10.0
 
     return 100.0 - new_score
 

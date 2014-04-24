@@ -5,11 +5,9 @@
 
     <script type=text/javascript src="{{url_for('static', filename='jquery-2.1.0.min.js')}}"></script>
     <script type=text/javascript src="{{url_for('static', filename='iframeheight.min.js')}}"></script>
-    <script type=text/javascript src="{{url_for('static', filename='parse-1.2.17.min.js')}}"></script>
-    <script type=text/javascript src="{{url_for('static', filename='jquery.raty.min.js')}}"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
 </head>
-<body style="width: 100%">
+<body style="width: 100%; overflow-x: hidden; overflow-y: hidden">
 <div id="uploadTab">
     Please upload a real photo of yourself.<br>
     We support only JPG files.<br>
@@ -37,7 +35,7 @@
 
 <div id="shotTab" style="display: none;">
     <video id="video" style="width: 100%; height: auto; background-color: #AAA;"></video>
-    <p id="errormessage" style="display: none;">Webcam access is off or other error</p>
+    <p id="errormessage" style="display: none;"></p>
     <canvas id="canvas" style="display: none;"></canvas>
     <div id="shotButtons" style="text-align: center">
         <button id="shotButton" type="button" class="btn btn-primary" onclick="shotClick();">Take photo</button>
@@ -60,7 +58,7 @@
         </h1>
         <div id="stars"></div>
 
-        <style type="text/css">
+        <style type="text/css" scoped="scoped">
             #stars {
                 width: auto !important;
             }
@@ -69,7 +67,7 @@
 
     <div id="commentPanel">
         <textarea id="comment" class="form-control"
-                  style="width: 100%; border-bottom-left-radius: 0; border-bottom-right-radius: 0; max-width: 100%"
+                  style="width: 100%; border-bottom-left-radius: 0; border-bottom-right-radius: 0; max-width: 100%; height: 54px; min-height: 54px; max-height: 54px;"
                   placeholder="Your opinion about this service"></textarea>
 
         <div class="input-group input-group">
@@ -104,12 +102,15 @@
     </div>
 </div>
 
+<script type=text/javascript src="{{url_for('static', filename='parse-1.2.17.min.js')}}"></script>
+<script type=text/javascript src="{{url_for('static', filename='jquery.raty.min.js')}}"></script>
+
 <script language="JavaScript">
     var iframeExt = $.iframeHeightExternal();
     var video = document.querySelector('#video');
     var canvas = document.querySelector('#canvas');
 
-    var myStream, dataURL, width = 1024, height = 0;
+    var myStream, dataURL, width = 1024, height = 768;
     var streaming = false;
     var s_name, p_name;
 
@@ -124,57 +125,54 @@
 
     function runWebCam() {
         if (!streaming) {
-            navigator.getMedia = (navigator.getUserMedia ||
-                navigator.webkitGetUserMedia ||
-                navigator.mozGetUserMedia ||
-                navigator.msGetUserMedia);
-            if (navigator.getMedia != undefined) {
-                navigator.getMedia({
-                    video: true,
-                    audio: false
-                }, function (stream) {
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+            window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+
+            if (navigator.getUserMedia != undefined) {
+                navigator.getUserMedia({video: true, audio: false}, function (stream) {
                     if (navigator.mozGetUserMedia) {
                         video.mozSrcObject = stream;
                     } else {
-                        var vendorURL = window.URL || window.webkitURL;
-                        video.src = vendorURL.createObjectURL(stream);
+                        video.src = window.URL.createObjectURL(stream);
                     }
                     video.play();
                     myStream = stream;
                     $("#errormessage").hide();
                     $("#video").show();
                     $("#shotButton").show();
+                    iframeExt.update();
                 }, function () {
                     $("#video").hide();
                     $("#shotButton").hide();
-                    $("#errormessage").show();
+                    $("#errormessage").text("Native device media streaming (getUserMedia) not supported in this browser or you are using webcam in other application.").show();
+                    iframeExt.update();
                 });
 
                 video.addEventListener('canplay', function () {
                     if (!streaming) {
                         if (video.videoHeight != 0) {
-                            height = video.videoHeight / (video.videoWidth / width);
-                            video.setAttribute('width', width);
-                            video.setAttribute('height', height);
-                            canvas.setAttribute('width', width);
-                            canvas.setAttribute('height', height);
-                            console.log(width + "x" + height);
+                            width = video.videoWidth;
+                            height = video.videoHeight;
                         } else {
-                            canvas.setAttribute('width', video.getAttribute('width'));
-                            canvas.setAttribute('height', video.getAttribute('height'));
-                            console.log("video resolution is undefined");
+                            console.log("native video resolution is undefined");
                         }
+                        video.setAttribute('width', width);
+                        video.setAttribute('height', height);
+                        canvas.setAttribute('width', width);
+                        canvas.setAttribute('height', height);
+                        console.log("video resolution: " + width + "x" + height);
                         streaming = true;
                         iframeExt.update();
-                        setTimeout(function () {
+                        setTimeout(function() {
                             iframeExt.update();
-                        }, 500);
+                        }, 300);
                     }
                 }, false);
             } else {
                 $("#video").hide();
                 $("#shotButton").hide();
-                $("#errormessage").show();
+                $("#errormessage").text("Webcam access is off or other error.").show();
+                iframeExt.update();
             }
         } else {
             video.play();
@@ -252,6 +250,7 @@
 
     function toShot() {
         runWebCam();
+        $('#saveButton').removeAttr("disabled");
         $("#sendButtons").hide();
         $("#shotButtons").show();
 
@@ -293,7 +292,7 @@
                 $("#result").attr('src', 'data:image/jpeg;base64,' + data.img);
                 $("#pts").text(data.pts);
                 $('#stars').raty();
-                
+
                 $("#shotTab").hide();
                 $("#uploadTab").hide();
                 $("#errorTab").hide();

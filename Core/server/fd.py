@@ -234,8 +234,8 @@ def define_contours(img):
         else:
             j += delta
 
-    points.append((int(0.4 * w), h - 1))
-    points.append((int(0.6 * w), h - 1))
+    points.append((int(0.4 * w), h - 20))
+    points.append((int(0.6 * w), h - 20))
 
     points = grahamscan(points)
 
@@ -266,8 +266,8 @@ def change_points(img, points, border1 = 5, border2 = 2):
     count_left = 0
     count_right = 0
     result_points = []
-    result_points.append((int(0.4 * w), 1))
-    result_points.append((int(0.6 * w), 1))
+    result_points.append((int(0.4 * w), 20))
+    result_points.append((int(0.6 * w), 20))
 
     for i in range(1, 30):
         if j > h * 0.25 and j < h * 0.75:
@@ -356,8 +356,8 @@ def change_points(img, points, border1 = 5, border2 = 2):
         else:
             j += delta
 
-    result_points.append((int(0.4 * w), h - 1))
-    result_points.append((int(0.6 * w), h - 1))
+    result_points.append((int(0.4 * w), h - 20))
+    result_points.append((int(0.6 * w), h - 20))
 
     result_points = grahamscan(result_points)
 
@@ -376,18 +376,12 @@ def resize(img):
 def get_param(file_name):
     img = cv2.imread(file_name)
     if img == None:
-<<<<<<< HEAD
         raise ValueError('No image' + file_name)
-    
-=======
-        raise ValueError("No image" + file_name)
-
     img = resize(img)
-
->>>>>>> 6431e3084a24679f17d8572fcc469d2591de6929
+    
     face_image, eyes_coordinates, nose_coordinates, mouth_coordinates = detect_face_and_organs(img)
     # 'result_points' - array of contour's points
     result_points = define_contours(face_image)
     result_points = change_points(face_image, result_points)
-    
+
     return result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, face_image

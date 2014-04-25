@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type=text/javascript src="jquery-2.1.0.min.js"></script>
+</head>
+<body>
+
+<img id="result" src="#" alt="Result can't displayed" style="width: 50%; height: auto;"/>
+
+<script language="JavaScript">
+    $(function () {
+        var mode = getParameterByName('mode');
+        var img = getParameterByName('img');
+        if (img) {
+            if (mode == "source") {
+                showSource(img);
+            } else if (mode = "proc") {
+                showResult(img);
+            }
+        }
+    });
+
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    function showSource(imgURL) {
+        $.ajax({
+            url: '../api/v1/source/' + imgURL,
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'GET',
+            success: function (data) {
+                $("#result").attr('src', 'data:image/jpeg;base64,' + data.img);
+            }
+        });
+    }
+
+    function showResult(imgURL) {
+        $.ajax({
+            url: '../api/v1/proc/' + imgURL,
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'GET',
+            success: function (data) {
+                $("#result").attr('src', 'data:image/jpeg;base64,' + data.img);
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>My Parse App</title>
+  <meta name="description" content="My Parse App">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.2.17.min.js"></script>
+</head>
+
+<body>
+  
+	<div id="main">
+
+	</div>
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+		var lister;
+		
+		Parse.initialize("BiixOUv8TBRRCc9PnScmyF2XMHRZhx2LfmvdqtvA", "Sj5Vw02dRs3zI59caHeMQCEB9EXrNcsKPe0xkczc");
+		
+		Parse.Cloud.run('list', {
+		}, {
+			success: function(result) {
+				console.log(result.length);
+				result.forEach(function(entry) {
+					console.log(entry);
+					Parse.Cloud.run('addItem', {
+						email : entry.attributes.email
+					}, {
+						success: function(result) {
+							if (result == 0)
+								$("#main").append(entry.attributes.email + " not success <br>");
+						},
+						error: function(error) {
+							$("#main").append(entry.attributes.email + " error <br>");
+						}
+					});
+					sleep(600);
+				});
+			},
+			error: function(error) {
+			}
+		});
+		console.log("end.");
+	});
+	
+	function sleep(ms) {
+		ms += new Date().getTime();
+		while (new Date() < ms){}
+	} 
+  </script>
+</body>
+
+</html>

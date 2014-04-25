@@ -62,7 +62,7 @@ def draw_circles(image, key_points):
         y = int(kp.pt[1])
         center = (x, y)
         size = int(kp.size / 2)
-        cv2.circle(image, center, size, (255, 0, 0), 1)
+        cv2.circle(image, center, size, (0, 0, 255), 1)
 
     return image
 
@@ -208,7 +208,8 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     alpha = contrast_val(roi)
     roi = change_constrast(roi, alpha=alpha, beta=-70.0)
 
-    #roi = get_blur(roi, 3)
+    roi_non_contrast = roi
+    roi = get_blur(roi, 3)
     roi = get_otsu(roi, **kwargs)
 
     contrast_thresholds = [0.02, 0.025]
@@ -216,10 +217,10 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     sigmas = [1.2, 1.4]
 
     key_points1 = grid_sift(roi, contrast_thresholds, edge_thresholds, sigmas, delta=3)
-    key_points2 = sift(roi, contrast_threshold=0.035, edge_threshold=5, sigma=1.0)
+    key_points2 = sift(roi_non_contrast, contrast_threshold=0.035, edge_threshold=5, sigma=1.0)
 
     key_points1 = kpproc.delete_unused_keypoints(roi, key_points1, result_points, limbs)
-    key_points2 = kpproc.delete_unused_keypoints(roi, key_points2, result_points, limbs)
+    key_points2 = kpproc.delete_unused_keypoints(roi_non_contrast, key_points2, result_points, limbs)
 
     key_points2 = kpproc.combine_points(key_points1, key_points2)
     key_points1 = key_points1 + key_points2
@@ -311,7 +312,6 @@ def mono_search(roi, image, result_points, limbs, **kwargs):
     roi = change_constrast(roi, alpha=alpha, beta=-70.0)
 
     #roi = get_blur(roi, 3)
-    #roi = get_otsu(roi, thresh_val=135, type=cv2.THRESH_BINARY)
 
     roi = get_otsu(roi, **kwargs)
 
@@ -335,6 +335,7 @@ def process_photo(file_name):
     """
 
     result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, image = fd.get_param(file_name)
+
     roi = crop_face(image, result_points)
     limbs = [nose_coordinates, mouth_coordinates, eyes_coordinates]
 
@@ -366,7 +367,7 @@ def process_files(name):
                     file_name = path + file
                     try:
                         image, score = process_photo(file_name)
-                        new_file_name = path + 'proc_14_04_siftgrid+mono' + file
+                        new_file_name = path + 'proc_23_04_blurGreed+mono_resize_' + str(score) + '_ ' + file
                         print new_file_name
                         save_image(image, new_file_name)
                     except ValueError:
@@ -395,16 +396,14 @@ def detect_deffects(file_name):
 #process_files('photo')
 #detect_deffects('1.jpg')
 
-#TODO contrast and sift constants
-#TODO real photo
-#TODO binary thresholding?
-#TODO cheecks, relief?
+#TODO more demanding sift params? Do we need it?
+#TODO cheecks, relief? with binary thresholding?
 
-#TODO time optimization
 #TODO points alongside contour in the case of bad face recognition (clasterization?) color detection?
 #TODO real deffects near limbs?
 #TODO genetic algorythm
-
+#TODO machine learning?
+#TODO test creater
 
 
 

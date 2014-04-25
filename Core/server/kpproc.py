@@ -1,7 +1,6 @@
 import numpy as np
 import cv2
 import sys
-from collections import Counter
 import math
 
 def crop_limbs(masked_image, limbs):
@@ -201,6 +200,18 @@ def delete_repeating_points(good_points):
 
     return good_points
 
+def normalize_score(score):
+    if score == 0:
+        return 100.0
+
+    score = float(score) / 100.0
+    new_score = (100 /(1 + math.e**(-(1.0 / 20.0) * (score - 30))) - 18.5) * 1.21 + 0.4
+    new_score *= 10.0
+    new_score = math.floor(new_score)
+    new_score = new_score / 10.0
+
+    return 100.0 - new_score
+
 def get_score(original_image, key_points):
     """
     Calculate and return skin score
@@ -254,6 +265,7 @@ def get_score(original_image, key_points):
         score += point
 
     score = int(score)
+    score = normalize_score(score)
 
     return score
 
@@ -274,23 +286,28 @@ def combine_points(key_points1, key_points2):
             new_points.append(kp2)
 
     dict = {}
-    print len(new_points)
 
-    if len(key_points1) < 15:
-        return new_points
+    if len(key_points1) < 20:
+        max_size = len(key_points1)
+
+        if max_size < len(new_points):
+            return new_points[max_size:]
+        else:
+            return new_points
     elif len(key_points1) < 30:
         for kp in new_points:
             dict[kp] = kp.response
 
         points = sorted(dict.items(), key=lambda (k, v): v, reverse=True)
         ind = min(int(len(key_points1) / 1.5), len(points))
+
         return [point[0] for point in points[ind:]]
     elif len(key_points1) < 50:
         for kp in new_points:
             dict[kp] = kp.response
 
         points = sorted(dict.items(), key=lambda (k, v): v, reverse=True)
-        ind = min(int(len(key_points1) / 2), len(points))
+        ind = min(int(len(key_points1) / 3), len(points))
 
         return [point[0] for point in points[ind:]]
     else:
@@ -298,7 +315,7 @@ def combine_points(key_points1, key_points2):
             dict[kp] = kp.response
 
         points = sorted(dict.items(), key=lambda (k, v): v, reverse=True)
-        ind = min(int(len(key_points1) / 3), len(points))
+        ind = min(int(len(key_points1) / 4), len(points))
 
         return [point[0] for point in points[ind:]]
 

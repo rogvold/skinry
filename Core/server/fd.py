@@ -363,11 +363,28 @@ def change_points(img, points, border1 = 5, border2 = 2):
 
     return result_points
 
+def resize(img):
+    shape = img.shape
+    min_shape = min(shape[0], shape[1])
+
+    if min_shape > 1000:
+        coef = 1000.0 / min_shape
+        img = cv2.resize(img, (0,0), fx=coef, fy=coef)
+
+    return img
+
 def get_param(file_name):
     img = cv2.imread(file_name)
     if img == None:
+<<<<<<< HEAD
         raise ValueError('No image' + file_name)
     
+=======
+        raise ValueError("No image" + file_name)
+
+    img = resize(img)
+
+>>>>>>> 6431e3084a24679f17d8572fcc469d2591de6929
     face_image, eyes_coordinates, nose_coordinates, mouth_coordinates = detect_face_and_organs(img)
     # 'result_points' - array of contour's points
     result_points = define_contours(face_image)

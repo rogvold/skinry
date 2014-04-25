@@ -86,7 +86,7 @@ def api_v1_upload_pic():
 
 @app.route("/api/v1/source/<filename>", methods=['GET'])
 def api_v1_download_source_pic(filename):
-    img = Entry.query.get(filename[:len('.jpg')])#filter(lambda t: t['s_name'] == filename, images_db)
+    img = Entry.query.get(filename[:-len('.jpg')])#filter(lambda t: t['s_name'] == filename, images_db)
     if img is None:
         abort(404)
     f = open(os.path.join(app.config['UPLOAD_FOLDER'], filename), "rb") 

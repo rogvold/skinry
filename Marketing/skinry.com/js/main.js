@@ -5,7 +5,7 @@ $(function () {
         return this.length > 0;
     };
 
-    if (getParameterByName('mode') === 'dev') {
+    if (location.search === '?test') {
         $.getScript("js/xml_http_request.js", function () {
             console.log("xml_http_request loaded");
         });

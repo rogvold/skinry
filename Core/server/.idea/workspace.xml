@@ -26,7 +26,7 @@
       <file leaf-file-name="fd.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="225" column="0" selection-start="7847" selection-end="7847" vertical-scroll-proportion="0.0" vertical-offset="3825" max-vertical-offset="6613">
+            <state line="225" column="0" selection-start="7847" selection-end="7847" vertical-scroll-proportion="0.0" vertical-offset="3825" max-vertical-offset="6766">
               <folding />
             </state>
           </provider>
@@ -41,10 +41,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="102" selection-start="65" selection-end="163" vertical-scroll-proportion="-3.2692308" vertical-offset="0" max-vertical-offset="6001">
+            <state line="145" column="90" selection-start="6418" selection-end="6418" vertical-scroll-proportion="0.56110156" vertical-offset="2139" max-vertical-offset="6290">
               <folding />
             </state>
           </provider>
@@ -53,18 +53,16 @@
       <file leaf-file-name="get_image.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/get_image.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="31" selection-start="413" selection-end="419" vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="1037">
-              <folding>
-                <element signature="n#style#0;n#img#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state line="15" column="31" selection-start="413" selection-end="419" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="1037">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="93" column="13" selection-start="3194" selection-end="3194" vertical-scroll-proportion="0.57580644" vertical-offset="1105" max-vertical-offset="1972">
+            <state line="93" column="13" selection-start="3195" selection-end="3195" vertical-scroll-proportion="0.0" vertical-offset="1581" max-vertical-offset="2091">
               <folding />
             </state>
           </provider>
@@ -83,9 +81,9 @@
         <option value="$PROJECT_DIR$/fd.py" />
         <option value="C:/Python27/Lib/site-packages/scipy/special/__init__.py" />
         <option value="$PROJECT_DIR$/skinscan.py" />
-        <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/templates/get_image.html" />
         <option value="$PROJECT_DIR$/static/get_image.html" />
+        <option value="$PROJECT_DIR$/templates/index.html" />
       </list>
     </option>
   </component>
@@ -404,12 +402,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24816984" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -419,11 +417,11 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -775,25 +773,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
+    <entry file="file://$PROJECT_DIR$/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="102" selection-start="65" selection-end="163" vertical-scroll-proportion="-3.2692308" vertical-offset="0" max-vertical-offset="6001">
+        <state line="93" column="13" selection-start="3195" selection-end="3195" vertical-scroll-proportion="0.0" vertical-offset="1352" max-vertical-offset="1972">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/get_image.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="31" selection-start="413" selection-end="419" vertical-scroll-proportion="-9.807693" vertical-offset="0" max-vertical-offset="1037">
-          <folding>
-            <element signature="n#style#0;n#img#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state line="15" column="31" selection-start="413" selection-end="419" vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="1037">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.py">
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="93" column="13" selection-start="3194" selection-end="3194" vertical-scroll-proportion="0.57580644" vertical-offset="1105" max-vertical-offset="1972">
+        <state line="145" column="90" selection-start="6418" selection-end="6418" vertical-scroll-proportion="0.56110156" vertical-offset="2139" max-vertical-offset="6290">
           <folding />
         </state>
       </provider>

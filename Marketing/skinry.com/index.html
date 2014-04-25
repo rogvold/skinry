@@ -1,177 +1,219 @@
 <!DOCTYPE html>
 
 <html lang="ru">
-    <head>
-        <title>Skinry</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="UTF-8">
+<head>
+    <title>Skinry</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
 
-        <meta property="og:title" content="Skinry" />
-        <meta property="og:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
-        <meta property="og:url" content="skinry.com" />
-        <meta property="og:image" content="//skinry.com/img/girl-mini.png" />
-        <link rel="image_src" href="//skinry.com/img/girl-mini.png" />
+    <meta property="og:title" content="Skinry"/>
+    <meta property="og:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи"/>
+    <meta property="og:url" content="skinry.com"/>
+    <meta property="og:image" content="//skinry.com/img/girl-mini.png"/>
+    <link rel="image_src" href="//skinry.com/img/girl-mini.png"/>
 
-        <meta name="description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
-        <meta name="keywords" content="Сканер кожи, проблемная кожа, средство от прыщей, прыщи, угри, лечение прыщей, сканер прыщей">
-        <meta name="author" content="Skinry group">
-        <meta name="robots" content="noimageindex">
+    <meta name="description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи"/>
+    <meta name="keywords" content="Сканер кожи, проблемная кожа, средство от прыщей, прыщи, угри, лечение прыщей, сканер прыщей">
+    <meta name="author" content="Skinry group">
+    <meta name="robots" content="noimageindex">
 
-        <meta property="vk:title" content="Skinry" />
-        <meta property="vk:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи" />
-        <meta property="vk:image" content="//skinry.com/img/girl-mini.png" />
-        <meta property="vk:app_id" content="4226137" />
+    <meta property="vk:title" content="Skinry"/>
+    <meta property="vk:description" content="Skinry - приложение номер 1 для отслеживания чистоты кожи"/>
+    <meta property="vk:image" content="//skinry.com/img/girl-mini.png"/>
+    <meta property="vk:app_id" content="4226137"/>
 
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-        <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/parse-1.2.17.min.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
-        <script type="text/javascript" src="//vk.com/js/api/openapi.js?105"></script>
-        <script type="text/javascript">
-            VK.init({
-                apiId: 4226137,
-                onlyWidgets: true
-            });
-        </script>
+    <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/parse-1.2.17.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?105"></script>
+    <script type="text/javascript">
+        VK.init({
+            apiId: 4226137,
+            onlyWidgets: true
+        });
+    </script>
 
-        <link rel="Shortcut Icon" type="image/x-icon" href="img/shortcut.png">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/instagram-main.min.css">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-    <body class="page-home">
-        <div class="page">
-            <div class="main">
-                <div id="home-bg">
-                    <div class="btn-group btn-group-justified" style='padding-top: 20px; padding-right: 20px; float:right; width: 110px;'>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary btn-sm" onclick="window.location = 'index.html'">ru</button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary btn-sm" onclick="window.location = 'index_en.html'">en</button>
-                        </div>
-                    </div>
+    <link rel="Shortcut Icon" type="image/x-icon" href="img/shortcut.png">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/instagram-main.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body class="page-home">
+<div class="page">
+    <div class="main">
+        <div id="home-bg">
+            <div class="btn-group btn-group-justified"
+                 style='padding-top: 20px; padding-right: 20px; float:right; width: 110px;'>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="window.location = 'index.html'">ru
+                    </button>
                 </div>
-                <div class="wrap">
-                    <div class="home-phones" id="iphone">
-                        <div id="iphone-overlay">
-                            <img src="img/p0.png" class="active non-retina" style="opacity: 1;">
-                            <img src="img/p1.png" class="non-retina" style="opacity: 1;">
-                            <img src="img/p2.png" class="non-retina" style="opacity: 1;">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="window.location = 'index_en.html'">
+                        en
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="home-phones" id="iphone">
+                <div id="iphone-overlay">
+                    <img src="img/p0.png" class="active non-retina" style="opacity: 1;">
+                    <img src="img/p1.png" class="non-retina" style="opacity: 1;">
+                    <img src="img/p2.png" class="non-retina" style="opacity: 1;">
+                </div>
+
+                <i class="home-phones-glare"></i>
+            </div>
+            <div class="content">
+                <a href="javascript:void(0);" class="home-login">
+                    <div id="vk_like" style="display: inline-block;">
+                    </div>
+                </a>
+
+                <script type="text/javascript">
+                    VK.Widgets.Like("vk_like", {type: "button"});
+                </script>
+
+                <h1 class="title">Skinry - look for your skin</h1>
+
+                <div class="tab">
+                    <div class="tab-content" style="padding-bottom: 0;">
+                        <h1 style="margin-right: 60px;">Следите за чистотой своей кожи</h1>
+
+                        <p>Регулярно <strong>фотографируйте</strong> свое лицо</p>
+                        <p>Программа проанализирует проблемные участки, подсчитает различные параметры
+                            <strong>чистоты</strong> Вашей кожи</p>
+                        <p>Просматривайте <strong>историю</strong> чистоты своей кожи, выявляйте причины возникновения
+                            <strong>проблем</strong></p>
+                        <p>Помогите проекту, <a href="#" onclick="gformClick();">заполнив анкету</a>!</p>
+
+                        <div id="badges" class="platform-badge-container">
+                            <img class="platform-badge" src="img/badge_appstore.png" alt="Available on the App Store"
+                                 onclick="appleClick()">
+                            <img class="platform-badge" src="img/badge_googleplay.png" alt="Available on the Android"
+                                 onclick="androidClick()">
                         </div>
 
-                        <i class="home-phones-glare"></i>
-                    </div>
-                    <div class="content">
-                        <a href="javascript:void(0);" class="home-login">
-                            <div id="vk_like" style="display: inline-block;">
+                        <div id="soon" style="display: none;">
+                            <h3>Приложение скоро будет готово</h3>
+                            <p>Оставьте свой <b>e-mail</b> и мы сообщим Вам о запуске.</p>
+                            <p>Для первых <strong>500</strong> пользователей приложение останется бесплатным навсегда!</p>
+
+                            <textarea id="wishes" placeholder="Ваши пожелания"></textarea>
+                            <div class="input-group input-group">
+                                <input type="text" id="email" placeholder="Email" class="form-control input">
+                                <span class="input-group-btn btn-group-custom">
+                                    <button id="submitButton" class="btn btn-primary">Отправить</button>
+                                </span>
                             </div>
-                        </a>
+                        </div>
 
-                        <script type="text/javascript">
-                            VK.Widgets.Like("vk_like", {type: "button"});
-                        </script>
-
-                        <h1 class="title">Skinry - look for your skin</h1>
-
-                        <div class="tab">
-                            <div class="tab-content">
-                                <h1 style="margin-right: 60px;" >Следите за чистотой своей кожи</h1>
-
-                                <p>Регулярно <strong>фотографируйте</strong> свое лицо</p>
-                                <p>Программа проанализирует проблемные участки, подсчитает различные параметры <strong>чистоты</strong> Вашей кожи</p>
-                                <p>Просматривайте <strong>историю</strong> чистоты своей кожи, выявляйте причины возникновения <strong>проблем</strong></p>
-								<p>Помогите проекту, <a href="#" onclick="gformClick();">заполнив анкету</a>!</p>
-
-                                <div id="badges" class="platform-badge-container">
-                                    <img class="platform-badge" src="img/badge_appstore.png" alt="Available on the App Store" onclick="appleClick()">
-                                    <img class="platform-badge" src="img/badge_googleplay.png" alt="Available on the Android" onclick="androidClick()">
-                                </div>
-
-                                <div id="soon" style="display: none;">
-                                    <h3>Приложение скоро будет готово</h3>
-                                    <p>Оставьте свой <b>e-mail</b> и мы сообщим Вам о запуске.</p>
-                                    <p>Для первых <strong>500</strong> пользователей приложение останется бесплатным навсегда!</p>
-                                    <textarea id="wishes" placeholder="Ваши пожелания"></textarea>
-                                    <div class="input-group input-group">
-                                        <input type="text" id="email" placeholder="Email" class="form-control input" >
-                                        <span class="input-group-btn btn-group-custom">
-                                            <button id="submitButton" class="btn btn-primary">Отправить</button>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div id="thankyou" style="display: none;">
-                                    <h3 style="text-align: center;">
-                                        Спасибо за отзыв. <br/>
-                                        Нам очень важно ваше мнение. <br/>
-                                        Вы будете одним из первых, <br/>
-                                        кто узнает о приложении.
-                                    </h3>
-                                </div>
-                            </div>
+                        <div id="thankyou" style="display: none;">
+                            <h3 style="text-align: center;">
+                                Спасибо за отзыв. <br/>
+                                Нам очень важно ваше мнение. <br/>
+                                Вы будете одним из первых, <br/>
+                                кто узнает о приложении.
+                            </h3>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <footer class="page-footer" role="contentinfo">
-            <div class="wrapper">
-                <nav>
-                    <ul>
-                        <li><a href="http://blog.skinry.com/">Блог</a></li>
-                        <li><a href="http://facebook.com/skinry">Facebook</a></li>
-                        <li><a href="http://vk.com/skinry">Vkontakte</a></li>
-                        <li><a href="http://twitter.com/skinry_scanner">Twitter</a></li>
-                        <li><a href="articles/article1.html">Статьи</a></li>
-                    </ul>
-                </nav>
-
-                <p class="copyright" style="margin-top: 0;">© 2014 Skinry</p>
-
+<footer class="page-footer" role="contentinfo">
+    <div class="wrap">
+        <div class="row" style="margin: 20px 0 20px 55px;">
+            <div class="col-lg-4">
+                <iframe src="//player.vimeo.com/video/91743159?title=0&amp;byline=0&amp;portrait=0"
+                        width="250" height="142" frameborder="0" webkitallowfullscreen mozallowfullscreen
+                        allowfullscreen></iframe>
             </div>
-        </footer>
-
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript">
-            (function(d, w, c) {
-                (w[c] = w[c] || []).push(function() {
-                    try {
-                        w.yaCounter24132985 = new Ya.Metrika({id: 24132985, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true});
-                    } catch (e) {
-                    }
-                });
-                var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function() {
-                    n.parentNode.insertBefore(s, n);
-                };
-                s.type = "text/javascript";
-                s.async = true;
-                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-                if (w.opera == "[object Opera]") {
-                    d.addEventListener("DOMContentLoaded", f, false);
-                } else {
-                    f();
-                }
-            })(document, window, "yandex_metrika_callbacks");
-        </script>
-        <noscript>
-        <div>
-            <img src="//mc.yandex.ru/watch/24132985" style="position:absolute; left:-9999px;" alt="" />
+            <div class="col-lg-8" style="font-size: 14px; margin-top: 5px">
+                <h3>Hey guys!</h3>
+                Отзыв Джессики из Канады, которой предоставилась возможность протестировать прототип нашего приложения.
+                <br><br>
+                <a href="http://vimeo.com/91743159">Посмотреть это видео на Vimeo</a>
+            </div>
         </div>
-        </noscript>
-        <!-- /Yandex.Metrika counter -->
+    </div>
 
-        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533754205513437f"></script>
-        <script type="text/javascript" src="js/retina-1.1.0.min.js"></script>
-        
-        <script type="text/javascript">
-            function emailAlert() {
-                alert('Неправильно введен адрес. Пожалуйста, попробуйте еще раз.');
+    <div class="wrapper">
+        <nav>
+            <ul>
+                <li><a href="http://blog.skinry.com/">Блог</a></li>
+                <li><a href="http://facebook.com/skinry">Facebook</a></li>
+                <li><a href="http://vk.com/skinry">Vkontakte</a></li>
+                <li><a href="http://twitter.com/skinry_scanner">Twitter</a></li>
+                <li><a href="articles/article1.html">Статьи</a></li>
+            </ul>
+        </nav>
+
+        <p class="copyright" style="margin-top: 0;">© 2014 Skinry</p>
+
+    </div>
+</footer>
+
+<div class="modal fade" id="tryModal" tabindex="-1" role="dialog" aria-labelledby="modal-try-header" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="modal-try-header" class="modal-title">Try Skinry Engine...</h4>
+            </div>
+            <div id="modal-try-body" class="modal-body"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function () {
+            try {
+                w.yaCounter24132985 = new Ya.Metrika({id: 24132985, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true});
+            } catch (e) {
             }
-        </script>
-    </body>
+        });
+        var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () {
+            n.parentNode.insertBefore(s, n);
+        };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else {
+            f();
+        }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript>
+    <div>
+        <img src="//mc.yandex.ru/watch/24132985" style="position:absolute; left:-9999px;" alt=""/>
+    </div>
+</noscript>
+<!-- /Yandex.Metrika counter -->
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533754205513437f"></script>
+<script type="text/javascript" src="js/retina-1.1.0.min.js"></script>
+
+<script type="text/javascript">
+    var $home = $("#home-bg");
+
+    function localization() {
+        $("#trybutton").text("Попробовать сейчас!");
+    }
+    function emailAlert() {
+        alert('Неправильно введен адрес. Пожалуйста, попробуйте еще раз.');
+    }
+</script>
+</body>
 </html>

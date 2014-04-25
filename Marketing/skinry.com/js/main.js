@@ -1,15 +1,75 @@
 var store;
+var $home;
 
-$(function() {
+$(function () {
+    jQuery.fn.exists = function () {
+        return this.length > 0;
+    };
+
+    if (getParameterByName('mode') === 'dev') {
+        $.getScript("js/xml_http_request.js", function () {
+            console.log("xml_http_request loaded");
+        });
+        $.getScript("js/iframeheight.min.js", function () {
+            console.log("iframeheight loaded");
+            $home.append(
+                    '<div style="padding-top: 20px; padding-left: 20px; float:left;">' +
+                    '<button id="trybutton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#tryModal"></button>' +
+                    '</div>'
+            );
+            iframeListener();
+            localization();
+        });
+
+        function iframeListener() {
+            $("#tryModal").on('shown.bs.modal', function () {
+                if (!$("#tryFrame").exists()) {
+                    $("#modal-try-body").append('<iframe id="tryFrame" src="//skinry.com:5000" style="width: 100%" frameborder="0">Your browser does not support the \'iframe\' feature.</iframe>');
+                    $('#tryFrame').iframeHeight({
+                        minimumHeight: 50,
+                        defaultHeight: 200,
+                        heightOffset: 5
+                    });
+                }
+
+                var rtime;
+                var timeout = false;
+                var delta = 200;
+                $(window).resize(function () {
+                    rtime = new Date();
+                    if (timeout === false) {
+                        timeout = true;
+                        setTimeout(resizeend, delta);
+                    }
+                });
+
+                function resizeend() {
+                    if (new Date() - rtime < delta) {
+                        setTimeout(resizeend, delta);
+                    } else {
+                        timeout = false;
+                        $('#tryFrame').trigger("updateIframe");
+                    }
+                }
+            });
+        }
+    }
     initSubscriptionForm();
     setTimeout("next_slide()", 5000);
 });
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 
 function initSubscriptionForm() {
     var applicationId = "BiixOUv8TBRRCc9PnScmyF2XMHRZhx2LfmvdqtvA";
     var javaScriptKey = "Sj5Vw02dRs3zI59caHeMQCEB9EXrNcsKPe0xkczc";
     Parse.initialize(applicationId, javaScriptKey);
-    $('#submitButton').click(function() {
+    $('#submitButton').click(function () {
         subscribe();
     });
 }
@@ -20,7 +80,7 @@ function next_slide() {
         active = $('#iphone-overlay img:last');
     var next = active.next().length ? active.next() : $('#iphone-overlay img:first');
     active.addClass('last-active');
-    next.css({opacity: 0.0}).addClass('active').animate({opacity: 1.0}, 1500, function() {
+    next.css({opacity: 0.0}).addClass('active').animate({opacity: 1.0}, 1500, function () {
         active.removeClass('active last-active');
     });
     setTimeout("next_slide()", 5000);
@@ -64,7 +124,7 @@ function subscribe() {
     feedback.set("email", email);
     feedback.set("wishes", message);
     feedback.set("store", store);
-    feedback.save().then(function() {
+    feedback.save().then(function () {
         toThankYou();
     });
 }

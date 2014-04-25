@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TryItFrame</title>
+
+    <script type=text/javascript src="{{url_for('static', filename='jquery-2.1.0.min.js')}}"></script>
+    <script type=text/javascript src="{{url_for('static', filename='iframeheight.min.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='bootstrap.min.css')}}">
+</head>
+<body style="width: 100%; overflow-x: hidden; overflow-y: hidden">
+<div id="uploadTab">
+    Please upload a real photo of yourself.<br>
+    We support only JPG files.<br>
+
+    <div style="text-align: center;">
+        <img id="preview" src="#" alt="Preview can't displayed" style="width: 50%; height: auto; display: none;"/>
+    </div>
+
+    <div class="form-group">
+        <input id="imgInput" type="file" accept="image/jpeg"/>
+
+        <p class="help-block">
+            If you have any problems with your upload, try using a smaller picture.<br>
+            If you have a webcam, you can take an instant shot<br>
+            (only in Chrome, Mozilla Firefox or Opera)
+        </p>
+    </div>
+    <div id="uploadButtons" style="text-align: center;">
+        <button id="uploadButton" type="button" class="btn btn-primary" disabled="disabled"
+                onclick="uploadClick();">Upload
+        </button>
+        <button id="toShotButton" type="button" class="btn btn-default" onclick="toShot();">Take Photo</button>
+    </div>
+</div>
+
+<div id="shotTab" style="display: none;">
+    <video id="video" style="width: 100%; height: auto; background-color: #AAA;"></video>
+    <p id="errormessage" style="display: none;"></p>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <div id="shotButtons" style="text-align: center">
+        <button id="shotButton" type="button" class="btn btn-primary" onclick="shotClick();">Take photo</button>
+        <button id="uploadPageButton" type="button" class="btn btn-default" onclick="toUpload();">Back</button>
+    </div>
+    <div id="sendButtons" style="text-align: center; display: none;">
+        <button id="saveButton" type="button" class="btn btn-primary" onclick="sendClick();">Send and continue
+        </button>
+        <button id="backButton" type="button" class="btn btn-default" onclick="shotAgainClick();">Try again</button>
+    </div>
+</div>
+
+<div id="resultTab" style="display: none;">
+    <div style="text-align: center;">
+        <img id="result" src="#" alt="Result can't displayed" style="width: 50%; height: auto;"/><br>
+        <h1>
+            <small>Your score:</small>
+            <label id="pts"></label>
+            <small>%</small>
+        </h1>
+        <div id="stars"></div>
+
+        <style type="text/css" scoped="scoped">
+            #stars {
+                width: auto !important;
+            }
+        </style>
+    </div><br>
+
+    <div id="commentPanel">
+        <textarea id="comment" class="form-control"
+                  style="width: 100%; border-bottom-left-radius: 0; border-bottom-right-radius: 0; max-width: 100%; height: 54px; min-height: 54px; max-height: 54px;"
+                  placeholder="Your opinion about this service"></textarea>
+
+        <div class="input-group input-group">
+            <input type="text" id="email" placeholder="Email (optional)" class="form-control input" style="border-top-left-radius: 0;">
+            <span class="input-group-btn btn-group-custom" style="border-top-right-radius: 0;">
+                <button id="submitButton" class="btn btn-primary" style="border-top-right-radius: 0;">Submit</button>
+            </span>
+        </div>
+    </div>
+    <div id="thankYouPanel" style="display: none">
+        <h2 style="text-align: center">Thank you!</h2>
+    </div>
+    <br>
+
+    <div id="resultButtons" style="text-align: center;">
+        <button id="shareButton" type="button" class="btn btn-primary" disabled="disabled">Share</button>
+        <button id="back3Button" type="button" class="btn btn-default" onclick="toUpload();">Try again</button>
+    </div>
+</div>
+
+<div id="errorTab" style="display: none;">
+    <div style="text-align: center;">
+        <h2>
+            <small>Server response is:</small><br>
+            <label id="errorMsg"></label><br>
+            <small>Please, try again</small>
+        </h2>
+    </div>
+
+    <div id="errorButtons" style="text-align: center">
+        <button id="back4Button" type="button" class="btn btn-default" onclick="toUpload();">Try again</button>
+    </div>
+</div>
+
+<script type=text/javascript src="{{url_for('static', filename='parse-1.2.17.min.js')}}"></script>
+<script type=text/javascript src="{{url_for('static', filename='jquery.raty.min.js')}}"></script>
+
+<script language="JavaScript">
+    var iframeExt = $.iframeHeightExternal();
+    var video = document.querySelector('#video');
+    var canvas = document.querySelector('#canvas');
+
+    var myStream, dataURL, width = 1024, height = 768;
+    var streaming = false;
+    var s_name, p_name;
+
+    $(function () {
+        var applicationId = "BiixOUv8TBRRCc9PnScmyF2XMHRZhx2LfmvdqtvA";
+        var javaScriptKey = "Sj5Vw02dRs3zI59caHeMQCEB9EXrNcsKPe0xkczc";
+        Parse.initialize(applicationId, javaScriptKey);
+        $('#submitButton').click(function () {
+            sendComment();
+        });
+    });
+
+    function runWebCam() {
+        if (!streaming) {
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+            window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+
+            if (navigator.getUserMedia != undefined) {
+                navigator.getUserMedia({video: true, audio: false}, function (stream) {
+                    if (navigator.mozGetUserMedia) {
+                        video.mozSrcObject = stream;
+                    } else {
+                        video.src = window.URL.createObjectURL(stream);
+                    }
+                    video.play();
+                    myStream = stream;
+                    $("#errormessage").hide();
+                    $("#video").show();
+                    $("#shotButton").show();
+                    iframeExt.update();
+                }, function () {
+                    $("#video").hide();
+                    $("#shotButton").hide();
+                    $("#errormessage").text("Native device media streaming (getUserMedia) not supported in this browser or you are using webcam in other application.").show();
+                    iframeExt.update();
+                });
+
+                video.addEventListener('canplay', function () {
+                    if (!streaming) {
+                        if (video.videoHeight != 0) {
+                            width = video.videoWidth;
+                            height = video.videoHeight;
+                        } else {
+                            console.log("native video resolution is undefined");
+                        }
+                        video.setAttribute('width', width);
+                        video.setAttribute('height', height);
+                        canvas.setAttribute('width', width);
+                        canvas.setAttribute('height', height);
+                        console.log("video resolution: " + width + "x" + height);
+                        streaming = true;
+                        iframeExt.update();
+                        setTimeout(function() {
+                            iframeExt.update();
+                        }, 300);
+                    }
+                }, false);
+            } else {
+                $("#video").hide();
+                $("#shotButton").hide();
+                $("#errormessage").text("Webcam access is off or other error.").show();
+                iframeExt.update();
+            }
+        } else {
+            video.play();
+        }
+    }
+
+    function stopWebCam() {
+        video.pause();
+    }
+
+    $("#imgInput").change(function () {
+        readURL(this);
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                uploadData = e.target.result;
+                $('#preview').attr('src', uploadData);
+            };
+            reader.readAsDataURL(input.files[0]);
+            $('#preview').show();
+            $('#uploadButton').removeAttr("disabled");
+        } else {
+            $('#preview').hide();
+            $('#uploadButton').attr("disabled", "disabled");
+        }
+        iframeExt.update();
+    }
+
+    function shotClick() {
+        video.pause();
+        $("#shotButtons").hide();
+        $("#sendButtons").show();
+        canvas.getContext('2d').drawImage(video, 0, 0, width, height);
+    }
+
+    function shotAgainClick() {
+        video.play();
+        $("#sendButtons").hide();
+        $("#shotButtons").show();
+    }
+
+    function sendClick() {
+        $('#saveButton').attr("disabled", "disabled");
+        dataURL = canvas.toDataURL("image/jpeg");
+        send(dataURL);
+    }
+
+    function uploadClick() {
+        $('#uploadButton').attr("disabled", "disabled");
+        send(uploadData);
+    }
+
+    function toUpload() {
+        if ($("#preview").is(":visible")) {
+            $('#uploadButton').removeAttr("disabled");
+        } else {
+            $('#uploadButton').attr("disabled", "disabled");
+        }
+
+        $('#resultTab').hide();
+        $('#shotTab').hide();
+        $("#errorTab").hide();
+        $('#uploadTab').show();
+        iframeExt.update();
+
+        stopWebCam();
+        $('#thankYouPanel').hide();
+        $('#commentPanel').show();
+        $('#email').val('');
+        $('#comment').val('');
+    }
+
+    function toShot() {
+        runWebCam();
+        $('#saveButton').removeAttr("disabled");
+        $("#sendButtons").hide();
+        $("#shotButtons").show();
+
+        $('#uploadTab').hide();
+        $('#resultTab').hide();
+        $("#errorTab").hide();
+        $('#shotTab').show();
+        iframeExt.update();
+    }
+
+    function send(imageURL) {
+        var base64img = imageURL.substr(23);
+        var imgData = '{"img": "\'' + base64img + '\'"}';
+        $.ajax({
+            url: 'api/v1/',
+            dataType: 'json',
+            data: imgData,
+            contentType: 'application/json',
+            type: 'POST',
+            success: function (data) {
+                console.log(data);
+                showResult(data.p_name);
+                s_name = data.s_name;
+                p_name = data.p_name;
+            },
+            error: function (jqXHR) {
+                showError($.parseJSON(jqXHR.responseText).error);
+            }
+        });
+    }
+
+    function showResult(imgURL) {
+        $.ajax({
+            url: 'api/v1/proc/' + imgURL,
+            dataType: 'json',
+            contentType: 'application/json',
+            type: 'GET',
+            success: function (data) {
+                $("#result").attr('src', 'data:image/jpeg;base64,' + data.img);
+                $("#pts").text(data.pts);
+                $('#stars').raty();
+
+                $("#shotTab").hide();
+                $("#uploadTab").hide();
+                $("#errorTab").hide();
+                $("#resultTab").show();
+                iframeExt.update();
+
+                $('#saveButton').removeAttr("disabled");
+                $('#uploadButton').removeAttr("disabled");
+            }
+        });
+    }
+
+    function showError(errorText) {
+        $("#shotTab").hide();
+        $("#uploadTab").hide();
+        $("#resultTab").hide();
+        $("#errorTab").show();
+
+        $('#shotButton').removeAttr("disabled");
+        $('#uploadButton').removeAttr("disabled");
+        $("#errorMsg").text(errorText);
+        iframeExt.update();
+    }
+
+    function sendComment() {
+        var email = $('#email').val().trim();
+        var message = $('#comment').val().trim();
+        var stars = parseInt($("[name='score']").val());
+
+        var SitePromoComment = Parse.Object.extend("SitePromoComment");
+        var feedback = new SitePromoComment();
+        feedback.set("email", email);
+        feedback.set("comment", message);
+        feedback.set("stars", stars);
+        feedback.set("s_name", s_name);
+        feedback.set("p_name", p_name);
+        feedback.save().then(function () {
+            thankYou();
+        });
+    }
+
+    function thankYou() {
+        var stars = parseInt($("[name='score']").val());
+        $('#stars').raty({readOnly: true, score: stars});
+
+        $('#commentPanel').hide();
+        $('#thankYouPanel').show();
+        iframeExt.update();
+    }
+</script>
+</body>
+</html>

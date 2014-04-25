@@ -71,7 +71,7 @@ def detect_face_and_organs(img):
             is_face = True
             break
     if is_face == False:
-        raise ValueError("Error: No face. May be your eyes are closed")
+        raise ValueError('Error: No face. May be your eyes are closed')
 
     #getting face, eyes, nose, mouth
     for i, face in enumerate(faces):
@@ -249,7 +249,7 @@ def get_left_x(center, axes, y):
     return int(center[0] - axes[0] * pow(1.0 - 1.0 * (center[1] -
         y) * (center[1] - y) / (axes[1] * axes[1]), 0.5))
 
-def change_points(img, points, border = 4):
+def change_points(img, points, border1 = 5, border2 = 2):
     center = (img.shape[1] / 2, img.shape[0] / 2)
     axes = (int(0.45 * img.shape[1]), int(0.48 * img.shape[0]))
 
@@ -270,6 +270,10 @@ def change_points(img, points, border = 4):
     result_points.append((int(0.6 * w), 1))
 
     for i in range(1, 30):
+        if j > h * 0.25 and j < h * 0.75:
+            border = border1
+        else:
+            border = border2
         if abs(j - h / 2) < axes[1]:
             val = dic.get(j)
             if val == None:
@@ -362,7 +366,7 @@ def change_points(img, points, border = 4):
 def get_param(file_name):
     img = cv2.imread(file_name)
     if img == None:
-        raise ValueError("No image" + file_name)
+        raise ValueError('No image' + file_name)
     
     face_image, eyes_coordinates, nose_coordinates, mouth_coordinates = detect_face_and_organs(img)
     # 'result_points' - array of contour's points

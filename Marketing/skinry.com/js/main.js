@@ -1,5 +1,4 @@
 var store;
-var $home;
 
 $(function () {
     jQuery.fn.exists = function () {
@@ -12,13 +11,8 @@ $(function () {
         });
         $.getScript("js/iframeheight.min.js", function () {
             console.log("iframeheight loaded");
-            $home.append(
-                    '<div style="padding-top: 20px; padding-left: 20px; float:left;">' +
-                    '<button id="trybutton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#tryModal"></button>' +
-                    '</div>'
-            );
+            $("#trybutton").show();
             iframeListener();
-            localization();
         });
 
         function iframeListener() {

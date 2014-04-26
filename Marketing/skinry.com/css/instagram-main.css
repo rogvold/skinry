@@ -1,246 +1,193 @@
 @charset "UTF-8";
-
 @font-face {
-    font-family: 'proxima-nova';
+    font-family: proxima-nova;
     src: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-bold-webfont.eot);
     src: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-bold-webfont.eot?#iefix) format("embedded-opentype"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-bold-webfont.woff) format("woff"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-bold-webfont.ttf) format("truetype"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-bold-webfont.svg#ProximaNovaBold) format("svg");
-    font-weight: bold;
-    font-style: normal;
+    font-weight: 700;
+    font-style: normal
 }
 
 @font-face {
-    font-family: 'proxima-nova';
+    font-family: proxima-nova;
     src: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-boldit-webfont.eot);
     src: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-boldit-webfont.eot?#iefix) format("embedded-opentype"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-boldit-webfont.woff) format("woff"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-boldit-webfont.ttf) format("truetype"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-boldit-webfont.svg#ProximaNovaBoldItalic) format("svg");
-    font-weight: bold;
-    font-style: italic;
+    font-weight: 700;
+    font-style: italic
 }
 
 @font-face {
-    font-family: 'proxima-nova';
+    font-family: proxima-nova;
     src: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-reg-webfont.eot);
     src: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-reg-webfont.eot?#iefix) format("embedded-opentype"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-reg-webfont.woff) format("woff"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-reg-webfont.ttf) format("truetype"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-reg-webfont.svg#ProximaNovaRegular) format("svg");
-    font-weight: normal;
-    font-style: normal;
+    font-weight: 400;
+    font-style: normal
 }
 
 @font-face {
-    font-family: 'proxima-nova';
+    font-family: proxima-nova;
     src: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-regit-webfont.eot);
     src: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-regit-webfont.eot?#iefix) format("embedded-opentype"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-regit-webfont.woff) format("woff"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-regit-webfont.ttf) format("truetype"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-regit-webfont.svg#ProximaNovaRegularItalic) format("svg");
-    font-weight: normal;
-    font-style: italic;
+    font-weight: 400;
+    font-style: italic
 }
 
 @font-face {
-    font-family: 'proxima-nova';
+    font-family: proxima-nova;
     src: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-sbold-webfont.eot);
     src: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-sbold-webfont.eot?#iefix) format("embedded-opentype"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-sbold-webfont.woff) format("woff"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-sbold-webfont.ttf) format("truetype"), url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/webfonts/proximanova-sbold-webfont.svg#ProximaNovaSemibold) format("svg");
     font-weight: 600;
-    font-style: normal;
+    font-style: normal
 }
 
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-nav,
-section {
-    display: block;
+article, aside, details, figcaption, figure, footer, header, nav, section {
+    display: block
 }
 
-audio,
-canvas,
-video {
+audio, canvas, video {
     display: inline-block;
     *display: inline;
-    *zoom: 1;
+    *zoom: 1
 }
 
 html {
     -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%
 }
 
-html,
-button,
-input,
-select,
-textarea {
-    font-family: sans-serif;
+button, html, input, select, textarea {
+    font-family: sans-serif
 }
 
 body {
-    margin: 0;
+    margin: 0
 }
 
-h1 {
-    font-size: 2em;
-}
-
-b,
-strong {
-    font-weight: bold;
+b, strong {
+    font-weight: 700
 }
 
 blockquote {
-    margin: 1em 40px;
+    margin: 1em 40px
 }
 
 dfn {
-    font-style: italic;
+    font-style: italic
 }
 
 mark {
     background: #ff0;
-    color: #000;
+    color: #000
 }
 
-pre,
-code,
-kbd,
-samp {
+code, kbd, pre, samp {
     font-family: monospace, serif;
     _font-family: 'courier new', monospace;
-    font-size: 1em;
+    font-size: 1em
 }
 
 pre {
     white-space: pre-wrap;
-    word-wrap: break-word;
+    word-wrap: break-word
 }
 
 q {
-    quotes: none;
+    quotes: none
 }
 
-q:before,
-q:after {
-    content: '';
+q:after, q:before {
+    content: ''
 }
 
-small {
-    font-size: 75%;
-}
-
-sub,
-sup {
+sub, sup {
     font-size: 75%;
     line-height: 0;
     position: relative;
-    vertical-align: baseline;
+    vertical-align: baseline
 }
 
 sup {
-    top: -0.5em;
+    top: -.5em
 }
 
 sub {
-    bottom: -0.25em;
+    bottom: -.25em
 }
 
-ul,
-ol {
-    margin-left: 0;
-    padding: 0 0 0 40px;
+ol, ul {
+    padding: 0 0 0 40px
 }
 
 dd {
-    margin: 0 0 0 40px;
+    margin: 0 0 0 40px
 }
 
 nav ul {
-    list-style: none none;
+    list-style: none none
 }
 
 img {
     border: 0;
-    -ms-interpolation-mode: bicubic;
+    -ms-interpolation-mode: bicubic
 }
 
-figure {
-    margin: 0;
-}
-
-form {
-    margin: 0;
-}
-
-fieldset {
-    border: 1px solid #c0c0c0;
-    margin: 0 2px;
-    padding: 0.35em 0.625em 0.75em;
+figure, form {
+    margin: 0
 }
 
 legend {
     border: 0;
     padding: 0;
     white-space: normal;
-    *margin-left: -7px;
+    *margin-left: -7px
 }
 
-button,
-input,
-select,
-textarea {
+button, input, select, textarea {
     font-size: 100%;
     margin: 0;
     vertical-align: baseline;
-    *vertical-align: middle;
+    *vertical-align: middle
 }
 
-button,
-input {
-    line-height: normal;
+button, input {
+    line-height: normal
 }
 
 button {
     cursor: pointer;
     -webkit-appearance: button;
-    *overflow: visible;
+    *overflow: visible
 }
 
-input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button {
-    -webkit-appearance: none;
+input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration {
+    -webkit-appearance: none
 }
 
-button::-moz-focus-inner,
-input::-moz-focus-inner {
+button::-moz-focus-inner, input::-moz-focus-inner {
     border: 0;
-    padding: 0;
+    padding: 0
 }
 
 textarea {
     overflow: auto;
-    vertical-align: top;
+    vertical-align: top
 }
 
 table {
     border-collapse: collapse;
-    border-spacing: 0;
+    border-spacing: 0
 }
 
-html, body {
-    height: 100%;
-}
-
-body {
-    background: #fff;
+body, html {
+    height: 100%
 }
 
 fieldset {
     border: none;
-}
-
-fieldset {
-    padding: 0;
+    padding: 0
 }
 
 caption, th {
-    text-align: left;
+    text-align: left
 }
 
 .page-footer:after {
@@ -249,36 +196,26 @@ caption, th {
     display: block;
     height: 0;
     visibility: hidden;
-    font-size: 0.01em !important;
-    line-height: 0.01em !important;
-}
-
-.page-footer {
-    display: inline-block;
+    font-size: .01em !important;
+    line-height: .01em !important
 }
 
 * html .page-footer {
-    height: 1%;
+    height: 1%
 }
 
-.page-footer {
-    display: block;
+.page-footer, label {
+    display: block
 }
 
 @media screen and (max-device-width: 480px) {
     html {
         -webkit-text-size-adjust: none;
-        -ms-text-size-adjust: none;
+        -ms-text-size-adjust: none
     }
 }
 
-label {
-    display: block;
-}
-
-input,
-select,
-textarea {
+input, select, textarea {
     border: 1px solid #ccc;
     padding: 9px 8px 7px;
     -webkit-box-sizing: border-box;
@@ -287,213 +224,186 @@ textarea {
     box-sizing: border-box;
     -webkit-border-radius: 3px;
     border-radius: 3px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05)
 }
 
-input:focus,
-select:focus,
-textarea:focus {
+input:focus, select:focus, textarea:focus {
     border-color: #a4baca !important;
-    background: #f5f7f9;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: #999;
+    background: #f5f7f9
 }
 
 select {
-    padding: 2px;
+    padding: 2px
 }
 
 label {
-    font-weight: bold;
-}
-
-h1, h2, h3 {
-    font-family: 'freight-sans-pro', 'proxima-nova', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 700
 }
 
 code {
-    font-family: Monaco, Consolas, 'Lucida Console', monospace;
+    font-family: Monaco, Consolas, 'Lucida Console', monospace
 }
 
 h1 {
-    font-size: 36px;
-    line-height: 40px;
+    line-height: 40px
 }
 
 h2 {
     font-size: 23px;
-    line-height: 30px;
+    line-height: 30px
 }
 
 h3 {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 16px
 }
 
 h4 {
     font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
+    text-transform: uppercase
 }
 
 small {
-    font-size: 12px;
+    font-size: 12px
 }
 
-h1, h2, h3, h4, h5, h6,
-th {
-    font-family: 'freight-sans-pro', 'proxima-nova', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-    font-weight: bold;
+h1, h2, h3, h4, h5, h6, th {
+    font-family: freight-sans-pro, proxima-nova, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 700
 }
 
 h1 {
-    margin: 40px 0 20px -1px;
+    margin: 40px 0 20px -1px
 }
 
-h2 {
-    margin: 20px 0 10px;
-}
-
-h3 {
-    margin: 20px 0 10px;
-}
-
-h4 {
-    margin: 20px 0 10px;
+h2, h3, h4 {
+    margin: 20px 0 10px
 }
 
 h1:first-child, h2:first-child {
-    margin-top: 0;
+    margin-top: 0
 }
 
 p {
-    margin: 0 0 10px;
+    margin: 0 0 10px
 }
 
 pre {
-    margin: 15px 0 25px;
+    margin: 15px 0 25px
 }
 
 table {
-    margin: 20px 0 30px;
+    margin: 20px 0 30px
 }
 
-th, td {
+td, th {
     padding: 5px 10px 4px 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd
 }
 
 th {
-    border-bottom-color: #ccc;
+    border-bottom-color: #ccc
 }
 
-ul, ol {
-    margin: 0 0 20px;
+ol, ul {
+    margin: 0 0 20px
 }
 
 li {
-    margin: 0 0 5px;
+    margin: 0 0 5px
 }
 
 a, a:visited {
-    text-decoration: none;
+    text-decoration: none
 }
 
 a:hover {
-    text-decoration: underline;
+    text-decoration: underline
 }
 
 a, a:visited {
-    color: #3f729b;
+    color: #3f729b
 }
 
 a:hover {
-    color: #1c5380;
+    color: #1c5380
 }
 
 code {
     -webkit-font-smoothing: subpixel-antialiased;
     font-size: 12px;
     font-style: normal;
-    font-weight: normal;
-    line-height: 15px;
+    font-weight: 400;
+    line-height: 15px
 }
 
 th {
-    text-transform: uppercase;
+    text-transform: uppercase
 }
 
 .page-footer {
     font-size: 12px;
-    line-height: 16px;
+    line-height: 16px
 }
 
 .page-footer nav, .page-footer p {
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 700
 }
 
 .page-footer p {
-    color: #999999;
-    color: rgba(0, 0, 0, 0.3);
+    color: #999;
+    color: rgba(0, 0, 0, .3)
 }
 
 .page-home .page-footer {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .6)
 }
 
 a {
-    -webkit-tap-highlight-color: rgba(63, 114, 155, 0.3);
+    -webkit-tap-highlight-color: rgba(63, 114, 155, .3)
 }
 
 code {
     max-width: 100%;
     display: inline;
-    background: #eee;
+    background: #eee
 }
 
 fieldset {
-    margin: 0 0 20px;
+    margin: 0 0 20px
 }
 
 input[type=text] {
-    -webkit-appearance: none;
+    -webkit-appearance: none
 }
 
 textarea {
-    padding: 7px 7px 6px;
+    padding: 7px 7px 6px
 }
 
 table {
-    width: 100% !important;
+    width: 100% !important
 }
 
 ol, ul {
-    padding-left: 20px;
-    list-style-position: outside;
+    list-style-position: outside
 }
 
 ul {
-    list-style-type: square;
+    list-style-type: square
 }
 
 ol {
-    list-style-type: decimal;
+    list-style-type: decimal
 }
 
 .page-home .content .home-login {
-    position: relative;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 1em;
     text-decoration: none !important;
-    color: #111;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -501,77 +411,21 @@ ol {
     -ms-user-select: none;
     user-select: none;
     display: inline-block;
-    background-color: #eeeeee;
     -webkit-border-radius: 4px;
-    border-radius: 4px;
+    border-radius: 4px
 }
 
 .page-home .content .home-login:hover {
-    background-color: #eeeeee;
+    background-color: #eee
+}
+
+.page-home .content .home-login, .page-home .content .home-login:hover, .page-home .content .home-login:visited {
+    color: #fff
 }
 
 .page-home .content .home-login:active {
-    background-color: #dddddd;
-}
-
-.page-home .content .home-login {
-    border: 1px solid #bbbbbb;
-}
-
-.page-home .content .home-login:active {
-    border-color: #a2a2a2;
-}
-
-.page-home .content .home-login,
-.page-home .content .home-login:visited {
-    color: #0f3556;
-}
-
-.page-home .content .home-login:hover {
-    color: #062540;
-}
-
-.page-home .content .home-login, .page-home .content .home-login:visited {
-    color: #fff;
-}
-
-.page-home .content .home-login:hover {
-    color: #fff;
-}
-
-.page-home .content .home-login:active {
-    color: rgba(255, 255, 255, 0.8);
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-}
-
-.page-home .content .home-login {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.page-home .content .home-login {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.2);
-}
-
-.page-home .content .home-login {
-    background-color: #f9fafb;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#f9fafb), to(#eef1f4));
-    background-image: -webkit-linear-gradient(top, #f9fafb, #eef1f4);
-    background-image: -moz-linear-gradient(top, #f9fafb, #eef1f4);
-    background-image: -o-linear-gradient(top, #f9fafb, #eef1f4);
-    background-image: -ms-linear-gradient(top, #f9fafb, #eef1f4);
-    background-image: linear-gradient(top, #f9fafb, #eef1f4);
-    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#f9fafb', EndColorStr='#eef1f4');
-    background-position: 50% 50%;
-}
-
-.page-home .content .home-login {
-    border: 1px solid #c6daec;
+    color: rgba(255, 255, 255, .8);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .3)
 }
 
 .page-home .content .home-login {
@@ -583,162 +437,157 @@ ol {
     background-image: -ms-linear-gradient(top, #6f97b6, #3f729b);
     background-image: linear-gradient(top, #6f97b6, #3f729b);
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#6f97b6', EndColorStr='#3f729b');
-    background-position: 50% 50%;
-    text-shadow: 0 1px 1px #1c5380;
+    background-position: 50% 50%
 }
 
 .page-home .content .home-login:active {
-    background: #3c6d94;
+    background: #3c6d94
 }
 
 .page-home .content .home-login {
-    border: 1px solid #1c5380;
+    border: 1px solid #1c5380
 }
 
 .page-home .content .home-login:active {
-    border-color: #133856;
+    border-color: #133856
 }
 
 .page {
     position: relative;
-    min-height: 100%;
+    min-height: 100%
 }
 
 .page-footer {
     position: relative;
     margin-top: -48px;
-    z-index: 20;
+    z-index: 20
 }
 
 .wrapper {
     margin: 0 auto;
     padding: 0 16px;
     position: relative;
-    width: 992px;
+    width: 992px
 }
 
 .page-footer {
     clear: both;
     overflow: hidden;
     padding: 8px 0 7px;
-    border-top: 1px solid #dddddd;
+    border-top: 1px solid #ddd;
     background: #fff;
-    text-align: center;
+    text-align: center
 }
 
-.page-footer nav, .page-footer nav ul, .page-footer .copyright {
+.page-footer .copyright, .page-footer nav, .page-footer nav ul {
     margin: 0;
-    padding: 0;
+    padding: 0
 }
 
-.page-footer nav, .page-footer .copyright, .page-footer li {
-    display: inline-block;
+.page-footer .copyright, .page-footer li, .page-footer nav {
+    display: inline-block
 }
 
 .page-footer li {
-    margin: 0;
+    margin: 0
 }
 
 .page-footer a {
     display: block;
-    padding: 8px 6px;
+    padding: 8px 6px
 }
 
 .page-footer .copyright {
     padding: 8px 6px;
-    margin: 0 0 0 8px;
+    margin: 0 0 0 8px
 }
 
 .page-home .page-footer {
-    background: none;
-    border: none;
+    background: 0 0;
+    border: none
 }
 
 @media screen and (max-width: 990px) {
     body {
-        width: 100%;
+        width: 100%
     }
 
     .wrapper {
         width: 100%;
-        box-sizing: border-box;
+        box-sizing: border-box
     }
-
 }
 
 @-moz-keyframes fade-in {
     0% {
-        opacity: 0;
+        opacity: 0
     }
-
     100% {
-        opacity: 1;
+        opacity: 1
     }
 }
 
 @-ms-keyframes fade-in {
     0% {
-        opacity: 0;
+        opacity: 0
     }
-
     100% {
-        opacity: 1;
+        opacity: 1
     }
 }
 
 @-o-keyframes fade-in {
     0% {
-        opacity: 0;
+        opacity: 0
     }
-
     100% {
-        opacity: 1;
+        opacity: 1
     }
 }
 
 @media screen and (max-width: 820px) {
     td {
         display: block;
-        width: auto;
+        width: auto
     }
 }
 
 @media screen and (max-width: 640px) {
     td {
         display: table-cell;
-        width: 50%;
+        width: 50%
     }
 }
 
 h1 {
-    font-size: 27px;
+    font-size: 27px
 }
 
 ol, ul {
-    padding-left: 25px;
+    padding-left: 25px
 }
 
 .page-footer .copyright {
     float: none;
     clear: both;
-    margin-top: 10px;
+    margin-top: 10px
 }
 
 h1 {
     position: relative;
-    top: 0;
+    top: 0
 }
 
 h1, h2, h3 {
-    color: #06365f;
+    color: #06365f
 }
 
 body {
-    background: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/images/bg/body_noise.png) repeat 50% 50%;
+    background: url(//d36xtkk24g8jdx.cloudfront.net/bluebar/e3331fa/images/bg/body_noise.png) repeat 50% 50%
 }
 
 .main {
-    padding-bottom: 0;
+    padding-bottom: 0
 }
 
 .page-home #home-bg {
@@ -755,27 +604,27 @@ body {
     background-image: url(../img/noise-1.png), -o-linear-gradient(top, #517fa4, #306088);
     background-image: url(../img/noise-1.png), -ms-linear-gradient(top, #517fa4, #306088);
     background-image: url(../img/noise-1.png), linear-gradient(top, #517fa4, #306088);
-    background-position: 50% 50%;
+    background-position: 50% 50%
 }
 
 .page-home .wrap {
     position: relative;
     width: 880px;
-    margin: 0 auto;
+    margin: 0 auto
 }
 
-.page-home .wrap:before, .page-home .wrap:after {
+.page-home .wrap:after, .page-home .wrap:before {
     content: "";
     display: block;
-    overflow: hidden;
+    overflow: hidden
 }
 
 .page-home .wrap:after {
-    clear: both;
+    clear: both
 }
 
 .page-home .wrap {
-    zoom: 1;
+    zoom: 1
 }
 
 .page-home .home-phones {
@@ -786,24 +635,38 @@ body {
     width: 318px;
     height: 612px;
     padding-top: 0;
-    margin-left: 4px;
+    margin-left: 4px
 }
 
 .page-home #iphone-overlay {
     position: absolute;
     top: 159px;
-    left: 98px;
+    left: 98px
 }
 
 .page-home #iphone-overlay img {
     position: absolute;
     width: 200px !important;
+    z-index: 8
+}
+
+#slider-overlay img {
+    position: absolute;
+    left: 0;
+    width: 797px !important;
     z-index: 8;
 }
 
-.page-home #iphone-overlay img.active {
-    z-index: 10;
+#iphone-overlay img.active,
+#slider-overlay img.active {
+    z-index: 10
 }
+
+#iphone-overlay img.last-active,
+#slider-overlay img.last-active {
+    z-index: 9 !important;
+}
+
 
 .page-home .home-phones-glare {
     position: absolute;
@@ -812,7 +675,7 @@ body {
     width: 94px;
     height: 192px;
     background: url(../img/home-phones-glare.png) no-repeat 100% 0;
-    z-index: 10;
+    z-index: 10
 }
 
 .page-home .content {
@@ -824,63 +687,62 @@ body {
 
 .page-home .content .tab {
     margin-top: 170px;
-    background: url(../img/content-background.png) 6px 6px no-repeat;
+    background: url(../img/content-background.png) 6px 6px no-repeat
 }
 
 .page-home .content .tab-content {
-    padding: 40px 56px 128px 48px;
+    padding: 40px 56px 128px 48px
 }
 
 .page-home .content .home-login {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), inset 1px 0 0 rgba(255, 255, 255, 0.05), inset -1px 0 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .1);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .1), inset 1px 0 0 rgba(255, 255, 255, .05), inset -1px 0 0 rgba(255, 255, 255, .05), inset 0 1px 0 rgba(255, 255, 255, .1);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .1), inset 1px 0 0 rgba(255, 255, 255, .05), inset -1px 0 0 rgba(255, 255, 255, .05), inset 0 1px 0 rgba(255, 255, 255, .1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1), inset 1px 0 0 rgba(255, 255, 255, .05), inset -1px 0 0 rgba(255, 255, 255, .05), inset 0 1px 0 rgba(255, 255, 255, .1);
     position: absolute;
     right: 18px;
     top: 96px;
     padding: 13px 13px 12px 42px;
-    font-size: 16px;
+    font-size: 16px
 }
 
 .page-home .content .home-login:active {
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.2);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.2);
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.15), inset 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 0 rgba(255, 255, 255, 0.2);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .15), inset 0 0 1px rgba(0, 0, 0, .15), 0 1px 0 rgba(255, 255, 255, .2);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .15), inset 0 0 1px rgba(0, 0, 0, .15), 0 1px 0 rgba(255, 255, 255, .2);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .15), inset 0 0 1px rgba(0, 0, 0, .15), 0 1px 0 rgba(255, 255, 255, .2)
 }
 
 .page-home h1 {
     color: #3f729b;
     font-size: 1.8em;
-    line-height: 1.0em;
+    line-height: 1em
 }
 
 .page-home .platform-badge-container {
-    position: absolute;
     margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .page-home .platform-badge {
-    margin-right: 16px;
+    margin-right: 16px
 }
 
 .page-home .page {
-    min-height: 600px;
+    min-height: 600px
 }
 
 .page-home .page-footer {
-    margin-top: 0;
+    margin-top: 0
 }
 
 .page-home .page-footer .wrapper {
-    width: 840px;
+    width: 840px
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
-
     .page-home .content .tab {
         background-image: url(../img/content-background@2x.png);
-        background-size: 505px 284px;
+        background-size: 505px 284px
     }
 }
 
@@ -888,10 +750,10 @@ body {
     font-size: 27px;
     line-height: 32px;
     margin-right: 35%;
-    color: #06365f;
+    color: #06365f
 }
 
 .tab-content p {
     font-size: 16px;
-    line-height: 24px;
+    line-height: 24px
 }

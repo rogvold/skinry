@@ -6,7 +6,7 @@ $(function () {
     };
 
     if (location.search === '?test') {
-        $.getScript("js/xml_http_request.js", function () {
+        $.getScript("js/xml_http_request.min.js", function () {
             console.log("xml_http_request loaded");
         });
         $.getScript("js/iframeheight.min.js", function () {
@@ -18,7 +18,7 @@ $(function () {
         function iframeListener() {
             $("#tryModal").on('shown.bs.modal', function () {
                 if (!$("#tryFrame").exists()) {
-                    $("#modal-try-body").append('<iframe id="tryFrame" src="//skinry.com:5000" style="width: 100%" frameborder="0">Your browser does not support the \'iframe\' feature.</iframe>');
+                    $("#modal-try-body").append('<iframe id="tryFrame" src="//skinry.com:5000" style="width: 100%; height: 500px" frameborder="0">Your browser does not support the \'iframe\' feature.</iframe>');
                     $('#tryFrame').iframeHeight({
                         minimumHeight: 50,
                         defaultHeight: 200,
@@ -49,7 +49,8 @@ $(function () {
         }
     }
     initSubscriptionForm();
-    setTimeout("next_slide()", 5000);
+    setTimeout("next_slide('iphone')", 5000);
+    setTimeout("next_slide('slider')", 5000);
 });
 
 function getParameterByName(name) {
@@ -68,16 +69,16 @@ function initSubscriptionForm() {
     });
 }
 
-function next_slide() {
-    var active = $('#iphone-overlay img.active');
+function next_slide(type) {
+    var active = $('#' + type +'-overlay img.active');
     if (active.length === 0)
-        active = $('#iphone-overlay img:last');
-    var next = active.next().length ? active.next() : $('#iphone-overlay img:first');
+        active = $('#' + type +'-overlay img:last');
+    var next = active.next().length ? active.next() : $('#' + type +'-overlay img:first');
     active.addClass('last-active');
     next.css({opacity: 0.0}).addClass('active').animate({opacity: 1.0}, 1500, function () {
         active.removeClass('active last-active');
     });
-    setTimeout("next_slide()", 5000);
+    setTimeout("next_slide('" + type + "')", 5000);
 }
 
 function androidClick() {

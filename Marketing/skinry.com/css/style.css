@@ -49,3 +49,27 @@
 .page-footer li {
     cursor: pointer;
 }
+
+.viewport{
+    width: 797px;
+    height: 255px;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+}
+.slidewrapper{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 255px;
+    margin: 0;
+    padding: 0;
+}
+.slide {
+    width: 797px;
+    height: 255px;
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}

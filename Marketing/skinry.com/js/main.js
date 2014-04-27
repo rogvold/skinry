@@ -6,9 +6,6 @@ $(function () {
     };
 
     if (location.search === '?test') {
-        $.getScript("js/xml_http_request.min.js", function () {
-            console.log("xml_http_request loaded");
-        });
         $.getScript("js/iframeheight.min.js", function () {
             console.log("iframeheight loaded");
             $("#trybutton").show();
@@ -132,4 +129,26 @@ function validateEmail(email) {
 function toThankYou() {
     $('#soon').hide();
     $('#thankyou').show();
+}
+
+var slideWidth=797;
+var sliderTimer;
+$(function(){
+    $('.slidewrapper').width($('.slidewrapper').children().size()*slideWidth);
+    sliderTimer=setInterval(nextSlide,5000);
+    $('.viewport').hover(function(){
+        clearInterval(sliderTimer);
+    },function(){
+        sliderTimer=setInterval(nextSlide,5000);
+    });
+});
+
+function nextSlide(){
+    var currentSlide=parseInt($('.slidewrapper').data('current'));
+    currentSlide++;
+    if(currentSlide>=$('.slidewrapper').children().size())
+    {
+        currentSlide=0;
+    }
+    $('.slidewrapper').animate({left: -currentSlide*slideWidth},1000).data('current',currentSlide);
 }

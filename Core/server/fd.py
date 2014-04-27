@@ -49,136 +49,123 @@ def detect_face_and_organs(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     faces = []
 
-    for i, angle in enumerate([0, 90, 180, 270]):
-        gray_angle = ndimage.rotate(gray, angle)
-        
-        to_do = True
-        for sf in [1.1, 1.01]:
-            if to_do == False:
-                break
-            for mn in [3, 5, 7]:
-                face = face_cascade.detectMultiScale(gray_angle, sf, mn, cv2.cv.CV_HAAR_SCALE_IMAGE, (H / 8, W / 8))
-                if mn == 3 and sf == 1.1:
-                    faces.append(face)
-                if len(face) > 0:
-                    faces[i] = face
-                    to_do = False
-                    break
-
     is_face = False
-    for face in faces:
-        if len(face) > 0:
-            is_face = True
+    to_do = True
+    for sf in [1.1, 1.01]:
+        if to_do == False:
             break
+        for mn in [3, 5, 7]:
+            face = face_cascade.detectMultiScale(gray, sf, mn, cv2.cv.CV_HAAR_SCALE_IMAGE, (H / 8, W / 8))
+            if len(face) > 0:
+                is_face = True
+                to_do = False
+                break
+
     if is_face == False:
         raise ValueError('Error: No face. May be your eyes are closed')
 
     #getting face, eyes, nose, mouth
-    for i, face in enumerate(faces):
-        for (x,y,w,h) in face:
-            y -= 0.1 * (y + h / 2)
-            h += 0.2 * (y + h / 2)
-            y = max(int(y), 0)
-            h = min(int(h), H - 1 - y)
+    for (x,y,w,h) in face:
+        y -= 0.1 * (y + h / 2)
+        h += 0.2 * (y + h / 2)
+        y = max(int(y), 0)
+        h = min(int(h), H - 1 - y)
 
-            if H * W > 10 * h * w:
+        if H * W > 10 * h * w:
+            break
+
+        roi = img[y:y + h, x:x + w]
+        roi_gray = gray[y:y + h, x:x + w]
+
+        eyes_coordinates = [(0, 0, 0, 0), (0, 0, 0, 0)]
+        nose_coordinates = (0, 0, 0, 0)
+        mouth_coordinates = (0, 0, 0, 0)
+
+        eyess = []
+        #define eyes
+        to_do = True
+        for sf in [1.1, 1.05]:
+            if to_do == False:
                 break
-
-            img = ndimage.rotate(img, 90 * i)
-            gray = ndimage.rotate(gray, 90 * i)
-
-            roi = img[y:y + h, x:x + w]
-            roi_gray = gray[y:y + h, x:x + w]
-
-            eyes_coordinates = [(0, 0, 0, 0), (0, 0, 0, 0)]
-            nose_coordinates = (0, 0, 0, 0)
-            mouth_coordinates = (0, 0, 0, 0)
-
-            eyess = []
-            #define eyes
-            to_do = True
-            for sf in [1.1, 1.05]:
-                if to_do == False:
+            for mn in [3, 5, 7]:
+                eyes = eye_cascade.detectMultiScale(roi_gray, sf, mn)
+                eyess.append(eyes)
+                if len(eyes) >= 2:
+                    to_do = False
                     break
-                for mn in [3, 5, 7]:
-                    eyes = eye_cascade.detectMultiScale(roi_gray, sf, mn)
-                    eyess.append(eyes)
-                    if len(eyes) >= 2:
-                        to_do = False
-                        break
 
-            for eye in eyess:
-                if len(eye) > len(eyes):
-                    eyes = eye
+        for eye in eyess:
+            if len(eye) > len(eyes):
+                eyes = eye
 
-            for i, (ex, ey, ew, eh) in enumerate(eyes):
-                delta = int(0.3 * eh)
-                ey = max(0, ey - delta)
-                eh += delta
-                eyes[i] = (ex, ey, ew, eh)
+        for i, (ex, ey, ew, eh) in enumerate(eyes):
+            delta = int(0.3 * eh)
+            ey = max(0, ey - delta)
+            eh += delta
+            eyes[i] = (ex, ey, ew, eh)
 
 
-            nose = nose_cascade.detectMultiScale(roi_gray, scale_factor, 5, 0, (h / 10, w / 10))
-            mouth = mouth_cascade.detectMultiScale(roi_gray, scale_factor, 5, 0 , (h / 10, w / 10))
+        nose = nose_cascade.detectMultiScale(roi_gray, scale_factor, 5, 0, (h / 10, w / 10))
+        mouth = mouth_cascade.detectMultiScale(roi_gray, scale_factor, 5, 0 , (h / 10, w / 10))
 
-            if len(eyes) == 0:
-                for (nx, ny, nw, nh) in nose:
-                    if (nx < int(0.6 * w) and nx > int(0.2 * w) and ny > int(0.3 * h) and ny < int(0.6 * h)):
-                        nose_coordinates = (nx, ny, nw, nh)
-                        break
-                for (mx, my, mw, mh) in mouth:
-                    if (mx < int(0.6 * w) and mx > int(0.2 * w) and my > int(0.6 * h)):
-                        mouth_coordinates = (mx, my, mw, mh)
-                        break
+        if len(eyes) == 0:
+            for (nx, ny, nw, nh) in nose:
+                if (nx < int(0.6 * w) and nx > int(0.2 * w) and ny > int(0.3 * h) and ny < int(0.6 * h)):
+                    nose_coordinates = (nx, ny, nw, nh)
+                    break
+            for (mx, my, mw, mh) in mouth:
+                if (mx < int(0.6 * w) and mx > int(0.2 * w) and my > int(0.6 * h)):
+                    mouth_coordinates = (mx, my, mw, mh)
+                    break
 
-            if len(eyes) == 1:
-                eyes_coordinates[0] = eyes[0]
-                for (nx, ny, nw, nh) in nose:
-                    if (ny > (eyes_coordinates[0][1] + int(0.2 * eyes_coordinates[0][3])) and
+        if len(eyes) == 1:
+            eyes_coordinates[0] = eyes[0]
+            for (nx, ny, nw, nh) in nose:
+                if (ny > (eyes_coordinates[0][1] + int(0.2 * eyes_coordinates[0][3])) and
+                abs(ny - eyes_coordinates[0][1] - eyes_coordinates[0][3]) < h / 7):
+                    nose_coordinates = (nx, ny, nw, nh)
+                    break
+            for (mx, my, mw, mh) in mouth:
+                if (my > nose_coordinates[1] + int(nose_coordinates[3] * 0.7) and
+                    my > eyes_coordinates[0][1] + eyes_coordinates[0][3]):
+                    mouth_coordinates = (mx, my, mw, mh)
+                    break
+
+        if len(eyes) > 2:
+            for i in range(len(eyes) - 2, -1, -1):
+                for j in range(i, len(eyes) - 1):
+                    if eyes[j][0] > eyes[j + 1][0]:
+                        eyes[j], eyes[j + 1] = eyes[j + 1], eyes[j]
+
+            eyes_coordinates[0] = eyes[0]
+            for i in range(1, len(eyes)):
+                if (eyes[i][0] > eyes[0][0] + eyes[0][2] and abs(eyes[0][1] - eyes[i][1]) < h / 7):
+                    eyes_coordinates[1] = eyes[i]
+                    break
+            eyes = [eyes_coordinates[0], eyes_coordinates[1]]
+
+        if len(eyes) == 2:
+            eyes_coordinates[0] = eyes[0]
+            eyes_coordinates[1] = eyes[1]
+
+            if eyes_coordinates[0][0] > eyes_coordinates[1][0]:
+                eyes_coordinates[0], eyes_coordinates[1] = eyes_coordinates[1], eyes_coordinates[0]
+            for (nx, ny, nw, nh) in nose:
+                if (nx > eyes_coordinates[0][0] + int(eyes_coordinates[0][2] * 0.3) and
+                    nx < eyes_coordinates[1][0] and ny > (eyes_coordinates[0][1] + 
+                    int(0.6 * eyes_coordinates[0][3])) and
                     abs(ny - eyes_coordinates[0][1] - eyes_coordinates[0][3]) < h / 7):
-                        nose_coordinates = (nx, ny, nw, nh)
-                        break
-                for (mx, my, mw, mh) in mouth:
-                    if (my > nose_coordinates[1] + int(nose_coordinates[3] * 0.7) and
-                        my > eyes_coordinates[0][1] + eyes_coordinates[0][3]):
-                        mouth_coordinates = (mx, my, mw, mh)
-                        break
+                    nose_coordinates = (nx, ny, nw, nh)
+                    break
+            for (mx, my, mw, mh) in mouth:
+                if (my > nose_coordinates[1] + int(nose_coordinates[3] * 0.7) and
+                    (mx > eyes_coordinates[0][0] or abs(mx - eyes_coordinates[0][0]) < 0.1 * w) and
+                    mx < eyes_coordinates[1][0]  and mx + mw > eyes_coordinates[1][0] and 
+                    my > eyes_coordinates[0][1] + eyes_coordinates[0][3]):
+                    mouth_coordinates = (mx, my, mw, mh)
+                    break
 
-            if len(eyes) > 2:
-                for i in range(len(eyes) - 2, -1, -1):
-                    for j in range(i, len(eyes) - 1):
-                        if eyes[j][0] > eyes[j + 1][0]:
-                            eyes[j], eyes[j + 1] = eyes[j + 1], eyes[j]
-
-                eyes_coordinates[0] = eyes[0]
-                for i in range(1, len(eyes)):
-                    if (eyes[i][0] > eyes[0][0] + eyes[0][2] and abs(eyes[0][1] - eyes[i][1]) < h / 7):
-                        eyes_coordinates[1] = eyes[i]
-                        break
-                eyes = [eyes_coordinates[0], eyes_coordinates[1]]
-
-            if len(eyes) == 2:
-                eyes_coordinates[0] = eyes[0]
-                eyes_coordinates[1] = eyes[1]
-
-                if eyes_coordinates[0][0] > eyes_coordinates[1][0]:
-                    eyes_coordinates[0], eyes_coordinates[1] = eyes_coordinates[1], eyes_coordinates[0]
-                for (nx, ny, nw, nh) in nose:
-                    if (nx > eyes_coordinates[0][0] + int(eyes_coordinates[0][2] * 0.3) and
-                        nx < eyes_coordinates[1][0] and ny > (eyes_coordinates[0][1] + 
-                        int(0.6 * eyes_coordinates[0][3])) and
-                        abs(ny - eyes_coordinates[0][1] - eyes_coordinates[0][3]) < h / 7):
-                        nose_coordinates = (nx, ny, nw, nh)
-                        break
-                for (mx, my, mw, mh) in mouth:
-                    if (my > nose_coordinates[1] + int(nose_coordinates[3] * 0.7) and
-                        (mx > eyes_coordinates[0][0] or abs(mx - eyes_coordinates[0][0]) < 0.1 * w) and
-                        mx < eyes_coordinates[1][0]  and mx + mw > eyes_coordinates[1][0] and 
-                        my > eyes_coordinates[0][1] + eyes_coordinates[0][3]):
-                        mouth_coordinates = (mx, my, mw, mh)
-                        break
-
-            return roi, eyes_coordinates, nose_coordinates, mouth_coordinates
+        return roi, eyes_coordinates, nose_coordinates, mouth_coordinates
 
     raise ValueError('Face is too small')
 

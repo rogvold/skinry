@@ -10,10 +10,14 @@ $(function () {
             console.log("iframeheight loaded");
             $("#trybutton").show();
             iframeListener();
+            $('#tryModal').modal('show');
+
         });
 
         function iframeListener() {
             $("#tryModal").on('shown.bs.modal', function () {
+                yaCounter24132985.reachGoal('beta_demo_button');
+
                 if (!$("#tryFrame").exists()) {
                     $("#modal-try-body").append('<iframe id="tryFrame" src="//skinry.com:5000" style="width: 100%; height: 500px" frameborder="0">Your browser does not support the \'iframe\' feature.</iframe>');
                     $('#tryFrame').iframeHeight({
@@ -129,26 +133,4 @@ function validateEmail(email) {
 function toThankYou() {
     $('#soon').hide();
     $('#thankyou').show();
-}
-
-var slideWidth=797;
-var sliderTimer;
-$(function(){
-    $('.slidewrapper').width($('.slidewrapper').children().size()*slideWidth);
-    sliderTimer=setInterval(nextSlide,5000);
-    $('.viewport').hover(function(){
-        clearInterval(sliderTimer);
-    },function(){
-        sliderTimer=setInterval(nextSlide,5000);
-    });
-});
-
-function nextSlide(){
-    var currentSlide=parseInt($('.slidewrapper').data('current'));
-    currentSlide++;
-    if(currentSlide>=$('.slidewrapper').children().size())
-    {
-        currentSlide=0;
-    }
-    $('.slidewrapper').animate({left: -currentSlide*slideWidth},1000).data('current',currentSlide);
 }

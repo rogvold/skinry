@@ -306,14 +306,6 @@ th {
     border-bottom-color: #ccc
 }
 
-ol, ul {
-    margin: 0 0 20px
-}
-
-li {
-    margin: 0 0 5px
-}
-
 a, a:visited {
     text-decoration: none
 }
@@ -650,11 +642,20 @@ body {
     z-index: 8
 }
 
-#iphone-overlay img.active {
+#slider-overlay img {
+    position: absolute;
+    left: 0;
+    width: 797px !important;
+    z-index: 8;
+}
+
+#iphone-overlay img.active,
+#slider-overlay img.active {
     z-index: 10
 }
 
-#iphone-overlay img.last-active {
+#iphone-overlay img.last-active,
+#slider-overlay img.last-active {
     z-index: 9 !important;
 }
 
@@ -746,4 +747,11 @@ body {
 .tab-content p {
     font-size: 16px;
     line-height: 24px
+}
+
+@media (min-width: 992px) {
+    .article-panel {
+        position: fixed;
+        width: 20%;
+    }
 }

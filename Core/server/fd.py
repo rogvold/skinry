@@ -376,15 +376,8 @@ def resize(img):
 def get_param(file_name):
     img = cv2.imread(file_name)
     if img == None:
-<<<<<<< HEAD
         raise ValueError('No image' + file_name)
-    
-=======
-        raise ValueError("No image" + file_name)
-
     img = resize(img)
-
->>>>>>> 6431e3084a24679f17d8572fcc469d2591de6929
     face_image, eyes_coordinates, nose_coordinates, mouth_coordinates = detect_face_and_organs(img)
     # 'result_points' - array of contour's points
     result_points = define_contours(face_image)

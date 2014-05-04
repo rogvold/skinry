@@ -62,7 +62,7 @@ def draw_circles(image, key_points):
         y = int(kp.pt[1])
         center = (x, y)
         size = int(kp.size / 2)
-        cv2.circle(image, center, size, (0, 0, 255), 1)
+        cv2.circle(image, center, size, (255, 0, 0), 1)
 
     return image
 
@@ -344,7 +344,7 @@ def process_photo(file_name):
     result_image, score = sift_grid_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
     #result_image, score = mono_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
 
-    result_image = draw_face(result_image, result_points)
+    #result_image = draw_face(result_image, result_points)
 
     return result_image, score
 

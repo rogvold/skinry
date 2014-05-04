@@ -138,14 +138,12 @@ legend {
     border: 0;
     padding: 0;
     white-space: normal;
-    *margin-left: -7px
 }
 
 button, input, select, textarea {
     font-size: 100%;
     margin: 0;
     vertical-align: baseline;
-    *vertical-align: middle
 }
 
 button, input {
@@ -155,7 +153,6 @@ button, input {
 button {
     cursor: pointer;
     -webkit-appearance: button;
-    *overflow: visible
 }
 
 input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration {
@@ -190,21 +187,7 @@ caption, th {
     text-align: left
 }
 
-.page-footer:after {
-    clear: both;
-    content: ".";
-    display: block;
-    height: 0;
-    visibility: hidden;
-    font-size: .01em !important;
-    line-height: .01em !important
-}
-
-* html .page-footer {
-    height: 1%
-}
-
-.page-footer, label {
+label {
     display: block
 }
 
@@ -334,25 +317,6 @@ th {
     text-transform: uppercase
 }
 
-.page-footer {
-    font-size: 12px;
-    line-height: 16px
-}
-
-.page-footer nav, .page-footer p {
-    text-transform: uppercase;
-    font-weight: 700
-}
-
-.page-footer p {
-    color: #999;
-    color: rgba(0, 0, 0, .3)
-}
-
-.page-home .page-footer {
-    text-shadow: 0 1px 0 rgba(255, 255, 255, .6)
-}
-
 a {
     -webkit-tap-highlight-color: rgba(63, 114, 155, .3)
 }
@@ -449,54 +413,11 @@ ol {
     min-height: 100%
 }
 
-.page-footer {
-    position: relative;
-    margin-top: -48px;
-    z-index: 20
-}
-
 .wrapper {
     margin: 0 auto;
     padding: 0 16px;
     position: relative;
     width: 992px
-}
-
-.page-footer {
-    clear: both;
-    overflow: hidden;
-    padding: 8px 0 7px;
-    border-top: 1px solid #ddd;
-    background: #fff;
-    text-align: center
-}
-
-.page-footer .copyright, .page-footer nav, .page-footer nav ul {
-    margin: 0;
-    padding: 0
-}
-
-.page-footer .copyright, .page-footer li, .page-footer nav {
-    display: inline-block
-}
-
-.page-footer li {
-    margin: 0
-}
-
-.page-footer a {
-    display: block;
-    padding: 8px 6px
-}
-
-.page-footer .copyright {
-    padding: 8px 6px;
-    margin: 0 0 0 8px
-}
-
-.page-home .page-footer {
-    background: 0 0;
-    border: none
 }
 
 @media screen and (max-width: 990px) {
@@ -557,12 +478,6 @@ h1 {
 
 ol, ul {
     padding-left: 25px
-}
-
-.page-footer .copyright {
-    float: none;
-    clear: both;
-    margin-top: 10px
 }
 
 h1 {
@@ -720,14 +635,6 @@ body {
 
 .page-home .page {
     min-height: 600px
-}
-
-.page-home .page-footer {
-    margin-top: 0
-}
-
-.page-home .page-footer .wrapper {
-    width: 840px
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {

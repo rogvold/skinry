@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Получить совет косметолога</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="Shortcut Icon" type="image/x-icon" href="../resources/img/shortcut.png">
+    <script type="text/javascript" src="../resources/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="../resources/js/parse-1.2.18.min.js"></script>
+    <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/footer.min.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/callout.min.css">
+</head>
+<body style="background: #ffffff">
+
+    <div class="navbar navbar-default" role="navigation" style="margin-bottom: 0">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="../index.html">Skinry</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Получить совет дерматолога</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="../resources/img/slide-01.jpg" alt="...">
+            <div class="carousel-caption" style="text-align: left">
+                <h1>Избавьтесь от проблем с кожей</h1>
+                <p class="lead">
+                    - Регулярно фотографируйте лицо<br>
+                    - Получайте консультации профессионального дерматолога
+                </p>
+                <a href="#questionary" class="btn btn-lg btn-primary">Заполнить анкету</a>
+            </div>
+        </div>
+        <div class="item">
+            <img src="../resources/img/slide-02.jpg" alt="...">
+            <div class="carousel-caption">
+                ...
+            </div>
+        </div>
+        <div class="item">
+            <img src="../resources/img/slide-03.jpg" alt="...">
+            <div class="carousel-caption">
+                ...
+            </div>
+        </div>
+    </div>
+
+    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>
+
+<div class="container">
+    <h1 id="help" style="margin-top: 30px">Схема</h1>
+    <div class="row" style="text-align: center;">
+        <div class="col-lg-4">
+            <img src="../resources/img/girl-mini.png" class="img-circle" style="width: 140px;">
+            <p>Заполни анкету, приложи фотографии проблемных мест</p>
+        </div>
+        <div class="col-lg-4">
+            <img src="../resources/img/girl-mini.png" class="img-circle" style="width: 140px;">
+            <p>Получи бесплатную консультацию дерматолога</p>
+        </div>
+        <div class="col-lg-4">
+            <img src="../resources/img/girl-mini.png" class="img-circle" style="width: 140px;">
+            <p>Задай дополнительные вопросы о том, как заботиться о своей коже</p>
+        </div>
+    </div>
+
+    <h1 id="questionary" style="margin-top: 30px">Анкета</h1>
+
+    <div class="bs-callout bs-callout-info">
+        <h4>Рекомендуем Вам заполнять полную анкету</h4>
+        <p>Более детальная информация позволит дерматологу поставить более точный диагноз</p>
+    </div>
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#short" data-toggle="tab">Короткая анкета</a></li>
+        <li><a href="#full" data-toggle="tab">Полная анкета</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active" id="short">
+            <div class="form-group">
+                <label for="short-name">ФИО</label>
+                <input id="short-name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="short-email">E-mail</label>
+                <input id="short-email" class="form-control">
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="short-sex">Пол</label><br>
+                        <div id="short-sex" class="btn-group" data-toggle="buttons-radio">
+                            <button type="button" class="btn btn-primary">Мужской</button>
+                            <button type="button" class="btn btn-primary">Женский</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="short-age">Возраст</label>
+                        <div id="short-age-group" class="form-inline">
+                            <select id="short-age" class="form-control"></select>
+                        </div>
+
+                        <script language="JavaScript">
+                            for(var i=1; i<=122; i++) {
+                                var $opt = $("<option></option>").attr("value",i).text(i);
+                                if(i == 18) {
+                                    $opt.attr("selected", "");
+                                }
+                                $('#short-age').append($opt);
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="short-complaint">Жалобы</label>
+                <textarea id="short-complaint" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="short-allergy">Аллергические реакции</label>
+                <textarea id="short-allergy" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="short-previous">Предыдущее лечение и его эффект</label>
+                <textarea id="short-previous" class="form-control"></textarea>
+            </div>
+            <button class="btn btn-primary">Отправить</button>
+        </div>
+
+
+        <div class="tab-pane" id="full">
+            <div class="form-group">
+                <label for="full-name">ФИО</label>
+                <input id="full-name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="full-email">E-mail</label>
+                <input id="full-email" class="form-control">
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="full-sex">Пол</label><br>
+                        <div id="full-sex" class="btn-group" data-toggle="buttons-radio">
+                            <button type="button" class="btn btn-primary">Мужской</button>
+                            <button type="button" class="btn btn-primary">Женский</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="full-birthday">Дата рождения</label>
+                        <div id="full-birthday" class="form-inline">
+                            <select id="full-day" class="form-control"></select>
+                            <select id="full-month" class="form-control">
+                                <option value="1">Январь</option>
+                                <option value="2">Февраль</option>
+                                <option value="3">Март</option>
+                                <option value="4">Апрель</option>
+                                <option value="5">Май</option>
+                                <option value="6">Июнь</option>
+                                <option value="7">Июль</option>
+                                <option value="8">Август</option>
+                                <option value="9">Сертябрь</option>
+                                <option value="10">Октябрь</option>
+                                <option value="11">Ноябрь</option>
+                                <option value="12">Декабрь</option>
+                            </select>
+                            <select id="full-year" class="form-control"></select>
+                        </div>
+
+                        <script language="JavaScript">
+                            var $opt;
+                            for(var i=1; i<=31; i++) {
+                                $opt = $("<option></option>").attr("value",i).text(i);
+                                $('#full-day').append($opt);
+                            }
+                            for(var i=1901; i<=2014; i++) {
+                                $opt = $("<option></option>").attr("value",i).text(i);
+                                $('#full-year').append($opt);
+                                if(i == 1995) {
+                                    $opt.attr("selected", "");
+                                }
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="full-complaint">Время начала заболеваний</label>
+                <input id="full-complaint" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="full-cause">Связываете ли вы с чем-нибудь появление высыпаний?</label>
+                <textarea id="full-cause" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="full-drugs">Какими средствами уже пользовались/пользуетесь?</label>
+                <textarea id="full-drugs" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="full-whatworks">Что из средств помогало/помогает (если пользуетесь чем-либо самостоятельно)?</label>
+                <textarea id="full-whatworks" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="full-allergy">Есть ли у вас аллергия (если есть то на что и как проявляется. ЭТО ВАЖНО!)?</label>
+                <textarea id="full-allergy" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="full-illness">Есть ли у Вас еще какие-нибудь заболевания (проблемы с желудком, кишечником, сахарный диабет и так далее<br>
+                    Если сами точно не знаете спросите у родителей. ЭТО ВАЖНО!)?</label>
+                <textarea id="full-illness" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="full-illnessdrugs">Принимаете ли вы какие-нибудь препараты по сопутствующим заболеваниям. (ЭТО ВАЖНО!)?</label>
+                <textarea id="full-illnessdrugs" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="full-legacy">Были ли у ваших родителей такие высыпания на лице в молодости?</label>
+                <textarea id="full-legacy" class="form-control"></textarea>
+            </div>
+            <button class="btn btn-primary">Отправить</button>
+        </div>
+    </div>
+
+    <h1 id="comments" style="margin-top: 30px">Отзывы</h1>
+    <div class="row" style="text-align: center;">
+        <div class="col-lg-4">
+            <img src="../resources/img/girl-mini.png" class="img-circle" style="width: 140px;">
+        </div>
+        <div class="col-lg-8">
+            <h3>Братуха-борцуха рекомендую брат</h3>
+            <p>Сидел с ним один кент, назовем его Васей. Он ограбил магазин и еще находясь на свободе, начал понимать, что менты скоро возьмут его за задницу. Избежать правосудия Вася решил забавным способом: поехал в военкомат, хотел чтобы его взяли в армию (хз почему он решил, что это поможет).</p>
+        </div>
+    </div>
+    <div class="row" style="text-align: center;">
+        <div class="col-lg-8">
+            <h3>Спроси меня, есть ли жи</h3>
+            <p>У работницы отдела кадров Насти выдался очень тяжелый день - она уже третий час подряд болтает со своей подругой по телефону. После чего она тяжко вздохнет, выйдет из офиса и направится в сторону автобусной остановки, дабы потом битых сорок минут пути требовать у мужчин уступить ей место, мотивируя это тем, что она ЖЕ ЖЕНЩИНА и вообще УСТАЛА.</p>
+        </div>
+        <div class="col-lg-4">
+            <img src="../resources/img/girl-mini.png" class="img-circle" style="width: 140px;">
+        </div>
+    </div>
+    <div class="row" style="text-align: center;">
+        <div class="col-lg-4">
+            <img src="../resources/img/girl-mini.png" class="img-circle" style="width: 140px;">
+        </div>
+        <div class="col-lg-8">
+            <h3>Братуха-борцуха рекомендую брат</h3>
+            <p>Я был никем, простым работягой с дипломом Морского рыбопромышленного колледжа и пивным алкоголизмом. Рыбу и море я терпеть не мог, долгое время мотался с одной работы на другую, пока Андрюха, мой приятель и сосед по этажу, не помог мне устроиться оператором конвейера на пивоваренном заводе за чертой города.</p>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer" role="contentinfo">
+    <div class="wrapper container">
+        <nav>
+            <ul>
+                <li><a href="http://blog.skinry.com/">Блог</a></li>
+                <li><a href="http://facebook.com/skinry">Facebook</a></li>
+                <li><a href="http://vk.com/skinry">ВКонтакте</a></li>
+                <li><a href="http://twitter.com/skinry_scanner">Twitter</a></li>
+                <li><a href="../articles/article1.html">Статьи</a></li>
+            </ul>
+        </nav>
+
+        <p class="copyright" style="margin-top: 0;">© 2014 Skinry</p>
+
+        <p class="pull-right">
+            <a href="#">Back to top</a>
+        </p>
+    </div>
+</footer>
+</body>
+</html>

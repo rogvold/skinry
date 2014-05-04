@@ -5,17 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="Shortcut Icon" type="image/x-icon" href="../img/shortcut.png">
-    <script type="text/javascript" src="../js/jquery-2.1.0.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/instagram-main.min.css">
+    <link rel="Shortcut Icon" type="image/x-icon" href="../resources/img/shortcut.png">
+    <script type="text/javascript" src="../resources/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/footer.min.css">
+
+    <style>
+        @media (min-width: 992px) {
+            .article-panel {
+                position: fixed;
+                width: 20%;
+            }
+        }
+    </style>
 </head>
 <body style="padding-top: 50px; background: #ffffff">
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="http://skinry.com/">Skinry</a>
+            <a class="navbar-brand" href="../index.html">Skinry</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -24,6 +33,7 @@
         </div>
     </div>
 </div>
+
 <div class="container" style="padding-top: 30px">
     <div class="row">
         <div class="col-md-3">
@@ -33,7 +43,7 @@
                 <li class="active"><a href="#">Skinry - отслеживание чистоты кожи с помощью телефона</a></li>
             </ul>
         </div>
-        <div class="col-md-9" style="padding-bottom: 60px;">
+        <div class="col-md-9">
             <h1>Skinry - отслеживание чистоты кожи с помощью телефона</h1>
 
             <p><b>Прыщи на лице</b> не порок, но огромное количество людей страдают от них месяцами и даже годами. Больше всех,
@@ -90,18 +100,22 @@
 </div>
 
 <footer class="page-footer" role="contentinfo">
-    <div class="wrapper">
+    <div class="wrapper container">
         <nav>
             <ul>
-                <li><a href="http://blog.skinry.com/">Blog</a></li>
+                <li><a href="http://blog.skinry.com/">Блог</a></li>
                 <li><a href="http://facebook.com/skinry">Facebook</a></li>
-                <li><a href="http://vk.com/skinry">Vkontakte</a></li>
+                <li><a href="http://vk.com/skinry">ВКонтакте</a></li>
                 <li><a href="http://twitter.com/skinry_scanner">Twitter</a></li>
-                <li><a href="article1.html">Articles</a></li>
+                <li><a href="article1.html">Статьи</a></li>
             </ul>
         </nav>
 
         <p class="copyright" style="margin-top: 0;">© 2014 Skinry</p>
+
+        <p class="pull-right">
+            <a href="#">Вверх</a>
+        </p>
     </div>
 </footer>
 </body>

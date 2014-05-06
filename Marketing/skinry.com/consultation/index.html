@@ -9,24 +9,26 @@
     <script type="text/javascript" src="../resources/js/jquery-2.1.0.min.js"></script>
     <script type="text/javascript" src="../resources/js/parse-1.2.18.min.js"></script>
     <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./dermatologist.min.js"></script>
+
     <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="../resources/css/footer.min.css">
-    <link rel="stylesheet" type="text/css" href="../resources/css/callout.min.css">
+    <link rel="stylesheet" type="text/css" href="./callout.min.css">
 </head>
 <body style="background: #ffffff">
-
-    <div class="navbar navbar-default" role="navigation" style="margin-bottom: 0">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="../index.html">Skinry</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Получить совет дерматолога</a></li>
-                </ul>
-            </div>
+<div class="navbar navbar-default" role="navigation" style="margin-bottom: 0">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../index.html">Skinry</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Получить совет дерматолога</a></li>
+            </ul>
         </div>
     </div>
+</div>
 
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -69,7 +71,7 @@
     </a>
 </div>
 
-<div class="container">
+<div class="container" style="margin-bottom: 40px">
     <h1 id="help" style="margin-top: 30px">Схема</h1>
     <div class="row" style="text-align: center;">
         <div class="col-lg-4">
@@ -100,154 +102,145 @@
 
     <div class="tab-content">
         <div class="tab-pane active" id="short">
-            <div class="form-group">
-                <label for="short-name">ФИО</label>
-                <input id="short-name" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="short-email">E-mail</label>
-                <input id="short-email" class="form-control">
-            </div>
+            <form id="short-form">
+                <div class="form-group">
+                    <label for="short-name">ФИО</label>
+                    <input id="short-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="short-email">E-mail</label>
+                    <input id="short-email" type="email" class="form-control" required>
+                </div>
 
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="short-sex">Пол</label><br>
-                        <div id="short-sex" class="btn-group" data-toggle="buttons-radio">
-                            <button type="button" class="btn btn-primary">Мужской</button>
-                            <button type="button" class="btn btn-primary">Женский</button>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="short-sex">Пол</label><br>
+                            <select id="short-sex" class="form-control" required>
+                                <option value="" disabled selected>...</option>
+                                <option value="male">Мужской</option>
+                                <option value="female">Женский</option>
+                                <option value="undefined">Не указывать</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="short-age">Возраст</label>
+                            <input id="short-age" type="number" class="form-control" placeholder="возраст"></select>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="short-age">Возраст</label>
-                        <div id="short-age-group" class="form-inline">
-                            <select id="short-age" class="form-control"></select>
-                        </div>
 
-                        <script language="JavaScript">
-                            for(var i=1; i<=122; i++) {
-                                var $opt = $("<option></option>").attr("value",i).text(i);
-                                if(i == 18) {
-                                    $opt.attr("selected", "");
-                                }
-                                $('#short-age').append($opt);
-                            }
-                        </script>
-                    </div>
+                <div class="form-group">
+                    <label for="short-complaint">Жалобы</label>
+                    <textarea id="short-complaint" class="form-control"></textarea>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <label for="short-complaint">Жалобы</label>
-                <textarea id="short-complaint" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="short-allergy">Аллергические реакции</label>
-                <textarea id="short-allergy" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="short-previous">Предыдущее лечение и его эффект</label>
-                <textarea id="short-previous" class="form-control"></textarea>
-            </div>
-            <button class="btn btn-primary">Отправить</button>
+                <div class="form-group">
+                    <label for="short-allergy">Аллергические реакции</label>
+                    <textarea id="short-allergy" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="short-previous">Предыдущее лечение и его эффект</label>
+                    <textarea id="short-previous" class="form-control"></textarea>
+                </div>
+                <div style="text-align: right">
+                    <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
+                </div>
+            </form>
         </div>
 
-
         <div class="tab-pane" id="full">
-            <div class="form-group">
-                <label for="full-name">ФИО</label>
-                <input id="full-name" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="full-email">E-mail</label>
-                <input id="full-email" class="form-control">
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="full-sex">Пол</label><br>
-                        <div id="full-sex" class="btn-group" data-toggle="buttons-radio">
-                            <button type="button" class="btn btn-primary">Мужской</button>
-                            <button type="button" class="btn btn-primary">Женский</button>
-                        </div>
-                    </div>
+            <form id="full-form">
+                <div class="form-group">
+                    <label for="full-name">ФИО</label>
+                    <input id="full-name" class="form-control" required>
                 </div>
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="full-birthday">Дата рождения</label>
-                        <div id="full-birthday" class="form-inline">
-                            <select id="full-day" class="form-control"></select>
-                            <select id="full-month" class="form-control">
-                                <option value="1">Январь</option>
-                                <option value="2">Февраль</option>
-                                <option value="3">Март</option>
-                                <option value="4">Апрель</option>
-                                <option value="5">Май</option>
-                                <option value="6">Июнь</option>
-                                <option value="7">Июль</option>
-                                <option value="8">Август</option>
-                                <option value="9">Сертябрь</option>
-                                <option value="10">Октябрь</option>
-                                <option value="11">Ноябрь</option>
-                                <option value="12">Декабрь</option>
+                <div class="form-group">
+                    <label for="full-email">E-mail</label>
+                    <input id="full-email" class="form-control" required>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="full-sex">Пол</label><br>
+                            <select id="full-sex" class="form-control" required>
+                                <option value="" disabled selected>...</option>
+                                <option value="male">Мужской</option>
+                                <option value="female">Женский</option>
+                                <option value="undefined">Не указывать</option>
                             </select>
-                            <select id="full-year" class="form-control"></select>
                         </div>
-
-                        <script language="JavaScript">
-                            var $opt;
-                            for(var i=1; i<=31; i++) {
-                                $opt = $("<option></option>").attr("value",i).text(i);
-                                $('#full-day').append($opt);
-                            }
-                            for(var i=1901; i<=2014; i++) {
-                                $opt = $("<option></option>").attr("value",i).text(i);
-                                $('#full-year').append($opt);
-                                if(i == 1995) {
-                                    $opt.attr("selected", "");
-                                }
-                            }
-                        </script>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="full-birthday">Дата рождения</label>
+                            <div id="full-birthday" class="row">
+                                <div class="col-sm-3">
+                                    <input id="full-day" type="number" class="form-control" placeholder="день">
+                                </div>
+                                <div class="col-sm-6">
+                                    <select id="full-month" class="form-control">
+                                        <option value="" disabled selected>месяц</option>
+                                        <option value="1">Январь</option>
+                                        <option value="2">Февраль</option>
+                                        <option value="3">Март</option>
+                                        <option value="4">Апрель</option>
+                                        <option value="5">Май</option>
+                                        <option value="6">Июнь</option>
+                                        <option value="7">Июль</option>
+                                        <option value="8">Август</option>
+                                        <option value="9">Сертябрь</option>
+                                        <option value="10">Октябрь</option>
+                                        <option value="11">Ноябрь</option>
+                                        <option value="12">Декабрь</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input id="full-year" type="number" class="form-control" placeholder="год">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="full-complaint">Время начала заболеваний</label>
-                <input id="full-complaint" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="full-cause">Связываете ли вы с чем-нибудь появление высыпаний?</label>
-                <textarea id="full-cause" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="full-drugs">Какими средствами уже пользовались/пользуетесь?</label>
-                <textarea id="full-drugs" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="full-whatworks">Что из средств помогало/помогает (если пользуетесь чем-либо самостоятельно)?</label>
-                <textarea id="full-whatworks" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="full-allergy">Есть ли у вас аллергия (если есть то на что и как проявляется. ЭТО ВАЖНО!)?</label>
-                <textarea id="full-allergy" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="full-illness">Есть ли у Вас еще какие-нибудь заболевания (проблемы с желудком, кишечником, сахарный диабет и так далее<br>
-                    Если сами точно не знаете спросите у родителей. ЭТО ВАЖНО!)?</label>
-                <textarea id="full-illness" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="full-illnessdrugs">Принимаете ли вы какие-нибудь препараты по сопутствующим заболеваниям. (ЭТО ВАЖНО!)?</label>
-                <textarea id="full-illnessdrugs" class="form-control"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="full-legacy">Были ли у ваших родителей такие высыпания на лице в молодости?</label>
-                <textarea id="full-legacy" class="form-control"></textarea>
-            </div>
-            <button class="btn btn-primary">Отправить</button>
+                <div class="form-group">
+                    <label for="full-starttime">Время начала заболеваний</label>
+                    <input id="full-starttime" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="full-cause">Связываете ли вы с чем-нибудь появление высыпаний?</label>
+                    <textarea id="full-cause" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-drugs">Какими средствами уже пользовались/пользуетесь?</label>
+                    <textarea id="full-drugs" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-whatworks">Что из средств помогало/помогает (если пользуетесь чем-либо самостоятельно)?</label>
+                    <textarea id="full-whatworks" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-allergy">Есть ли у вас аллергия (если есть, то на что и как проявляется. ЭТО ВАЖНО!)?</label>
+                    <textarea id="full-allergy" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-illness">Есть ли у Вас еще какие-нибудь заболевания (проблемы с желудком, кишечником, сахарный диабет и так далее<br>
+                        Если сами точно не знаете - спросите у родителей. ЭТО ВАЖНО!)?</label>
+                    <textarea id="full-illness" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-illnessdrugs">Принимаете ли вы какие-нибудь препараты по сопутствующим заболеваниям (ЭТО ВАЖНО!)?</label>
+                    <textarea id="full-illnessdrugs" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-legacy">Были ли у ваших родителей такие высыпания на лице в молодости?</label>
+                    <textarea id="full-legacy" class="form-control"></textarea>
+                </div>
+                <div style="text-align: right">
+                    <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -300,5 +293,47 @@
         </p>
     </div>
 </footer>
+
+<div id="not-unique-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Такой email уже использовался для заполнения анкеты</h4>
+            </div>
+            <div class="modal-body">
+                <p>Дело в том, что работа дерматолога не является бесплатной.
+                    В рамках промо-акции мы можем позволить только одну консультацию для одного человека.
+                    Ниже постараемся ответить, что делать в некоторых ситуациях.</p>
+                <h4>Я хотел(а) изменить некоторые поля/добавить еще фото/отменить анализ вообще</h4>
+                <p>В случае, если изменения в анкете не очень серьезны, Вы можете написать о них дерматологу уже после постановки диагноза.
+                    Если же изменить нужно совсем-совсем всё, или нужно отменить анализ, напишите на support@skinry.com</p>
+                <h4>Очень хочется еще один анализ, что делать?</h4>
+                <p>По той же самой проблеме можно написать в обсуждении предыдущего анализа, если тема еще не закрыта.
+                    Второй анализ сейчас назначить нельзя. В будущем часть услуг будет платной.
+                    Мы делаем все возможное, чтобы сервисы заработали должным образом как можно быстрее.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#short-form').submit(function (event) {
+            event.preventDefault();
+            submit("short", collectShort());
+            return false;
+        });
+
+        $('#full-form').submit(function (event) {
+            event.preventDefault();
+            submit("full", collectFull());
+            return false;
+        });
+    });
+</script>
 </body>
 </html>

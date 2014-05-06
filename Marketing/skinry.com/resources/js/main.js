@@ -6,7 +6,7 @@ $(function () {
     };
 
     if (location.search === '?test') {
-        $.getScript("js/iframeheight.min.js", function () {
+        $.getScript("resources/js/iframeheight.min.js", function () {
             console.log("iframeheight loaded");
             $("#trybutton").show();
             iframeListener();
@@ -53,13 +53,6 @@ $(function () {
     setTimeout("next_slide('iphone')", 5000);
     setTimeout("next_slide('slider')", 5000);
 });
-
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
 
 function initSubscriptionForm() {
     var applicationId = "BiixOUv8TBRRCc9PnScmyF2XMHRZhx2LfmvdqtvA";

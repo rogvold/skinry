@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Получить совет косметолога</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="Shortcut Icon" type="image/x-icon" href="../resources/img/shortcut.png">
+    <script type="text/javascript" src="../resources/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="../resources/js/parse-1.2.18.min.js"></script>
+    <script type="text/javascript" src="../resources/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./dermatologist.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/footer.min.css">
+</head>
+<body style="background: #ffffff">
+<div class="navbar navbar-default" role="navigation" style="margin-bottom: 0">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../index.html">Skinry</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Получить совет дерматолога</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-bottom: 40px">
+    <h1>Поздравляем с успешным заполнением анкеты!</h1>
+    <p>В ближайшее время один из дерматологов отправит Вам заключение на email: <label id="email"></label>.
+        Вы можете настроить напоминание ВКонтакте:</p>
+    <form id="vk-form" style="text-align: center;">
+        <div class="input-group">
+            <input id="vkid" class="form-control" placeholder="Ваш id ВКонтакте" required>
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-primary">Напомнить</button>
+            </div>
+        </div>
+    </form>
+    <p>Это позволит нам написать Вам тогда, когда результат будет готов. Это особенно полезно, если Вы редко пользуетесь почтой.</p>
+</div>
+
+<footer class="page-footer" role="contentinfo">
+    <div class="wrapper container">
+        <nav>
+            <ul>
+                <li><a href="http://blog.skinry.com/">Блог</a></li>
+                <li><a href="http://facebook.com/skinry">Facebook</a></li>
+                <li><a href="http://vk.com/skinry">ВКонтакте</a></li>
+                <li><a href="http://twitter.com/skinry_scanner">Twitter</a></li>
+                <li><a href="../articles/article1.html">Статьи</a></li>
+            </ul>
+        </nav>
+
+        <p class="copyright" style="margin-top: 0;">© 2014 Skinry</p>
+
+        <p class="pull-right">
+            <a href="#">Вверх</a>
+        </p>
+    </div>
+</footer>
+
+<script language="JavaScript">
+    var email;
+
+    $(function () {
+        email = getParameterByName("email");
+        $("#email").text(email);
+
+        $("#vk-form").submit(function() {
+            sendVK();
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

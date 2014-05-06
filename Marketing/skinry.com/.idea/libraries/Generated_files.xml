@@ -2,14 +2,8 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/js/jquery-2.1.0.min.js" />
-        <item url="file://$PROJECT_DIR$/js/main.min.js" />
-        <item url="file://$PROJECT_DIR$/js/parse-1.2.18.min.js" />
-        <item url="file://$PROJECT_DIR$/js/moment-with-langs.min.js" />
-        <item url="file://$PROJECT_DIR$/js/bootstrap.min.js" />
-        <item url="file://$PROJECT_DIR$/js/retina.min.js" />
-        <item url="file://$PROJECT_DIR$/js/iframeheight.min.js" />
-        <item url="file://$PROJECT_DIR$/js/retina.min.min.js" />
+        <item url="file://$PROJECT_DIR$/resources/js/main.min.js" />
+        <item url="file://$PROJECT_DIR$/resources/js/dermatologist.min.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
@@ -21,14 +15,15 @@
       <root url="file://$PROJECT_DIR$/js/parse-1.2.18.min.min.js" />
       <root url="file://$PROJECT_DIR$/js/bootstrap.min.min.js" />
       <root url="file://$PROJECT_DIR$/js/jquery-2.1.0.min.min.js" />
+      <root url="file://$PROJECT_DIR$/js/retina.min.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/jquery-2.1.0.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/main.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/parse-1.2.18.min.js" />
+      <root url="file://$PROJECT_DIR$/consultation/dermatologist.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/moment-with-langs.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/bootstrap.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/retina.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/iframeheight.min.js" />
-      <root url="file://$PROJECT_DIR$/js/retina.min.min.js" />
     </CLASSES>
     <SOURCES />
   </library>

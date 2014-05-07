@@ -144,9 +144,6 @@
                     <label for="short-previous">Предыдущее лечение и его эффект</label>
                     <textarea id="short-previous" class="form-control"></textarea>
                 </div>
-                <div style="text-align: right">
-                    <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
-                </div>
             </form>
         </div>
 
@@ -237,11 +234,47 @@
                     <label for="full-legacy">Были ли у ваших родителей такие высыпания на лице в молодости?</label>
                     <textarea id="full-legacy" class="form-control"></textarea>
                 </div>
-                <div style="text-align: right">
-                    <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
-                </div>
             </form>
         </div>
+    </div>
+
+    <label for="image-upload">Загрузите фотографию проблемной области</label>
+    <div id="image-upload">
+        <!--status message will appear here-->
+        <div id="upl-status" class="bs-callout"></div>
+
+        <!--image upload form-->
+        <form id="image-upload-form" action="upload.php" enctype="multipart/form-data" method="post">
+
+            <div class="upload">
+                <a onclick="select_file()" class="btn btn-primary">Выбрать фото</a>
+                <input id="image" type="file" name="image" style="display: none">
+            </div>
+
+            <!--image preview-->
+            <img id="upl-img" src="" style="height: 140px">
+
+            <input class="btn btn-primary" type="submit" value="Загрузить!">
+        </form>
+
+        <!--progress bar-->
+        <div class="progress progress-striped active">
+            <div id="upl-bar" class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0">
+                <span id="upl-percent" class="sr-only">0%</span>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            // select file function only for styling up input[type="file"]
+            function select_file(){
+                document.getElementById('image').click();
+                return false;
+            }
+        </script>
+    </div>
+
+    <div style="text-align: right">
+        <button type="submit" class="btn btn-lg btn-primary">Отправить</button>
     </div>
 
     <h1 id="comments" style="margin-top: 30px">Отзывы</h1>
@@ -335,5 +368,9 @@
         });
     });
 </script>
+
+<!-- jQuery Form Plug in -->
+<script type="text/javascript" src="jquery.form.min.js"></script>
+
 </body>
 </html>

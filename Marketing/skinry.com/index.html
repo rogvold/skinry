@@ -45,6 +45,10 @@
 <body class="page-home">
 <div class="page">
     <div class="main">
+        <div class="pluso" data-background="transparent" style="position: absolute; right: 0; top: 280px; z-index: 100000"
+             data-options="big,square,line,vertical,nocounter,theme=04"
+             data-services="vkontakte,facebook,twitter,google,email"></div>
+
         <div id="home-bg">
             <div style="padding-top: 20px; padding-left: 20px; float:left;">
                 <button id="trybutton" type="button" class="btn btn-primary" style="display: none" data-toggle="modal" data-target="#tryModal">
@@ -192,6 +196,21 @@
     </div>
 </div>
 
+<!-- Pluso buttons -->
+<script type="text/javascript">
+    (function() {
+    if (window.pluso)
+        if (typeof window.pluso.start == "function")
+            return;
+    if (window.ifpluso==undefined) { window.ifpluso = 1;
+        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+        s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+        s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
+        var h=d[g]('body')[0];
+        h.appendChild(s);
+    }})();
+</script>
+
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (d, w, c) {
@@ -214,14 +233,9 @@
         }
     })(document, window, "yandex_metrika_callbacks");
 </script>
-<noscript>
-    <div>
-        <img src="//mc.yandex.ru/watch/24132985" style="position:absolute; left:-9999px;" alt=""/>
-    </div>
-</noscript>
+<noscript><div><img src="//mc.yandex.ru/watch/24132985" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533754205513437f"></script>
 <script type="text/javascript" src="resources/js/retina.min.js"></script>
 
 <script type="text/javascript">

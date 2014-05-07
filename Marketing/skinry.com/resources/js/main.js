@@ -6,49 +6,42 @@ $(function () {
     };
 
     if (location.search === '?test') {
-        $.getScript("resources/js/iframeheight.min.js", function () {
-            console.log("iframeheight loaded");
-            $("#trybutton").show();
-            iframeListener();
-            $('#tryModal').modal('show');
+        $('#tryModal').modal('show');
+    }
 
-        });
+    $("#tryModal").on('shown.bs.modal', function () {
+        yaCounter24132985.reachGoal('beta_demo_button');
 
-        function iframeListener() {
-            $("#tryModal").on('shown.bs.modal', function () {
-                yaCounter24132985.reachGoal('beta_demo_button');
-
-                if (!$("#tryFrame").exists()) {
-                    $("#modal-try-body").append('<iframe id="tryFrame" src="//skinry.com:5000" style="width: 100%; height: 500px" frameborder="0">Your browser does not support the \'iframe\' feature.</iframe>');
-                    $('#tryFrame').iframeHeight({
-                        minimumHeight: 50,
-                        defaultHeight: 200,
-                        heightOffset: 5
-                    });
-                }
-
-                var rtime;
-                var timeout = false;
-                var delta = 200;
-                $(window).resize(function () {
-                    rtime = new Date();
-                    if (timeout === false) {
-                        timeout = true;
-                        setTimeout(resizeend, delta);
-                    }
-                });
-
-                function resizeend() {
-                    if (new Date() - rtime < delta) {
-                        setTimeout(resizeend, delta);
-                    } else {
-                        timeout = false;
-                        $('#tryFrame').trigger("updateIframe");
-                    }
-                }
+        if (!$("#tryFrame").exists()) {
+            $("#modal-try-body").append('<iframe id="tryFrame" src="//skinry.com:5000" style="width: 100%; height: 500px" frameborder="0">Your browser does not support the \'iframe\' feature.</iframe>');
+            $('#tryFrame').iframeHeight({
+                minimumHeight: 50,
+                defaultHeight: 200,
+                heightOffset: 5
             });
         }
-    }
+
+        var rtime;
+        var timeout = false;
+        var delta = 200;
+        $(window).resize(function () {
+            rtime = new Date();
+            if (timeout === false) {
+                timeout = true;
+                setTimeout(resizeend, delta);
+            }
+        });
+
+        function resizeend() {
+            if (new Date() - rtime < delta) {
+                setTimeout(resizeend, delta);
+            } else {
+                timeout = false;
+                $('#tryFrame').trigger("updateIframe");
+            }
+        }
+    });
+
     initSubscriptionForm();
     setTimeout("next_slide('iphone')", 5000);
     setTimeout("next_slide('slider')", 5000);

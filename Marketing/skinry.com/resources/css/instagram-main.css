@@ -709,3 +709,16 @@ body {
 .page-footer li {
     cursor: pointer;
 }
+
+@media screen and (min-width: 1260px) {
+    #boom-iframe {
+        position: absolute;
+        top: 130px;
+        left: 42px;
+        margin: 0 !important;
+    }
+
+    #boom-iframe h2 {
+        display: none;
+    }
+}

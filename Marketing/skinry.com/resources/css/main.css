@@ -295,14 +295,6 @@ a:hover {
     text-decoration: underline;
 }
 
-a, a:visited {
-    color: #3f729b;
-}
-
-a:hover {
-    color: #1c5380;
-}
-
 code {
     -webkit-font-smoothing: subpixel-antialiased;
     font-size: 12px;
@@ -713,7 +705,7 @@ body {
 @media screen and (min-width: 1260px) {
     #boom-iframe {
         position: absolute;
-        top: 130px;
+        top: 115px;
         left: 42px;
         margin: 0 !important;
     }

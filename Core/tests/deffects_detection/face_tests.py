@@ -51,5 +51,6 @@ def process_tests(num_tests):
         print 'for test ' + str(i) + ':'
         print 'precision - ' + str(precision)
         print 'recall - ' + str(recall)
+        print
 
-process_tests(1)
+process_tests(5)

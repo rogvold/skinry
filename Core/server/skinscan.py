@@ -220,10 +220,10 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     key_points2 = sift(roi_non_contrast, contrast_threshold=0.035, edge_threshold=5, sigma=1.0)
 
     key_points1 = kpproc.delete_unused_keypoints(roi, key_points1, result_points, limbs)
-    key_points2 = kpproc.delete_unused_keypoints(roi_non_contrast, key_points2, result_points, limbs)
+    #key_points2 = kpproc.delete_unused_keypoints(roi_non_contrast, key_points2, result_points, limbs)
 
-    key_points2 = kpproc.combine_points(key_points1, key_points2)
-    key_points1 = key_points1 + key_points2
+    #key_points2 = kpproc.combine_points(key_points1, key_points2)
+    #key_points1 = key_points1 + key_points2
 
     key_points1 = kpproc.delete_repeating_points(key_points1)
 
@@ -233,7 +233,7 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     #score = 0
     #result_image = roi
 
-    return result_image, score
+    return result_image, score, key_points1
 
 def grid_otsu(roi, threshs, delta, **kwargs):
     """
@@ -341,12 +341,33 @@ def process_photo(file_name):
 
     #result_image, score = otsu_grid_search(roi, image, result_points, limbs,
     #                                       contrast_threshold=0.02, edge_threshold=10, sigma=1.6)
-    result_image, score = sift_grid_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
+    result_image, score, key_points = sift_grid_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
     #result_image, score = mono_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
 
     #result_image = draw_face(result_image, result_points)
 
     return result_image, score
+
+def process_photo_tests(file_name):
+    """
+    Process photo, use one of the above algorithms, return processed image and skin score
+
+    Input: fileName
+    """
+
+    result_points, eyes_coordinates, nose_coordinates, mouth_coordinates, image = fd.get_param(file_name)
+
+    roi = crop_face(image, result_points)
+    limbs = [nose_coordinates, mouth_coordinates, eyes_coordinates]
+
+    #result_image, score = otsu_grid_search(roi, image, result_points, limbs,
+    #                                       contrast_threshold=0.02, edge_threshold=10, sigma=1.6)
+    result_image, score, key_points = sift_grid_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
+    #result_image, score = mono_search(roi, image, result_points, limbs, thresh_val=220, type=cv2.THRESH_TRUNC)
+
+    #result_image = draw_face(result_image, result_points)
+
+    return result_image, key_points
 
 def process_files(name):
     """

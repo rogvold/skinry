@@ -116,7 +116,7 @@ def delete_unused_keypoints(image, key_points, result_points, limbs):
     """
 
     new_kp = []
-    dist = 0.03 * max(image.shape[0], image.shape[1])
+    dist = 0.05 * max(image.shape[0], image.shape[1])
     min_size = max(4.0, round(0.007 * max(image.shape[0], image.shape[1])))
     max_size = 0.055 * max(image.shape[0], image.shape[1])
     nose_coordinates = limbs[0]

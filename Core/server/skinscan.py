@@ -112,6 +112,10 @@ def contrast_val(image):
     hist,bins = np.histogram(image.ravel(), bins, [0, 256])
     summ = hist.sum()
 
+    thresh = 100000.0 / max(image.shape[0], image.shape[1])
+
+    return 1.3
+
     if summ < 100000:
         return 1.7
     else:
@@ -206,7 +210,8 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
 
     alpha = contrast_val(roi)
-    roi = change_constrast(roi, alpha=alpha, beta=-70.0)
+
+    roi = change_constrast(roi, alpha=alpha, beta=-80.0)
 
     roi_non_contrast = roi
     roi = get_blur(roi, 3)
@@ -217,7 +222,7 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
     sigmas = [1.2, 1.4]
 
     key_points1 = grid_sift(roi, contrast_thresholds, edge_thresholds, sigmas, delta=3)
-    key_points2 = sift(roi_non_contrast, contrast_threshold=0.035, edge_threshold=5, sigma=1.0)
+    #key_points2 = sift(roi_non_contrast, contrast_threshold=0.035, edge_threshold=5, sigma=1.0)
 
     key_points1 = kpproc.delete_unused_keypoints(roi, key_points1, result_points, limbs)
     #key_points2 = kpproc.delete_unused_keypoints(roi_non_contrast, key_points2, result_points, limbs)

@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
 import cv2
 import cv2.cv as cv
 import sys
@@ -171,11 +172,11 @@ def detect_face_and_organs(img):
 
 
 def define_contours(img):
-    train = pd.read_csv('train.csv')[:3000]
+    train = pd.read_csv('train.csv')[:20000]
     X_train = np.asarray(train[range(0, 3)])
     Y_train = np.asarray(train[[3]]).ravel()
 
-    estimator = KNeighborsClassifier(n_neighbors = 3, weights = 'distance')
+    estimator = RandomForestClassifier(n_estimators = 20)
     estimator.fit(X_train, Y_train)
 
     r, g, b = cv2.split(img)

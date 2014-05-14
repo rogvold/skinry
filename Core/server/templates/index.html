@@ -13,16 +13,15 @@
     Вы можете загрузить изображение только в формате JPG.<br>
 
     <div style="text-align: center;">
-        <img id="preview" src="#" alt="Preview can't displayed" style="width: 50%; height: auto; display: none;"/>
+        <img id="preview" src="#" alt="Preview can't displayed" style="max-width: 80%; height: auto; max-height: 350px; display: none;"/>
     </div>
 
     <div class="form-group">
         <input id="imgInput" type="file" accept="image/jpeg"/>
 
         <p class="help-block">
-            Если у Вас возникают проблемы с загрузкой, попробуйте выбрать фотографию меньшего размера.<br>
-            Если Ваш компьютер оснащен веб-камерой, Вы можете сделать моментальную фотографию
-            (только в Chrome, Mozilla Firefox или Opera последних версий)
+            Если вы хотите сделать фото с телефона или планшета, нажимте "Выбрать файл" (Сделать снимок - опция для ПК с веб-камерой).
+            Сделать снимок, используя веб-камеру, можно только в Chrome, Mozilla Firefox или Opera последних версий.
         </p>
     </div>
     <div id="uploadButtons" style="text-align: center;">
@@ -50,7 +49,7 @@
 
 <div id="resultTab" style="display: none;">
     <div style="text-align: center;">
-        <img id="result" src="#" alt="Result can't displayed" style="width: 50%; height: auto;"/><br>
+        <img id="result" src="#" alt="Result can't displayed" style="max-width: 80%; height: auto; max-height: 350px;"/><br>
         <h1>
             <small>Ваша оценка:</small>
             <label id="pts"></label>

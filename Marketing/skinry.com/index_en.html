@@ -39,7 +39,7 @@
 
     <link rel="Shortcut Icon" type="image/x-icon" href="resources/img/shortcut.png">
     <link rel="stylesheet" type="text/css" href="resources/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="resources/css/instagram-main.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/main.min.css">
     <link rel="stylesheet" type="text/css" href="resources/css/footer.min.css">
 </head>
 <body class="page-home">
@@ -60,7 +60,7 @@
         </div>
         <div class="wrap">
             <div class="home-phones" id="iphone">
-                <div id="iphone-overlay">
+                <div id="iphone-overlay" class="overlay">
                     <img src="resources/img/p0.png" data-no-retina class="active" style="opacity: 1;">
                     <img src="resources/img/p1.png" data-no-retina style="opacity: 1;">
                     <img src="resources/img/p2.png" data-no-retina style="opacity: 1;">
@@ -97,14 +97,13 @@
 
                         <div id="soon" style="display: none;">
                             <h3>The application will soon be ready</h3>
-                            <p>Leave your <b>e-mail</b> and we will inform you about the launch.</p>
-                            <p>For the first <strong>500</strong> users the application will remain free forever!</p>
-
-                            <textarea id="wishes" placeholder="Your wishes"></textarea>
+                            <p>If you want help us, you can
+                                <a href="https://boomstarter.ru/projects/sabir/24536" target="_blank" onclick="yaCounter24132985.reachGoal('boomClick');">donate on Boomstarter</a>!</p>
+                            <p>Leave your <b>email</b> and we will inform you about the launch</p>
                             <div class="input-group input-group">
                                 <input type="text" id="email" placeholder="Email" class="form-control input">
                                 <span class="input-group-btn btn-group-custom">
-                                    <button id="submitButton" class="btn btn-primary">Submit</button>
+                                    <button id="submitButton" class="btn btn-primary">Subscribe</button>
                                 </span>
                             </div>
                         </div>
@@ -132,7 +131,7 @@
             </div>
             <div class="col-lg-8" style="font-size: 14px; margin-top: 5px">
                 <h3>Our team</h3>
-                This video is about us and our .
+                This video is about us and our app.
                 <br><br>
                 <a href="http://youtu.be/syQE3_LAts0">Watch this video on Youtube</a>
             </div>
@@ -162,7 +161,8 @@
 
 <div id="boom-iframe" class="row" style="margin: 20px 0 10px 48px; text-align: center">
     <h2>Help us on boomstarter!</h2>
-    <iframe frameborder="0" height="410px" src="https://boomstarter.ru/projects/sabir/prilozhenie_na_telefon_po_uhodu_za_kozhey_skinry/widget/card.html" width="220px"></iframe>
+    <iframe frameborder="0" height="410px" src="https://boomstarter.ru/projects/sabir/24536/widget/card.html" width="220px"></iframe><br>
+    <a role="button" class="btn btn-lg btn-success" href="https://boomstarter.ru/projects/sabir/24536" target="_blank" style="margin-left: -4px" onclick="yaCounter24132985.reachGoal('boomBtnClick');">Donate!</a>
 </div>
 
 <footer class="page-footer" role="contentinfo">
@@ -234,22 +234,15 @@
         }
     })(document, window, "yandex_metrika_callbacks");
 </script>
-<noscript>
-    <div>
-        <img src="//mc.yandex.ru/watch/24132985" style="position:absolute; left:-9999px;" alt=""/>
-    </div>
-</noscript>
+<noscript><div><img src="//mc.yandex.ru/watch/24132985" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-533754205513437f"></script>
 <script type="text/javascript" src="resources/js/retina.min.js"></script>
+<script type="text/javascript" src="resources/js/iframeheight.min.js"></script>
 
 <script type="text/javascript">
     var $home = $("#home-bg");
 
-    function localization() {
-        $("#trybutton").text("Try it now!");
-    }
     function emailAlert() {
         alert('Email is invalid. Please try again.');
     }

@@ -70,8 +70,8 @@ function next_slide(type) {
 
 function androidClick() {
     yaCounter24132985.reachGoal('google');
-    store = "google";
-    toSubscribe();
+    //store = "google";
+    //toSubscribe();
 }
 
 function appleClick() {
@@ -94,7 +94,7 @@ function toSubscribe() {
 
 function subscribe() {
     var email = $('#email').val().trim();
-    var message = $('#wishes').val().trim();
+    // var message = $('#wishes').val().trim();
     if ((email === undefined || email === '') || (!validateEmail(email))) {
         emailAlert();
         return;
@@ -104,7 +104,7 @@ function subscribe() {
     var FeedbackMessage = Parse.Object.extend("FeedbackMessage");
     var feedback = new FeedbackMessage();
     feedback.set("email", email);
-    feedback.set("wishes", message);
+    // feedback.set("wishes", message);
     feedback.set("store", store);
     feedback.save().then(function () {
         toThankYou();

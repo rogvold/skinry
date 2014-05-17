@@ -5,45 +5,27 @@ $(function () {
     var javaScriptKey = "Sj5Vw02dRs3zI59caHeMQCEB9EXrNcsKPe0xkczc";
     Parse.initialize(applicationId, javaScriptKey);
 
-    /* variables */
-    var preview = $('#upl-img');
-    var status = $('#upl-status');
-    var percent = $('#upl-percent');
-    var bar = $('#upl-bar');
-
-    /* only for image preview */
-    $("#image").change(function(){
-        preview.fadeOut();
-        /* html FileRender Api */
-        var oFReader = new FileReader();
-        oFReader.readAsDataURL(document.getElementById("image").files[0]);
-        oFReader.onload = function (oFREvent) {
-            preview.attr('src', oFREvent.target.result).fadeIn();
-        };
+    $('#short-form').submit(function (event) {
+        event.preventDefault();
+        submit("short", collectShort());
+        return false;
     });
 
-    /* submit form with ajax request */
-    $('#image-upload-form').ajaxForm({
-        /* set data type json */
-        dataType: 'json',
-        /* reset before submitting */
-        beforeSend: function() {
-            status.fadeOut();
-            bar.width('0%');
-            percent.html('0%');
-        },
-        /* progress bar call back*/
-        uploadProgress: function(event, position, total, percentComplete) {
-            var pVel = percentComplete + '%';
-            bar.width(pVel);
-            percent.html(pVel);
-        },
-        /* complete call back */
-        complete: function(data) {
-            preview.fadeOut(800);
-            status.html(data.responseJSON.status).fadeIn();
+    $('#full-form').submit(function (event) {
+        event.preventDefault();
+        submit("full", collectFull());
+        return false;
+    });
+
+    $('#sendButton').click(function () {
+        var id = $("#qtype").children(".active").children().attr("id");
+
+        if (id == "qshort") {
+            $('#short-form').find('.sendBtn').click();
+        } else if (id == "qfull") {
+            $('#full-form').find('.sendBtn').click();
         }
-    });
+    })
 });
 
 function getParameterByName(name) {
@@ -84,16 +66,34 @@ function collectFull() {
     };
 }
 
+function collectPhotos() {
+    var photos = [];
+
+    $("#photolist").find("tbody").children().each(function() {
+        var element = $(this).children()[1];
+        var current = {
+            path : $(element).children(".upl-hidden").text(),
+            description : $(element).children(".upl-description").val()
+        };
+        photos.push(current);
+    });
+
+    return photos;
+}
+
 function submit(type, questionary) {
     var Dermatologist = Parse.Object.extend("Dermatologist");
     var query = new Parse.Query(Dermatologist);
     query.equalTo("email", questionary.email);
     query.find({
         success: function(results) {
-            if (results.length == 0)
+            if (results.length == 0) {
+                questionary.photos = collectPhotos();
+                console.log(questionary);
                 send(type, questionary);
-            else
+            } else {
                 $('#not-unique-modal').modal("show");
+            }
         },
         error: function(error) {
             alert("Error: " + error.code + " " + error.message);
@@ -130,4 +130,74 @@ function sendVK() {
             alert("Error: " + error.code + " " + error.message);
         }
     });
+}
+
+function addrow() {
+    var $photolist = $("#photolist");
+
+    $photolist.append('<tr><td style="width: 130px"><div style="height: 120px; width: 120px; background-color: #eee"><img class="upl-preview" style="max-height: 120px; max-width: 120px"></td>' +
+        '<td><div class="upl-progress progress active" style="margin-top: 15px">' +
+        '<div class="upl-bar progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 0; text-align: center">' +
+        '0%</div></div><div class="upl-status" style="margin-top: 0; margin-bottom: 0"></div><div class="upl-hidden" style="display: none">' +
+        '</div><textarea class="upl-description form-control" style="margin-top: 7px" placeholder="Описание фото">' +
+        '</textarea></td><td style="width: 25px"><a href="#">x</a><form class="upl-form" action="upload.php" enctype="multipart/form-data" method="post">' +
+        '<input class="upl-image" type="file" name="image" style="display: none"></form></td></tr>');
+
+    $(".upl-image:last").change(function () {
+        if (this.files && this.files[0]) {
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(this.files[0]);
+            oFReader.onload = function (oFREvent) {
+                $(".upl-preview:last").attr('src', oFREvent.target.result);
+            };
+            $(".upl-form:last").submit();
+
+            $(".panel-footer a").text("Приложить еще фото");
+        }
+    });
+
+    $photolist.find("a:last").click(function() {
+        $(this).closest("tr").remove();
+        return false;
+    });
+
+    /* variables */
+    var status = $('.upl-status:last');
+    var bar = $('.upl-bar:last');
+
+    /* submit form with ajax request */
+    $('.upl-form:last').ajaxForm({
+        /* set data type json */
+        dataType: 'json',
+        /* reset before submitting */
+        beforeSend: function() {
+            status.fadeOut();
+            bar.width('0%');
+            bar.text('0%');
+        },
+        /* progress bar call back*/
+        uploadProgress: function(event, position, total, percentComplete) {
+            var pVel = percentComplete + '%';
+            bar.width(pVel);
+            bar.text(pVel);
+        },
+        /* complete call back */
+        complete: function(data) {
+            $(".upl-progress:last").hide();
+            if (data.responseJSON.type == "SUCCESS") {
+                $(".upl-hidden:last").text(data.responseJSON.path);
+                status.addClass("bs-callout bs-callout-info");
+                setTimeout(function() {
+                    status.fadeOut();
+                }, 2000);
+            } else {
+                status.addClass("bs-callout bs-callout-danger");
+                $(".upl-description:last").hide();
+
+            }
+            status.html(data.responseJSON.status).fadeIn();
+        }
+    });
+
+    $('.upl-image:last').click();
 }

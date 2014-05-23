@@ -85,3 +85,13 @@
 * html .page-footer {
     height: 1%;
 }
+
+.rightimg  {
+    float: right; /* Выравнивание по правому краю  */
+    margin: 31px 0 7px 7px; /* Отступы вокруг картинки */
+    width: 300px;
+}
+
+.rightimg img {
+    width: 300px;
+}

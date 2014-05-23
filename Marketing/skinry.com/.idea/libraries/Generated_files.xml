@@ -2,13 +2,14 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/resources/js/jquery-2.1.0.min.min.js" />
+        <item url="file://$PROJECT_DIR$/consultation/resources/jquery.form.min.min.js" />
+        <item url="file://$PROJECT_DIR$/consultation/resources/jquery.form.min.js" />
+        <item url="file://$PROJECT_DIR$/consultation/resources/dermatologist.min.min.js" />
+        <item url="file://$PROJECT_DIR$/consultation/resources/dermatologist.min.js" />
         <item url="file://$PROJECT_DIR$/resources/js/main.min.js" />
-        <item url="file://$PROJECT_DIR$/consultation/jquery.form.min.js" />
         <item url="file://$PROJECT_DIR$/resources/js/moment-with-langs.min.js" />
         <item url="file://$PROJECT_DIR$/resources/js/parse-1.2.18.min.js" />
         <item url="file://$PROJECT_DIR$/resources/js/retina.min.js" />
-        <item url="file://$PROJECT_DIR$/consultation/dermatologist.min.js" />
         <item url="file://$PROJECT_DIR$/resources/js/bootstrap.min.js" />
       </sourceFilesUrls>
     </properties>
@@ -18,12 +19,18 @@
       <root url="file://$PROJECT_DIR$/resources/js/main.min.min.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/main.min.min.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/jquery-2.1.0.min.min.js" />
-      <root url="file://$PROJECT_DIR$/resources/js/main.min.js" />
-      <root url="file://$PROJECT_DIR$/resources/js/moment-with-langs.min.js" />
       <root url="file://$PROJECT_DIR$/consultation/jquery.form.min.js" />
+      <root url="file://$PROJECT_DIR$/consultation/dermatologist.min.js" />
+      <root url="file://$PROJECT_DIR$/consultation/jquery.form.min.js" />
+      <root url="file://$PROJECT_DIR$/consultation/dermatologist.min.js" />
+      <root url="file://$PROJECT_DIR$/consultation/resources/jquery.form.min.js" />
+      <root url="file://$PROJECT_DIR$/consultation/resources/jquery.form.min.min.js" />
+      <root url="file://$PROJECT_DIR$/consultation/resources/dermatologist.min.min.js" />
+      <root url="file://$PROJECT_DIR$/resources/js/main.min.js" />
+      <root url="file://$PROJECT_DIR$/consultation/resources/dermatologist.min.js" />
+      <root url="file://$PROJECT_DIR$/resources/js/moment-with-langs.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/parse-1.2.18.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/retina.min.js" />
-      <root url="file://$PROJECT_DIR$/consultation/dermatologist.min.js" />
       <root url="file://$PROJECT_DIR$/resources/js/bootstrap.min.js" />
     </CLASSES>
     <SOURCES />

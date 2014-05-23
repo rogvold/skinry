@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="../resources/css/footer.min.css">
-    <link rel="stylesheet" type="text/css" href="callout.min.css">
+    <link rel="stylesheet" type="text/css" href="./resources/callout.min.css">
 </head>
 <body style="background: #ffffff">
 <div class="navbar navbar-default" role="navigation" style="margin-bottom: 0">
@@ -38,14 +38,16 @@
 
     <div class="carousel-inner">
         <div class="item active">
-            <img src="../resources/img/slide-01.jpg" alt="...">
-            <div class="carousel-caption" style="text-align: left">
-                <h1>Избавьтесь от проблем с кожей</h1>
-                <p class="lead">
-                    - Заполните анкету<br>
-                    - Приложите фото проблемных мест<br>
-                    - Получите консультацию профессионального дерматолога
-                </p>
+            <img src="./resources/slide-01.jpg" alt="...">
+            <div class="carousel-caption" style="text-align: left;">
+                <div style="background-color: rgba(0, 0, 0, 0.5)">
+                    <h1>Избавьтесь от проблем с кожей</h1>
+                    <p class="lead">
+                        - Заполните анкету<br>
+                        - Приложите фото проблемных мест<br>
+                        - Получите консультацию профессионального дерматолога
+                    </p>
+                </div>
                 <a href="#questionary" class="btn btn-lg btn-primary">Заполнить анкету</a>
             </div>
 
@@ -90,52 +92,53 @@
                     .item h1 {
                         font-size: 25px;
                     }
+
                     .item p {
                         font-size: 14px;
                     }
+
                     .item a {
                         padding: 6px 12px;
                         font-size: 14px;
                         line-height: 1.42857143;
                         border-radius: 4px;
                     }
-
-                    @media (min-width: 992px) {
-                        .item h1 {
-                            font-size: 36px;
-                        }
-                        .item p {
-                            font-size: 20px;
-                        }
-                        .item a {
-                            padding: 10px 16px;
-                            font-size: 18px;
-                            line-height: 1.33;
-                            border-radius: 6px;
-                        }
+                }
+                @media (min-width: 992px) {
+                    .item h1 {
+                        font-size: 36px;
+                    }
+                    .item p {
+                        font-size: 20px;
+                    }
+                    .item a {
+                        padding: 10px 16px;
+                        font-size: 18px;
+                        line-height: 1.33;
+                        border-radius: 6px;
                     }
                 }
             </style>
         </div>
         <div class="item">
-            <img src="../resources/img/slide-02.jpg" alt="...">
+            <img src="./resources/slide-02.jpg" alt="...">
             <div class="carousel-caption" style="text-align: left">
                 <h1>Скачайте приложение для андроид</h1>
                 <p class="lead">
                     - Регулярно фотографируйте лицо<br>
                     - Следите за состоянием вашей кожи
                 </p>
-                <a href="https://play.google.com/store/apps/details?id=com.skinry.app" target="_blank" class="btn btn-lg btn-primary">Google Play</a>
+                <a href="https://play.google.com/store/apps/details?id=com.skinry.app" target="_blank" class="btn btn-lg btn-primary">Перейти на Google Play</a>
             </div>
         </div>
         <div class="item">
-            <img src="../resources/img/slide-03.jpg" alt="...">
+            <img src="./resources/slide-03.jpg" alt="...">
             <div class="carousel-caption" style="text-align: left">
                 <h1>Помогите нам на Boomstarter</h1>
                 <p class="lead">
                     Мы начали кампанию по сборку средств на Boomstarter. Помогите нам, чтобы мы сделали действительно полезное приложение!
                 </p>
-                <a href="https://boomstarter.ru/projects/sabir/24536" target="_blank" class="btn btn-lg btn-primary">Boomstarter</a>
+                <a href="https://boomstarter.ru/projects/sabir/24536" target="_blank" class="btn btn-lg btn-primary">Перейти на Boomstarter</a>
             </div>
         </div>
     </div>
@@ -149,24 +152,23 @@
 </div>
 
 <div class="container" style="margin-bottom: 40px">
-    <h1 id="help" style="margin-top: 30px">Схема</h1>
-    <div class="row" style="text-align: center;">
+    <div class="row" style="text-align: center; margin-top: 30px">
         <div class="col-lg-4">
-            <img src="../resources/img/girl-mini.png" class="img-circle" style="width: 140px;">
-            <p>Заполни анкету, приложи фотографии проблемных мест</p>
+            <img src="./resources/d1.jpg" style="width: 140px;">
+            <p style="font-size: 16px">Заполни анкету, приложи фотографии проблемных мест</p>
         </div>
         <div class="col-lg-4">
-            <img src="../resources/img/girl-mini.png" class="img-circle" style="width: 140px;">
-            <p>Получи бесплатную консультацию дерматолога</p>
+            <img src="./resources/d2.jpg" style="width: 140px;">
+            <p style="font-size: 16px">Получи бесплатную консультацию дерматолога</p>
         </div>
         <div class="col-lg-4">
-            <img src="../resources/img/girl-mini.png" class="img-circle" style="width: 140px;">
-            <p>Задай дополнительные вопросы о том, как заботиться о своей коже</p>
+            <img src="./resources/d3.jpg" style="width: 140px;">
+            <p style="font-size: 16px">Задай дополнительные вопросы о том, как заботиться о своей коже</p>
         </div>
     </div>
 
     <div class="col-lg-8">
-        <h1 id="questionary" style="margin-top: 30px">Анкета</h1>
+        <h1 id="questionary">Анкета</h1>
 
         <div class="bs-callout bs-callout-info">
             <h4>Рекомендуем Вам заполнять полную анкету</h4>
@@ -341,21 +343,25 @@
     </div>
 
     <div class="col-lg-4">
-        <h1 id="comments" style="margin-top: 30px">Отзывы</h1>
+        <h1 id="comments">Отзывы</h1>
         <div class="row" style="text-align: center;">
-            <img src="1.jpg" style="height: 140px;">
-            <h3>Lorem ipsum dolor sit amet</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis ligula sit amet nibh viverra, a fringilla purus dignissim. Cras quis turpis ut quam rutrum vestibulum eget lobortis odio. Phasellus mauris tortor, suscipit volutpat sodales eu, volutpat sed diam. Aenean accumsan ullamcorper dolor, at pulvinar metus volutpat vel. Aliquam eu condimentum ante. Nulla facilisi.</p>
+            <img src="./resources/r1.jpg" style="height: 140px;">
+            <h3>Анна, 18 лет</h3>
+            <p>Моя кожа стала проблемной еще в 11 лет. Сразу же начались бесконечные походы к косметологам и дерматологам. В первом случае – бесконечные чистки, травмирующие кожу и не дающие долгого результата, во втором – антибиотики.</p>
+            <cut >После того, как развился дисбактериоз, лицо стало выглядеть в разы хуже. Добавилась болезненность и отечность, и даже здоровые участки кожи уже не выглядели таковыми. Мне очень помог дерматолог с этого сайта – просто по фотографии! А врачи годами не могли вылечить, видя меня в своих кабинетах.</p>
+            <p>Оказалось достаточным привести в норму кишечник и выявить несколько аллергенов, которые мне, как выяснилось, нельзя есть. Вот и все!</p></cut>
         </div>
         <div class="row" style="text-align: center;">
-            <img src="2.jpg" style="height: 140px;">
-            <h3>Lorem ipsum dolor sit amet</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis ligula sit amet nibh viverra, a fringilla purus dignissim. Cras quis turpis ut quam rutrum vestibulum eget lobortis odio. Phasellus mauris tortor, suscipit volutpat sodales eu, volutpat sed diam. Aenean accumsan ullamcorper dolor, at pulvinar metus volutpat vel. Aliquam eu condimentum ante. Nulla facilisi.</p>
+            <img src="./resources/r2.jpg" style="height: 140px;">
+            <h3>Елизавета, 23 года</h3>
+            <p>Комплексы по поводу своей внешности у меня были серьезные. Личная жизнь не ладилась. Только и оставалось сидеть дома в интернете. Так случайно попался на глаза сайт http://www.skinry.com. Здесь нужно было закинуть свое фото с проблемой «налицо».</p>
+            <p>Врач ответил мне очень быстро, и первое, что он посоветовал – пропить курс простейшего российского препарата, который обычно используют для очищения организма при отравлениях. Дело в том, что я живу в экологически неблагоприятном районе, а мой организм оказывает слабое сопротивление всему тому негативу, что «витает» в воздухе. Потом все это выходит через кожу, вызывая тяжелое воспаление.</p>
+            <p>Теперь мне остается только периодически принимать этот препарат для профилактики, но это не проблема, так как он безвреден, да и стоит дешево. А лицо практически полностью очистилось!</p>
         </div>
         <div class="row" style="text-align: center;">
-            <img src="3.jpg" style="height: 140px;">
-            <h3>Lorem ipsum dolor sit amet</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris convallis ligula sit amet nibh viverra, a fringilla purus dignissim. Cras quis turpis ut quam rutrum vestibulum eget lobortis odio. Phasellus mauris tortor, suscipit volutpat sodales eu, volutpat sed diam. Aenean accumsan ullamcorper dolor, at pulvinar metus volutpat vel. Aliquam eu condimentum ante. Nulla facilisi.</p>
+            <img src="./resources/r3.jpg" style="height: 140px;">
+            <h3>Евгения, 21 год</h3>
+            <p>На этот сайт привело меня отчаяние. Огромные прыщи не только выглядели отвратительно, но еще и болели: даже ночью, поворачивая голову на подушке, я это чувствовала. Здешний косметолог посоветовал мне сдать кровь на гормоны, и анализ показал проблему с яичниками. После того, как лечение было пройдено, лицо очистилось! Не понимаю, почему мой лечащий врач не мог догадаться о том, что причина именно в этом, а добрый «интернет-доктор» определил, что называется, с полувзгляда. Очень благодарна и врачу, и создателям сайта!</p>
         </div>
     </div>
 </div>
@@ -406,8 +412,8 @@
     </div>
 </div>
 
-<script type="text/javascript" src="jquery.form.min.js"></script>
-<script type="text/javascript" src="dermatologist.min.js"></script>
+<script type="text/javascript" src="./resources/jquery.form.min.js"></script>
+<script type="text/javascript" src="./resources/dermatologist.min.js"></script>
 
 </body>
 </html>

@@ -36,8 +36,8 @@
       <file leaf-file-name="sitemap.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sitemap.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8130217" vertical-offset="518" max-vertical-offset="1140">
-              <caret line="67" column="10" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
+            <state vertical-scroll-proportion="0.77462435" vertical-offset="481" max-vertical-offset="1140">
+              <caret line="63" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="70" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -834,8 +834,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sitemap.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8130217" vertical-offset="518" max-vertical-offset="1140">
-          <caret line="67" column="10" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
+        <state vertical-scroll-proportion="0.77462435" vertical-offset="481" max-vertical-offset="1140">
+          <caret line="63" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="70" selection-end-column="9" />
           <folding />
         </state>
       </provider>

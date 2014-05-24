@@ -1,27 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<url>
-  <loc>http://www.skinry.com/</loc>
-  <lastmod>2014-04-27T09:57:29+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-</url>
-<url>
-  <loc>http://www.skinry.com/index.html</loc>
-  <lastmod>2014-04-27T09:57:29+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-</url>
-<url>
-  <loc>http://www.skinry.com/articles/article1.html</loc>
-  <lastmod>2014-04-27T10:59:44+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-</url>
-<url>
-  <loc>http://www.skinry.com/articles/article2.html</loc>
-  <lastmod>2014-04-27T12:39:43+00:00</lastmod>
-  <changefreq>weekly</changefreq>
-</url>
+
+
+    <url>
+        <loc>http://www.skinry.com/articles/en1.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
+        <loc>http://www.skinry.com/articles/273613.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>http://www.skinry.com/articles/281360.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>http://www.skinry.com/articles/281537.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>http://www.skinry.com/articles/281538.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
+        <loc>http://www.skinry.com/articles/281539.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>http://www.skinry.com/articles/281540.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>http://www.skinry.com/articles/281541.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+    <url>
+        <loc>http://www.skinry.com/articles/281542.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+
+
+    <url>
+        <loc>http://www.skinry.com/articles/281543.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+
+    <url>
+        <loc>http://www.skinry.com/articles/281544.html</loc>
+        <lastmod>2014-04-27T12:39:43+00:00</lastmod>
+        <changefreq>weekly</changefreq>
+    </url>
+
+
 </urlset>

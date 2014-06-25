@@ -14,6 +14,20 @@
     <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="../resources/css/footer.min.css">
     <link rel="stylesheet" type="text/css" href="./resources/callout.min.css">
+
+    <style type="text/css">
+        .hiddenText{
+            display: none;
+        }
+        .preHiddenButton{
+            text-decoration: underline;
+            color: #3f729b;
+            display: block;
+            cursor: pointer;
+        }
+
+    </style>
+
 </head>
 <body style="background: #ffffff">
 <div class="navbar navbar-default" role="navigation" style="margin-bottom: 0">
@@ -39,9 +53,11 @@
     <div class="carousel-inner">
         <div class="item active">
             <img src="./resources/slide-01.jpg" alt="...">
+
             <div class="carousel-caption" style="text-align: left;">
                 <div style="background-color: rgba(0, 0, 0, 0.5)">
                     <h1>Избавьтесь от проблем с кожей</h1>
+
                     <p class="lead">
                         - Заполните анкету<br>
                         - Приложите фото проблемных мест<br>
@@ -56,9 +72,11 @@
                     .item h1 {
                         font-size: 15px;
                     }
+
                     .item p {
                         display: none;
                     }
+
                     .item a {
                         padding: 1px 5px;
                         font-size: 12px;
@@ -77,9 +95,11 @@
                     .item h1 {
                         font-size: 20px;
                     }
+
                     .item p {
                         font-size: 14px;
                     }
+
                     .item a {
                         padding: 5px 10px;
                         font-size: 12px;
@@ -104,13 +124,16 @@
                         border-radius: 4px;
                     }
                 }
+
                 @media (min-width: 992px) {
                     .item h1 {
                         font-size: 36px;
                     }
+
                     .item p {
                         font-size: 20px;
                     }
+
                     .item a {
                         padding: 10px 16px;
                         font-size: 18px;
@@ -122,23 +145,30 @@
         </div>
         <div class="item">
             <img src="./resources/slide-02.jpg" alt="...">
+
             <div class="carousel-caption" style="text-align: left">
                 <h1>Скачайте приложение для андроид</h1>
+
                 <p class="lead">
                     - Регулярно фотографируйте лицо<br>
                     - Следите за состоянием вашей кожи
                 </p>
-                <a href="https://play.google.com/store/apps/details?id=com.skinry.app" target="_blank" class="btn btn-lg btn-primary">Перейти на Google Play</a>
+                <a href="https://play.google.com/store/apps/details?id=com.skinry.app" target="_blank"
+                   class="btn btn-lg btn-primary">Перейти на Google Play</a>
             </div>
         </div>
         <div class="item">
             <img src="./resources/slide-03.jpg" alt="...">
+
             <div class="carousel-caption" style="text-align: left">
                 <h1>Помогите нам на Boomstarter</h1>
+
                 <p class="lead">
-                    Мы начали кампанию по сборку средств на Boomstarter. Помогите нам, чтобы мы сделали действительно полезное приложение!
+                    Мы начали кампанию по сборку средств на Boomstarter. Помогите нам, чтобы мы сделали действительно
+                    полезное приложение!
                 </p>
-                <a href="https://boomstarter.ru/projects/sabir/24536" target="_blank" class="btn btn-lg btn-primary">Перейти на Boomstarter</a>
+                <a href="https://boomstarter.ru/projects/sabir/24536" target="_blank" class="btn btn-lg btn-primary">Перейти
+                    на Boomstarter</a>
             </div>
         </div>
     </div>
@@ -152,218 +182,257 @@
 </div>
 
 <div class="container" style="margin-bottom: 40px">
-    <div class="row" style="text-align: center; margin-top: 30px">
-        <div class="col-lg-4">
-            <img src="./resources/d1.jpg" style="width: 140px;">
-            <p style="font-size: 16px">Заполни анкету, приложи фотографии проблемных мест</p>
-        </div>
-        <div class="col-lg-4">
-            <img src="./resources/d2.jpg" style="width: 140px;">
-            <p style="font-size: 16px">Получи бесплатную консультацию дерматолога</p>
-        </div>
-        <div class="col-lg-4">
-            <img src="./resources/d3.jpg" style="width: 140px;">
-            <p style="font-size: 16px">Задай дополнительные вопросы о том, как заботиться о своей коже</p>
-        </div>
+<div class="row" style="text-align: center; margin-top: 30px">
+    <div class="col-lg-4">
+        <img src="./resources/d1.jpg" style="width: 140px;">
+
+        <p style="font-size: 16px">Заполни анкету, приложи фотографии проблемных мест</p>
+    </div>
+    <div class="col-lg-4">
+        <img src="./resources/d2.jpg" style="width: 140px;">
+
+        <p style="font-size: 16px">Получи бесплатную консультацию дерматолога</p>
+    </div>
+    <div class="col-lg-4">
+        <img src="./resources/d3.jpg" style="width: 140px;">
+
+        <p style="font-size: 16px">Задай дополнительные вопросы о том, как заботиться о своей коже</p>
+    </div>
+</div>
+
+<div class="col-lg-8">
+    <h1 id="questionary">Анкета</h1>
+
+    <div class="bs-callout bs-callout-info">
+        <h4>Рекомендуем Вам заполнять полную анкету</h4>
+
+        <p>Более детальная информация позволит дерматологу поставить более точный диагноз</p>
     </div>
 
-    <div class="col-lg-8">
-        <h1 id="questionary">Анкета</h1>
+    <ul id="qtype" class="nav nav-tabs">
+        <li class="active"><a id="qshort" href="#short" data-toggle="tab">Короткая анкета</a></li>
+        <li><a id="qfull" href="#full" data-toggle="tab">Полная анкета</a></li>
+    </ul>
 
-        <div class="bs-callout bs-callout-info">
-            <h4>Рекомендуем Вам заполнять полную анкету</h4>
-            <p>Более детальная информация позволит дерматологу поставить более точный диагноз</p>
+    <div class="tab-content">
+        <div class="tab-pane active" id="short">
+            <form id="short-form">
+                <div class="form-group">
+                    <label for="short-name">Имя</label>
+                    <input id="short-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="short-email">E-mail</label>
+                    <input id="short-email" type="email" class="form-control" required>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="short-sex">Пол</label><br>
+                            <select id="short-sex" class="form-control" required>
+                                <option value="" disabled selected>...</option>
+                                <option value="male">Мужской</option>
+                                <option value="female">Женский</option>
+                                <option value="undefined">Не указывать</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="short-age">Возраст</label>
+                            <input id="short-age" type="number" class="form-control" placeholder="возраст"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="short-complaint">Жалобы</label>
+                    <textarea id="short-complaint" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="short-allergy">Аллергические реакции</label>
+                    <textarea id="short-allergy" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="short-previous">Предыдущее лечение и его эффект</label>
+                    <textarea id="short-previous" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="sendBtn" style="display: none;">Check</button>
+            </form>
         </div>
 
-        <ul id="qtype" class="nav nav-tabs">
-            <li class="active"><a id="qshort" href="#short" data-toggle="tab">Короткая анкета</a></li>
-            <li><a id="qfull" href="#full" data-toggle="tab">Полная анкета</a></li>
-        </ul>
-
-        <div class="tab-content">
-            <div class="tab-pane active" id="short">
-                <form id="short-form">
-                    <div class="form-group">
-                        <label for="short-name">ФИО</label>
-                        <input id="short-name" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="short-email">E-mail</label>
-                        <input id="short-email" type="email" class="form-control" required>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="short-sex">Пол</label><br>
-                                <select id="short-sex" class="form-control" required>
-                                    <option value="" disabled selected>...</option>
-                                    <option value="male">Мужской</option>
-                                    <option value="female">Женский</option>
-                                    <option value="undefined">Не указывать</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="short-age">Возраст</label>
-                                <input id="short-age" type="number" class="form-control" placeholder="возраст"></select>
-                            </div>
+        <div class="tab-pane" id="full">
+            <form id="full-form">
+                <div class="form-group">
+                    <label for="full-name">ФИО</label>
+                    <input id="full-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="full-email">E-mail</label>
+                    <input id="full-email" class="form-control" required>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="full-sex">Пол</label><br>
+                            <select id="full-sex" class="form-control" required>
+                                <option value="" disabled selected>...</option>
+                                <option value="male">Мужской</option>
+                                <option value="female">Женский</option>
+                                <option value="undefined">Не указывать</option>
+                            </select>
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="full-birthday">Дата рождения</label>
 
-                    <div class="form-group">
-                        <label for="short-complaint">Жалобы</label>
-                        <textarea id="short-complaint" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="short-allergy">Аллергические реакции</label>
-                        <textarea id="short-allergy" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="short-previous">Предыдущее лечение и его эффект</label>
-                        <textarea id="short-previous" class="form-control"></textarea>
-                    </div>
-                    <button type="submit" class="sendBtn" style="display: none;">Check</button>
-                </form>
-            </div>
-
-            <div class="tab-pane" id="full">
-                <form id="full-form">
-                    <div class="form-group">
-                        <label for="full-name">ФИО</label>
-                        <input id="full-name" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-email">E-mail</label>
-                        <input id="full-email" class="form-control" required>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="full-sex">Пол</label><br>
-                                <select id="full-sex" class="form-control" required>
-                                    <option value="" disabled selected>...</option>
-                                    <option value="male">Мужской</option>
-                                    <option value="female">Женский</option>
-                                    <option value="undefined">Не указывать</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="full-birthday">Дата рождения</label>
-                                <div id="full-birthday" class="row">
-                                    <div class="col-sm-3" style="padding-right: 0">
-                                        <input id="full-day" type="number" class="form-control"
-                                               style="border-bottom-right-radius: 0; border-top-right-radius: 0" placeholder="день">
-                                    </div>
-                                    <div class="col-sm-6" style="padding-left: 0; padding-right: 0">
-                                        <select id="full-month" class="form-control" style="border-radius: 0">
-                                            <option value="" disabled selected>месяц</option>
-                                            <option value="1">Январь</option>
-                                            <option value="2">Февраль</option>
-                                            <option value="3">Март</option>
-                                            <option value="4">Апрель</option>
-                                            <option value="5">Май</option>
-                                            <option value="6">Июнь</option>
-                                            <option value="7">Июль</option>
-                                            <option value="8">Август</option>
-                                            <option value="9">Сертябрь</option>
-                                            <option value="10">Октябрь</option>
-                                            <option value="11">Ноябрь</option>
-                                            <option value="12">Декабрь</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-3" style="padding-left: 0">
-                                        <input id="full-year" type="number" class="form-control"
-                                               style="border-bottom-left-radius: 0; border-top-left-radius: 0"placeholder="год">
-                                    </div>
+                            <div id="full-birthday" class="row">
+                                <div class="col-sm-3" style="padding-right: 0">
+                                    <input id="full-day" type="number" class="form-control"
+                                           style="border-bottom-right-radius: 0; border-top-right-radius: 0"
+                                           placeholder="день">
+                                </div>
+                                <div class="col-sm-6" style="padding-left: 0; padding-right: 0">
+                                    <select id="full-month" class="form-control" style="border-radius: 0">
+                                        <option value="" disabled selected>месяц</option>
+                                        <option value="1">Январь</option>
+                                        <option value="2">Февраль</option>
+                                        <option value="3">Март</option>
+                                        <option value="4">Апрель</option>
+                                        <option value="5">Май</option>
+                                        <option value="6">Июнь</option>
+                                        <option value="7">Июль</option>
+                                        <option value="8">Август</option>
+                                        <option value="9">Сертябрь</option>
+                                        <option value="10">Октябрь</option>
+                                        <option value="11">Ноябрь</option>
+                                        <option value="12">Декабрь</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3" style="padding-left: 0">
+                                    <input id="full-year" type="number" class="form-control"
+                                           style="border-bottom-left-radius: 0; border-top-left-radius: 0"
+                                           placeholder="год">
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="full-starttime">Время начала заболеваний</label>
-                        <input id="full-starttime" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="full-cause">Связываете ли вы с чем-нибудь появление высыпаний?</label>
-                        <textarea id="full-cause" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-drugs">Какими средствами уже пользовались/пользуетесь?</label>
-                        <textarea id="full-drugs" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-whatworks">Что из средств помогало/помогает (если пользуетесь чем-либо самостоятельно)?</label>
-                        <textarea id="full-whatworks" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-allergy">Есть ли у вас аллергия (если есть, то на что и как проявляется. ЭТО ВАЖНО!)?</label>
-                        <textarea id="full-allergy" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-illness">Есть ли у Вас еще какие-нибудь заболевания (проблемы с желудком, кишечником, сахарный диабет и так далее.
-                            Если сами точно не знаете - спросите у родителей. ЭТО ВАЖНО!)?</label>
-                        <textarea id="full-illness" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-illnessdrugs">Принимаете ли вы какие-нибудь препараты по сопутствующим заболеваниям (ЭТО ВАЖНО!)?</label>
-                        <textarea id="full-illnessdrugs" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="full-legacy">Были ли у ваших родителей такие высыпания на лице в молодости?</label>
-                        <textarea id="full-legacy" class="form-control"></textarea>
-                    </div>
-                    <button type="submit" class="sendBtn" style="display: none;">Check</button>
-                </form>
-            </div>
-        </div>
-
-        <label for="image-upload">Загрузите фотографию проблемной области</label>
-        <div id="image-upload">
-            <div class="panel panel-default">
-                <div class="panel-body" style="padding: 0">
-                    <table id="photolist" class="table" style="margin-bottom: 0">
-
-                    </table>
                 </div>
 
-                <div class="panel-footer" style="text-align: center">
-                    <a onclick="addrow()" class="btn btn-primary">Приложить фото</a>
+                <div class="form-group">
+                    <label for="full-starttime">Время начала заболеваний</label>
+                    <input id="full-starttime" class="form-control">
                 </div>
-            </div>
-        </div>
-
-        <div style="text-align: right">
-            <button id="sendButton" class="btn btn-lg btn-primary">Отправить</button>
+                <div class="form-group">
+                    <label for="full-cause">Связываете ли вы с чем-нибудь появление высыпаний?</label>
+                    <textarea id="full-cause" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-drugs">Какими средствами уже пользовались/пользуетесь?</label>
+                    <textarea id="full-drugs" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-whatworks">Что из средств помогало/помогает (если пользуетесь чем-либо
+                        самостоятельно)?</label>
+                    <textarea id="full-whatworks" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-allergy">Есть ли у вас аллергия (если есть, то на что и как проявляется. ЭТО
+                        ВАЖНО!)?</label>
+                    <textarea id="full-allergy" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-illness">Есть ли у Вас еще какие-нибудь заболевания (проблемы с желудком,
+                        кишечником, сахарный диабет и так далее.
+                        Если сами точно не знаете - спросите у родителей. ЭТО ВАЖНО!)?</label>
+                    <textarea id="full-illness" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-illnessdrugs">Принимаете ли вы какие-нибудь препараты по сопутствующим заболеваниям
+                        (ЭТО ВАЖНО!)?</label>
+                    <textarea id="full-illnessdrugs" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="full-legacy">Были ли у ваших родителей такие высыпания на лице в молодости?</label>
+                    <textarea id="full-legacy" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="sendBtn" style="display: none;">Check</button>
+            </form>
         </div>
     </div>
 
-    <div class="col-lg-4">
-        <h1 id="comments">Отзывы</h1>
-        <div class="row" style="text-align: center;">
-            <img src="./resources/r1.jpg" style="height: 140px;">
-            <h3>Анна, 18 лет</h3>
-            <p>Моя кожа стала проблемной еще в 11 лет. Сразу же начались бесконечные походы к косметологам и дерматологам. В первом случае – бесконечные чистки, травмирующие кожу и не дающие долгого результата, во втором – антибиотики.</p>
-            <cut >После того, как развился дисбактериоз, лицо стало выглядеть в разы хуже. Добавилась болезненность и отечность, и даже здоровые участки кожи уже не выглядели таковыми. Мне очень помог дерматолог с этого сайта – просто по фотографии! А врачи годами не могли вылечить, видя меня в своих кабинетах.</p>
-            <p>Оказалось достаточным привести в норму кишечник и выявить несколько аллергенов, которые мне, как выяснилось, нельзя есть. Вот и все!</p></cut>
-        </div>
-        <div class="row" style="text-align: center;">
-            <img src="./resources/r2.jpg" style="height: 140px;">
-            <h3>Елизавета, 23 года</h3>
-            <p>Комплексы по поводу своей внешности у меня были серьезные. Личная жизнь не ладилась. Только и оставалось сидеть дома в интернете. Так случайно попался на глаза сайт http://www.skinry.com. Здесь нужно было закинуть свое фото с проблемой «налицо».</p>
-            <p>Врач ответил мне очень быстро, и первое, что он посоветовал – пропить курс простейшего российского препарата, который обычно используют для очищения организма при отравлениях. Дело в том, что я живу в экологически неблагоприятном районе, а мой организм оказывает слабое сопротивление всему тому негативу, что «витает» в воздухе. Потом все это выходит через кожу, вызывая тяжелое воспаление.</p>
-            <p>Теперь мне остается только периодически принимать этот препарат для профилактики, но это не проблема, так как он безвреден, да и стоит дешево. А лицо практически полностью очистилось!</p>
-        </div>
-        <div class="row" style="text-align: center;">
-            <img src="./resources/r3.jpg" style="height: 140px;">
-            <h3>Евгения, 21 год</h3>
-            <p>На этот сайт привело меня отчаяние. Огромные прыщи не только выглядели отвратительно, но еще и болели: даже ночью, поворачивая голову на подушке, я это чувствовала. Здешний косметолог посоветовал мне сдать кровь на гормоны, и анализ показал проблему с яичниками. После того, как лечение было пройдено, лицо очистилось! Не понимаю, почему мой лечащий врач не мог догадаться о том, что причина именно в этом, а добрый «интернет-доктор» определил, что называется, с полувзгляда. Очень благодарна и врачу, и создателям сайта!</p>
+    <label for="image-upload">Загрузите фотографию проблемной области</label>
+
+    <div id="image-upload">
+        <div class="panel panel-default">
+            <div class="panel-body" style="padding: 0">
+                <table id="photolist" class="table" style="margin-bottom: 0">
+
+                </table>
+            </div>
+
+            <div class="panel-footer" style="text-align: center">
+                <a onclick="addrow()" class="btn btn-primary">Приложить фото</a>
+            </div>
         </div>
     </div>
+
+    <div style="text-align: right">
+        <button id="sendButton" class="btn btn-lg btn-primary">Отправить</button>
+    </div>
+</div>
+
+<div class="col-lg-4">
+    <h1 id="comments">Отзывы</h1>
+
+    <div class="row" style="text-align: center;">
+        <img src="./resources/r1.jpg" style="height: 140px;">
+
+        <h3>Анна, 18 лет</h3>
+
+        <p>Моя кожа стала проблемной еще в 11 лет. Сразу же начались бесконечные походы к косметологам и дерматологам. В
+            первом случае – бесконечные чистки, травмирующие кожу и не дающие долгого результата, во втором –
+            антибиотики.
+        </p>
+        После того, как развился дисбактериоз, <span class="preHiddenButton" data-textId="1" >читать далее</span><span class="hiddenText" data-textId="1" >лицо стало выглядеть в разы хуже. Добавилась болезненность и
+        отечность, и даже здоровые участки кожи уже не выглядели таковыми. Мне очень помог дерматолог с этого сайта
+        – просто по фотографии! А врачи годами не могли вылечить, видя меня в своих кабинетах.</p>
+        <p>Оказалось достаточным привести в норму кишечник и выявить несколько аллергенов, которые мне, как
+            выяснилось, нельзя есть. Вот и все!</span></p>
+    </div>
+    <div class="row" style="text-align: center; margin-top: 20px;">
+        <img src="./resources/r2.jpg" style="height: 140px;">
+
+        <h3>Елизавета, 23 года</h3>
+
+        <p>Комплексы по поводу своей внешности у меня были серьезные. Личная жизнь не ладилась. Только и оставалось
+            сидеть дома в интернете. Так случайно попался на глаза сайт http://www.skinry.com. Здесь нужно было закинуть
+            свое фото с проблемой «налицо».</p>
+
+        <p>Врач ответил мне очень быстро, и первое, что он посоветовал – <span class="preHiddenButton" data-textId="2" >читать далее</span><span class="hiddenText" data-textId="2" >пропить курс простейшего российского препарата,
+            который обычно используют для очищения организма при отравлениях. Дело в том, что я живу в экологически
+            неблагоприятном районе, а мой организм оказывает слабое сопротивление всему тому негативу, что «витает» в
+            воздухе. Потом все это выходит через кожу, вызывая тяжелое воспаление.
+
+        Теперь мне остается только периодически принимать этот препарат для профилактики, но это не проблема, так как
+            он безвреден, да и стоит дешево. А лицо практически полностью очистилось! </span></p>
+    </div>
+    <div class="row" style="text-align: center; margin-top: 20px;">
+        <img src="./resources/r3.jpg" style="height: 140px;">
+
+        <h3>Евгения, 21 год</h3>
+
+        <p>На этот сайт привело меня отчаяние. Огромные прыщи не только выглядели отвратительно, но еще и болели: даже
+            ночью, поворачивая голову на подушке, я это чувствовала. Здешний косметолог посоветовал мне сдать кровь на
+            гормоны, и анализ показал проблему с яичниками. После того, как лечение было пройдено, <span class="preHiddenButton" data-textId="3" >читать далее</span><span class="hiddenText" data-textId="3" >лицо очистилось! Не
+            понимаю, почему мой лечащий врач не мог догадаться о том, что причина именно в этом, а добрый
+            «интернет-доктор» определил, что называется, с полувзгляда. Очень благодарна и врачу, и создателям
+            сайта!</span>
+        </p>
+    </div>
+</div>
 </div>
 
 <footer class="page-footer" role="contentinfo">
@@ -398,12 +467,17 @@
                     В рамках промо-акции мы можем позволить только одну консультацию для одного человека.
                     Ниже постараемся ответить, что делать в некоторых ситуациях.</p>
                 <h4>Я хотел(а) изменить некоторые поля/добавить еще фото/отменить анализ вообще</h4>
-                <p>В случае, если изменения в анкете не очень серьезны, Вы можете написать о них дерматологу уже после постановки диагноза.
-                    Если же изменить нужно совсем-совсем всё, или нужно отменить анализ, напишите на support@skinry.com</p>
+
+                <p>В случае, если изменения в анкете не очень серьезны, Вы можете написать о них дерматологу уже после
+                    постановки диагноза.
+                    Если же изменить нужно совсем-совсем всё, или нужно отменить анализ, напишите на
+                    support@skinry.com</p>
                 <h4>Очень хочется еще один анализ, что делать?</h4>
+
                 <p>По той же самой проблеме можно написать в обсуждении предыдущего анализа, если тема еще не закрыта.
                     Второй анализ сейчас назначить нельзя. В будущем часть услуг будет платной.
-                    Мы делаем все возможное, чтобы сервисы заработали должным образом как можно быстрее.</p>
+                    Мы делаем все возможное, чтобы сервисы заработали должным образом как можно быстрее.
+                </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
@@ -413,7 +487,7 @@
 </div>
 
 <script type="text/javascript" src="./resources/jquery.form.min.js"></script>
-<script type="text/javascript" src="./resources/dermatologist.min.js"></script>
+<script type="text/javascript" src="./resources/dermatologist.js"></script>
 
 
 <!-- Yandex.Metrika counter -->
@@ -438,7 +512,9 @@
         }
     })(document, window, "yandex_metrika_callbacks");
 </script>
-<noscript><div><img src="//mc.yandex.ru/watch/24132985" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
+<noscript>
+    <div><img src="//mc.yandex.ru/watch/24132985" style="position:absolute; left:-9999px;" alt=""/></div>
+</noscript>
 <!-- /Yandex.Metrika counter -->
 
 

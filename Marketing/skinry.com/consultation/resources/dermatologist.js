@@ -25,8 +25,19 @@ $(function () {
         } else if (id == "qfull") {
             $('#full-form').find('.sendBtn').click();
         }
-    })
+    });
+
+    initHiddentText();
+
 });
+
+function initHiddentText(){
+    $('.preHiddenButton').bind('click', function(){
+        var textId = $(this).attr('data-textId');
+        $('.hiddenText[data-textId=' + textId +']').show();
+        $(this).hide();
+    });
+}
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -75,6 +86,7 @@ function collectPhotos() {
             path : $(element).children(".upl-hidden").text(),
             description : $(element).children(".upl-description").val()
         };
+        console.log(current.path);
         photos.push(current);
     });
 
@@ -101,13 +113,38 @@ function submit(type, questionary) {
     });
 }
 
+function hasNoImages(questionary){
+    if ((questionary == undefined) || (questionary.photos.length == 0)){
+        return false;
+    }
+    var f = false;
+    for (var i in questionary.photos){
+        if ((questionary.photos[i].path != undefined ) && (questionary.photos[i].path != "") ){
+            f = true;
+        }
+    }
+    return f;
+
+}
+
 function send(type, questionary) {
+    console.log(questionary);
+    if (validateEmail(questionary.email) == false){
+        alert('Некорректно введен email (почта). Пожалуйста, попробуйте еще раз.');
+        return;
+    }
+    if (hasNoImages(questionary) == false){
+        alert('Вы должны приложить хотя бы одну фотографию проблемного участка кожи, чтобы дерматолог смог Вам помочь.');
+        return;
+    }
     var Dermatologist = Parse.Object.extend("Dermatologist");
     var item = new Dermatologist();
     item.set("email", questionary.email);
     item.set("type", type);
+    item.set("status", "new");
     item.set("questionary", JSON.stringify(questionary));
     item.save().then(function () {
+        yaCounter24132985.reachGoal('questionarySubmitted');
         window.location.replace("./success.html?email=" + questionary.email);
     });
 }
@@ -193,11 +230,15 @@ function addrow() {
             } else {
                 status.addClass("bs-callout bs-callout-danger");
                 $(".upl-description:last").hide();
-
             }
             status.html(data.responseJSON.status).fadeIn();
         }
     });
 
     $('.upl-image:last').click();
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
 }

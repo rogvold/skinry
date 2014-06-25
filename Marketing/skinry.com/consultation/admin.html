@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Получить совет косметолога</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="Shortcut Icon" type="image/x-icon" href="../resources/img/shortcut.png">
+    <script type="text/javascript" src="../resources/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="../resources/js/parse-1.2.18.min.js"></script>
+    <script type="text/javascript" src="../resources/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../resources/js/moment-with-langs.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="../resources/css/footer.min.css">
+    <link rel="stylesheet" type="text/css" href="./resources/callout.min.css">
+</head>
+<body style="background: #ffffff">
+<div class="navbar navbar-default" role="navigation" style="margin-bottom: 0">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../index.html">Skinry</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Получить совет дерматолога</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-bottom: 40px">
+
+
+<div class="col-lg-12">
+    <h1 id="questionary">Все пользователи</h1>
+    <div>
+        <table class="table table-bordered table-striped" style="text-align: center;">
+            <thead>
+            <tr style="font-weight: bold; text-decoration: underline;">
+                <td>#</td>
+                <td>Имя</td>
+                <td>Дата создания</td>
+                <td>email</td>
+                <td>vk</td>
+                <td>Статус</td>
+                <td>Ссылка</td>
+                <td>кол-во комментариев</td>
+                <td>удалить пользователя</td>
+            </tr>
+            </thead>
+
+            <tbody id="usersTable">
+                <tr><td>Загрузка анкеты...</td></tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+</div>
+
+<footer class="page-footer" role="contentinfo">
+    <div class="wrapper container">
+        <nav>
+            <ul>
+                <li><a href="http://blog.skinry.com/">Блог</a></li>
+                <li><a href="http://facebook.com/skinry">Facebook</a></li>
+                <li><a href="http://vk.com/skinry">ВКонтакте</a></li>
+                <li><a href="http://twitter.com/skinry_scanner">Twitter</a></li>
+                <li><a href="../articles/article1.html">Статьи</a></li>
+            </ul>
+        </nav>
+
+        <p class="copyright" style="margin-top: 0;">© 2014 Skinry</p>
+
+        <p class="pull-right">
+            <a href="#">Back to top</a>
+        </p>
+    </div>
+</footer>
+
+<script type="text/javascript" src="./resources/jquery.form.min.js"></script>
+<script type="text/javascript" src="./resources/cookie.js"></script>
+<script type="text/javascript" src="./resources/skinry.adminPanel.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+
+        sap = new SkinryAdminPanel();
+        sap.init();
+        sap.loadUsers();
+
+    });
+</script>
+
+<script type="text/javascript">
+    cackle_widget = window.cackle_widget || [];
+    cackle_widget.push({widget: 'CommentCount', id: 29569});
+    (function() {
+        var mc = document.createElement('script');
+        mc.type = 'text/javascript';
+        mc.async = true;
+        mc.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cackle.me/widget.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+</script>
+
+</body>
+</html>

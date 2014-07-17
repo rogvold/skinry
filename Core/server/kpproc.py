@@ -173,6 +173,25 @@ def delete_unused_keypoints(image, key_points, result_points, limbs):
             continue
 
     key_points = list(set(key_points) - set(new_kp))
+    key_points = delete_big_points(image, key_points)
+
+    return key_points
+
+def delete_big_points(image, key_points):
+    """
+    Delete key_points with large radius, return new array of points
+
+    Input: image, key_points (array of points)
+    """
+
+    new_kp = []
+    max_size = 0.0425 * max(image.shape[0], image.shape[1])
+
+    for kp in key_points:
+        if kp.size > max_size:
+            new_kp.append(kp)
+
+    key_points = list(set(key_points) - set(new_kp))
 
     return key_points
 
@@ -201,16 +220,22 @@ def delete_repeating_points(good_points):
     return good_points
 
 def normalize_score(score):
+    """
+    Convert score into percents
+
+    Input: original score
+    """
+
     if score == 0:
         return 100.0
 
-    score = float(score) / 100.0
+    score = (score + 0.0) / 100.0
     new_score = (100 /(1 + math.e**(-(1.0 / 20.0) * (score - 30))) - 18.5) * 1.21 + 0.4
-    new_score *= 10.0
-    new_score = math.floor(new_score)
-    new_score = new_score / 10.0
+    new_score = 100.0 - new_score
+    str = "%.1f" % round(new_score, 1)
+    result = float(str)
 
-    return 100.0 - new_score
+    return result
 
 def get_score(original_image, key_points):
     """
@@ -265,9 +290,9 @@ def get_score(original_image, key_points):
         score += point
 
     score = int(score)
-    score = normalize_score(score)
+    result = normalize_score(score)
 
-    return score
+    return result
 
 def combine_points(key_points1, key_points2):
     new_points = []

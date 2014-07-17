@@ -232,6 +232,7 @@ def sift_grid_search(roi, image, result_points, limbs, **kwargs):
 
     key_points1 = kpproc.delete_repeating_points(key_points1)
 
+    score = 0.0
     score = kpproc.get_score(image, key_points1)
     result_image = draw_circles(image, key_points1)
 
@@ -294,6 +295,7 @@ def otsu_grid_search(roi, image, result_points, limbs, **kwargs):
     key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
     key_points = kpproc.delete_repeating_points(key_points)
 
+    score = 0.0
     score = kpproc.get_score(image, key_points)
     result_image = draw_circles(image, key_points)
 
@@ -324,6 +326,7 @@ def mono_search(roi, image, result_points, limbs, **kwargs):
     key_points = kpproc.delete_unused_keypoints(roi, key_points, result_points, limbs)
     key_points = kpproc.delete_repeating_points(key_points)
 
+    score = 0.0
     score = kpproc.get_score(image, key_points)
     result_image = draw_circles(image, key_points)
 
@@ -393,8 +396,8 @@ def process_files(name):
                     file_name = path + file
                     try:
                         image, score = process_photo(file_name)
-                        new_file_name = path + 'proc_23_04_blurGreed+mono_resize_' + str(score) + '_ ' + file
-                        print new_file_name
+                        new_file_name = path + 'proc_17_07_max_0425_' + str(score) + '_ ' + file
+                        print 'file - {0}, score - {1}'.format(new_file_name, score)
                         save_image(image, new_file_name)
                     except ValueError:
                         print file_name + '_ERROR'
@@ -420,17 +423,18 @@ def detect_deffects(file_name):
     return return_file_name, score
 
 #process_files('photo')
-#detect_deffects('1.jpg')
+#detect_deffects('2.jpg')
 
 #TODO more demanding sift params? Do we need it?
 #TODO cheecks, relief? with binary thresholding?
 
 #TODO points alongside contour in the case of bad face recognition (clasterization?) color detection?
 #TODO real deffects near limbs?
-#TODO genetic algorythm
-#TODO machine learning?
+
 #TODO test creater
 
+#TODO genetic algorythm
+#TODO machine learning?
 
 
 

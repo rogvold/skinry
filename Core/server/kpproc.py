@@ -185,7 +185,7 @@ def delete_big_points(image, key_points):
     """
 
     new_kp = []
-    max_size = 0.0425 * max(image.shape[0], image.shape[1])
+    max_size = 0.0385 * max(image.shape[0], image.shape[1])
 
     for kp in key_points:
         if kp.size > max_size:
